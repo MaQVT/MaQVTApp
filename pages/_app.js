@@ -1,5 +1,8 @@
-import '@/styles/globals.css'
+import '/styles/globals.css'
+import { withAuth } from "../components/Auth/withAuth";
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
+
+export default withAuth(App)
