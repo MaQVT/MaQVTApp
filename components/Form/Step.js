@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Form from './Form'
 
-export default function StepOne({ handlePrev, handleNext }) {
+export default function Step({ handlePrev, handleNext, stepName, position, titleName }) {
   const [values, setValues] = useState({
     q1: '4',
     q2: '4',
@@ -15,14 +15,13 @@ export default function StepOne({ handlePrev, handleNext }) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
-    handleNext({ stepOne: values })
+    handleNext({ [stepName]: values })
   }
 
   return (
     <>
-      <h2>Mon travail contribue à ma sécurité matérielle 
-et à celle de ma famille.</h2>
-      <Form handlePrev = {handlePrev} handleChange = {handleChange} handleFormSubmit = {handleFormSubmit} position={1} />
+      <h2>{titleName}</h2>
+      <Form handlePrev = {handlePrev} handleChange = {handleChange} handleFormSubmit = {handleFormSubmit} position={position} />
     </>
   )
 }
