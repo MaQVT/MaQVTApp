@@ -10,7 +10,7 @@ export async function sendEmail({ to, subject, text }) {
       to,
       from: process.env.EMAIL_FROM,
       subject,
-      text,
+      html: text,
     };
 
     // Send the email

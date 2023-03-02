@@ -7,10 +7,10 @@ export default async function handler(req, res) {
 
     const user = await getUserByMail(email);
 
-    console.log(user);
-    console.log(user.email);
-    console.log(user.password);
-    console.log(password);
+    if(!user){
+      res.status(400).json({ message: "Utilisateur non présent dans la base de donnée" });
+      return;
+    }
 
     if (user.password == undefined) user.password = "";
     if (password != user.password) {

@@ -34,8 +34,8 @@ export default function ResetPassword() {
       if (!response.ok) {
         throw new Error("Le changement de mot de passe a échoué");
       }
-
-      router.push("/login");
+      const json = await response.json();
+      router.push(`/login?message=${json.message}`);
     } catch (error) {
       console.error(error);
       setErrorMessage("Le changement de mot de passe a échoué");
