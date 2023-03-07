@@ -1,5 +1,7 @@
 import { getUserByMail } from "../../../db/handlers/users_handlers";
 import { signJwt } from "../../../utils/jwt";
+import { serialize } from 'cookie';
+
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -24,7 +26,16 @@ export default async function handler(req, res) {
         3600
       ); // Expires in 1 hour
 
-      res.setHeader("Set-Cookie", `token=${token}; HttpOnly`);
+      // res.setHeader("Set-Cookie", `token=${token}; HttpOnly`);
+
+      const cookieSerialized = serialize('token', token, {
+        httpOnly: true,
+        path: '/',
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        expires: new Date(Date.now() + 3600 * 1000)
+      });
+      res.setHeader('Set-Cookie', cookieSerialized);
 
       // Send a JSON response indicating success
       res.status(200).json({ message: "Connexion reussie", token: `${token}` });

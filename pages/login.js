@@ -58,6 +58,7 @@ export default function LoginPage() {
             <br />
             <br />
             <input
+             className="border"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

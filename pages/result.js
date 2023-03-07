@@ -3,6 +3,7 @@ import { Inter } from "@next/font/google";
 import styles from "/styles/Home.module.css";
 import ChartComponent from "../components/Chart/ChartComponent";
 import { useRouter } from "next/router";
+import RadarChartComponent from "../components/Chart/RadarChartComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,12 +25,12 @@ function Result() {
       </Head>
       <main className={styles.main}>
         <div>
+          <RadarChartComponent formData={formData} step="stepSix" />
           <ChartComponent formData={formData} step="stepOne" />
           <ChartComponent formData={formData} step="stepTwo" />
           <ChartComponent formData={formData} step="stepThree" />
           <ChartComponent formData={formData} step="stepFour" />
           <ChartComponent formData={formData} step="stepFive" />
-          <ChartComponent formData={formData} step="stepSix" />
         </div>
       </main>
     </>

@@ -15,8 +15,7 @@ export default function LoginForm() {
   useEffect(() => {
     setColor("green");
     setErrorMessage(message);
-  }, [])
-  
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +23,6 @@ export default function LoginForm() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        token: localStorage.getItem("token"),
       },
       body: JSON.stringify({ email, password }),
     });
@@ -49,6 +47,7 @@ export default function LoginForm() {
       <label>
         Email:
         <input
+          className="border"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -58,6 +57,7 @@ export default function LoginForm() {
       <label>
         Mot de passe:
         <input
+          className="border"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

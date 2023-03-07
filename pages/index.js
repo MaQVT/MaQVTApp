@@ -3,27 +3,26 @@ import { Inter } from "@next/font/google";
 import styles from "/styles/Home.module.css";
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
-import MultiStepForm from "../components/Form/MultiStepForm";
+import cookies from "next-cookies";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Home() {
-  const router = useRouter()
+function Home({ user }) {
+  const router = useRouter();
   const logout = () => {
     unauthenticate();
-    router.push('/login')
-  }
+    router.push("/login");
+  };
 
-  const getusers =  async () => {
-    const res = await fetch('/api/users', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'token': localStorage.getItem("token") },
-    });
-    if (res.ok) {
-        const json = await res.json();
-        console.log(json.data)
-    }
-  }
+  const taketest = () => {
+    router.push("/take_diagnostic_test");
+  };
+
+  const getusers = async () => {
+    router.push("/admin/manage_users");
+  };
+
+  console.log(user)
   return (
     <>
       <Head>
@@ -32,14 +31,40 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        
-    <button onClick={logout}>Se Deconnecter</button>
-    <MultiStepForm />
-    <button onClick={getusers}>Récupérer la liste des utilisateurs</button>
-      </main>
+      {user && (
+        <main className={styles.main}>
+          <button onClick={logout}>Se Deconnecter</button>
+          <button onClick={taketest}>Faire l&apos;auto diagnostic QVT</button>
+          {user.role == "Admin" && (
+            <button onClick={getusers}>
+              Ajouter ou Supprimer des utilisateurs
+            </button>
+          )}
+        </main>
+      )}
     </>
   );
 }
+export async function getServerSideProps(context) {
+  const token = cookies(context).token;
 
-export default Home
+  const userResponse = await fetch("http://localhost:3000/api/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      token: token,
+    },
+  });
+
+  let userResponseJson = { data: {} };
+
+  if (userResponse.ok) {
+    userResponseJson = await userResponse.json();
+  }
+
+  return {
+    props: { user: userResponseJson.data }, // will be passed to the page component as props
+  };
+}
+
+export default Home;

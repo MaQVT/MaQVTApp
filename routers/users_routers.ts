@@ -24,6 +24,7 @@ export const getAllUsersRoute = async (
 ) => {
   try {
     const users = await getAllUsers();
+    console.log(users);
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res
@@ -51,33 +52,34 @@ export const deleteUserRoute = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
+  console.log("BODY : " + req.body._id)
   try {
-    if (req.body.email && deleteUserByEmailValidator.validate(req.body).error) {
-      console.log(deleteUserByEmailValidator.validate(req.body).error);
-      throw new Error("Données insuffisantes");
-    } else if (
-      req.body.id &&
-      deleteUserByIdValidator.validate(req.body).error
-    ) {
-      console.log(deleteUserByEmailValidator.validate(req.body).error);
-      throw new Error("Données insuffisantes");
+    if (req.body.email != undefined) {
+      if (deleteUserByEmailValidator.validate(req.body).error) {
+        console.log(deleteUserByEmailValidator.validate(req.body).error);
+        throw new Error("Données insuffisantes");
+      }
+    } else if (req.body.id != undefined) {
+      if (deleteUserByIdValidator.validate(req.body).error) {
+        console.log(deleteUserByIdValidator.validate(req.body).error);
+        throw new Error("Données insuffisantes");
+      }
+    }
+
+    let user;
+    if (req.body.email) {
+      user = await getUserByMail(req.body.email);
     } else {
-      let user;
-      if (req.body.email) {
-        user = await getUserByMail(req.body.email);
-      } else {
-        user = await getUserById(req.body.id);
-      }
-      if (user) {
-        await deleteUserByEmail(req.body.email);
-        res
-          .status(200)
-          .json({ data: req.body.email, message: "Données envoyées" });
-      } else {
-        res
-          .status(400)
-          .json({ data: false, message: "Utilisateur inexistant" });
-      }
+      user = await getUserById(req.body._id);
+    }
+    console.log(user)
+    if (user) {
+      await deleteUserByEmail(user.email);
+      res
+        .status(200)
+        .json({ data: req.body.email, message: "Données envoyées" });
+    } else {
+      res.status(400).json({ data: false, message: "Utilisateur inexistant" });
     }
   } catch (error) {
     res
@@ -92,17 +94,16 @@ export const addUserRoute = async (
 ) => {
   try {
     req.body.date = moment(moment.now()).format("MM/DD/YYYY HH:mm:ss");
+    if(!req.body.password) req.body.password = "2023"
     if (addUserValidator.validate(req.body).error) {
       throw new Error("Données insuffisantes");
     } else {
       let user = await getUserByMail(req.body.email);
       if (user) {
-        res
-          .status(400)
-          .json({
-            data: false,
-            message: "Utilisateur avec cet adresse mail déjà existant",
-          });
+        res.status(400).json({
+          data: false,
+          message: "Utilisateur avec cet adresse mail déjà existant",
+        });
       } else {
         user = await addUser(req.body);
         const text = getMailTemplate(
@@ -140,12 +141,10 @@ export const updateUserProfileRoute = async (
       let user = await getUserByMail(req.body.email);
       if (user) {
         await updateUserProfile(req.body);
-        res
-          .status(200)
-          .json({
-            data: req.body.email,
-            message: "Profil mis à jour avec succès",
-          });
+        res.status(200).json({
+          data: req.body.email,
+          message: "Profil mis à jour avec succès",
+        });
       } else {
         res
           .status(400)
