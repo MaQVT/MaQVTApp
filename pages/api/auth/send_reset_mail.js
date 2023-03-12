@@ -50,7 +50,7 @@ export default async function handler(req, res) {
           res.status(500).json({ message: "Envoie de mot de passe échoué" });
         });
     } else {
-      res.status(405).json({ message: "Methode non authorisé" });
+      res.status(405).json({ message: "Veuillez entrer une bonne adresse email !" });
     }
   } else {
     res.status(405).json({ message: "Methode non authorisé" });

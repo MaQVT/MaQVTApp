@@ -1,6 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+    @font-face {
+        font-family: 'Benedict', serif;
+        src: url("../assets/Benedict-Regular.otf") format('opentype');
+    }
+    
+    @font-face {
+        font-family: 'MoonTime', serif;
+        src: url("../assets/MoonTime-Regular.ttf") format('truetype');
+        src: url("../assets/MoonTime-Regular.otf") format('opentype');
+    }
+}
 
 h1, h2{
     font-size: larger;

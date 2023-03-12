@@ -46,7 +46,7 @@ function RadarChartComponent({ formData, chartFunction, chartDataFunction, title
   return (
     <div className="flex flex-col items-center m-2">
       <h1 className="text-3xl">{title}</h1>
-      <div className="w-[500px]">
+      <div className="w-[600px] mt-6 mb-6">
         <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
       </div>
       <Description bgcolor1={bgcolor1} bgcolor2={bgcolor2} harmonie={result.Harmonie} qvt={result.QVT} />

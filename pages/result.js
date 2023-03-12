@@ -26,7 +26,7 @@ function Result() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div>
+        <div className="flex flex-wrap justify-around items-center gap-10">
           <RadarChartComponent
             formData={formData}
             chartFunction={generateSecuRadialChartData}
@@ -35,8 +35,40 @@ function Result() {
             bgcolor1={"bg-securite1"}
             bgcolor2={"bg-securite2"}
           />
-          <ChartComponent formData={formData} step="securiteOne" />
+          <RadarChartComponent
+            formData={formData}
+            chartFunction={generateSecuRadialChartData}
+            chartDataFunction={generateSecuData}
+            title={"Ma QVT selon mes besoins de Satisfaction"}
+            bgcolor1={"bg-satisfaction1"}
+            bgcolor2={"bg-satisfaction2"}
+          />
+          <RadarChartComponent
+            formData={formData}
+            chartFunction={generateSecuRadialChartData}
+            chartDataFunction={generateSecuData}
+            title={"Ma QVT selon mes besoins d'Inclusion"}
+            bgcolor1={"bg-inclusion1"}
+            bgcolor2={"bg-inclusion2"}
+          />
+          <RadarChartComponent
+            formData={formData}
+            chartFunction={generateSecuRadialChartData}
+            chartDataFunction={generateSecuData}
+            title={"Ma QVT selon mes besoins de Pouvoir d'agir"}
+            bgcolor1={"bg-pouvoiragir1"}
+            bgcolor2={"bg-pouvoiragir2"}
+          />
+          <RadarChartComponent
+            formData={formData}
+            chartFunction={generateSecuRadialChartData}
+            chartDataFunction={generateSecuData}
+            title={"Ma QVT selon mes besoins de Sens"}
+            bgcolor1={"bg-sens1"}
+            bgcolor2={"bg-sens2"}
+          />
         </div>
+          <ChartComponent formData={formData} step="securiteOne" />
       </main>
     </>
   );
