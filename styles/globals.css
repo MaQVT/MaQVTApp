@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1, h2{
+    font-size: larger;
+    font-weight: 600;
+}
+
+h3{
+    font-size: medium;
+    font-weight: 600;
+}
+input, select{
+    margin: 5px 10px;
+}
+
+button, [type="button"], [type="reset"], [type="submit"]{
+    padding: 5px 5px;
+    background-color: rgb(173, 184, 184);
+    border-radius: 2%;
+    margin-right: 3px;
+}
+
+button:hover{
+    background-color: bisque;
+}

@@ -29,7 +29,7 @@ function AddUser({handleAddUser}) {
           </label>
         </div>
         <div>
-          <label htmlFor="username">Nom d&apos;utilisateurs:</label>
+          <label htmlFor="username">Nom d&apos;utilisateur:</label>
           <input
           className='border'
             type="text"

@@ -109,7 +109,7 @@ export async function getServerSideProps(context) {
   });
 
   let userResponseJson = { data: {} };
-  let usersResponseJson = { data: {} };
+  let usersResponseJson = { data: [] };
 
   if (userResponse.ok) {
     userResponseJson = await userResponse.json();

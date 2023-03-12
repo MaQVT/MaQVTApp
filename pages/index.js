@@ -31,7 +31,7 @@ function Home({ user }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {user && (
+      {user.email && (
         <main className={styles.main}>
           <button onClick={logout}>Se Deconnecter</button>
           <button onClick={taketest}>Faire l&apos;auto diagnostic QVT</button>
