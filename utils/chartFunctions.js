@@ -23,12 +23,12 @@ export const generateChartData = (formData, step) => {
 };
 
 export const generateSecuRadialChartData = (formData) => {
-  const securite1 = formData["stepOne"];
-  const securite2 = formData["stepTwo"];
-  const securite3 = formData["stepThree"];
-  const securite4 = formData["stepFour"];
-  const securite5 = formData["stepFive"];
-  const securite6 = formData["stepSix"];
+  const securite1 = formData["securiteOne"];
+  const securite2 = formData["securiteTwo"];
+  const securite3 = formData["securiteThree"];
+  const securite4 = formData["securiteFour"];
+  const securite5 = formData["securiteFive"];
+  const securite6 = formData["securiteSix"];
   return {
     labels: [
       "Sécurité matérielle",
@@ -59,12 +59,12 @@ export const generateSecuRadialChartData = (formData) => {
       {
         label: "Idéal",
         data: [
-          securite1["q1"],
-          securite2["q1"],
-          securite3["q1"],
-          securite4["q1"],
-          securite5["q1"],
-          securite6["q1"],
+          securite1["ideal"],
+          securite2["ideal"],
+          securite3["ideal"],
+          securite4["ideal"],
+          securite5["ideal"],
+          securite6["ideal"],
         ],
         fill: true,
         backgroundColor: "rgba(245, 121, 39, 0.0)",
@@ -77,12 +77,12 @@ export const generateSecuRadialChartData = (formData) => {
       {
         label: "Actuellement",
         data: [
-          securite1["q2"],
-          securite2["q2"],
-          securite3["q2"],
-          securite4["q2"],
-          securite5["q2"],
-          securite6["q2"],
+          securite1["actu"],
+          securite2["actu"],
+          securite3["actu"],
+          securite4["actu"],
+          securite5["actu"],
+          securite6["actu"],
         ],
         fill: true,
         backgroundColor: "rgba(245, 121, 39, 0.2)",
@@ -95,12 +95,12 @@ export const generateSecuRadialChartData = (formData) => {
       {
         label: "Vécu",
         data: [
-          securite1["q3"],
-          securite2["q3"],
-          securite3["q3"],
-          securite4["q3"],
-          securite5["q3"],
-          securite6["q3"],
+          securite1["vecu"],
+          securite2["vecu"],
+          securite3["vecu"],
+          securite4["vecu"],
+          securite5["vecu"],
+          securite6["vecu"],
         ],
         fill: true,
         backgroundColor: "rgba(54, 162, 235, 0.0)",

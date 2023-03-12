@@ -3,9 +3,9 @@ import Form from './Form'
 
 export default function Step({ handlePrev, handleNext, stepName, position, titleName }) {
   const [values, setValues] = useState({
-    q1: '4',
-    q2: '4',
-    q3: '4',
+    ideal: '4',
+    actu: '4',
+    vecu: '4',
   })
 
   const handleChange = (event) => {

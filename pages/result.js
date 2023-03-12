@@ -4,13 +4,15 @@ import styles from "/styles/Home.module.css";
 import ChartComponent from "../components/Chart/ChartComponent";
 import { useRouter } from "next/router";
 import RadarChartComponent from "../components/Chart/RadarChartComponent";
+import { generateSecuRadialChartData } from "../utils/chartFunctions";
+import { generateSecuData } from "../utils/otherFunctions";
 
 const inter = Inter({ subsets: ["latin"] });
 
 function Result() {
   const router = useRouter();
 
-  console.log(router.query.formData)
+  console.log(router.query.formData);
 
   // Parse the formData object from the query string
   const formData = JSON.parse(router.query.formData);
@@ -25,12 +27,15 @@ function Result() {
       </Head>
       <main className={styles.main}>
         <div>
-          <RadarChartComponent formData={formData} step="stepSix" />
-          <ChartComponent formData={formData} step="stepOne" />
-          <ChartComponent formData={formData} step="stepTwo" />
-          <ChartComponent formData={formData} step="stepThree" />
-          <ChartComponent formData={formData} step="stepFour" />
-          <ChartComponent formData={formData} step="stepFive" />
+          <RadarChartComponent
+            formData={formData}
+            chartFunction={generateSecuRadialChartData}
+            chartDataFunction={generateSecuData}
+            title={"Ma QVT selon mes besoins de Sécurité"}
+            bgcolor1={"bg-securite1"}
+            bgcolor2={"bg-securite2"}
+          />
+          <ChartComponent formData={formData} step="securiteOne" />
         </div>
       </main>
     </>

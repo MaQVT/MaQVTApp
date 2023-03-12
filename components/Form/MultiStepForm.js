@@ -52,7 +52,7 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"stepOne"}
+          stepName={"securiteOne"}
           titleName={"Mon travail contribue à ma sécurité matérielle et à celle de ma famille."}
           position={1}
         />
@@ -61,7 +61,7 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"stepTwo"}
+          stepName={"securiteTwo"}
           titleName={"Je me sens en sécurité dans mon travail."}
           position={1}
         />
@@ -70,7 +70,7 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"stepThree"}
+          stepName={"securiteThree"}
           titleName={"Je suis traité.e équitablement."}
           position={1}
         />
@@ -79,7 +79,7 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"stepFour"}
+          stepName={"securiteFour"}
           titleName={"Mes objectifs et mes tâches sont clairs."}
           position={1}
         />
@@ -88,7 +88,7 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"stepFive"}
+          stepName={"securiteFive"}
           titleName={"Je suis soutenu.e et j'ai confiance en mes collègues."}
           position={1}
         />
@@ -97,7 +97,7 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"stepSix"}
+          stepName={"securiteSix"}
           titleName={"Je suis soutenu.e et j'ai confiance en ma hiérarchie."}
           position={1}
         />
