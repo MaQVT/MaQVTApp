@@ -29,6 +29,7 @@ h3{
 }
 input, select{
     margin: 5px 10px;
+    cursor: pointer;
 }
 
 button, [type="button"], [type="reset"], [type="submit"]{
@@ -40,4 +41,18 @@ button, [type="button"], [type="reset"], [type="submit"]{
 
 button:hover{
     background-color: bisque;
+}
+
+label, label[for]{
+    cursor: pointer;
+}
+
+div[draggable] span{
+    cursor: grab;
+}
+
+#physique{
+    background-image: url(../public/form/dispo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
 }

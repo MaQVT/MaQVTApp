@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { generateChartData } from "../../utils/chartFunctions";
+import { generateChartRoleData } from "../../utils/chartFunctions";
 
-function ChartComponent({ formData, step }) {
+function ChartComponentRole({ formData, step }) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
-    const chartData = generateChartData(formData, step);
+    const chartData = generateChartRoleData(formData, step);
 
     if (chartRef.current) {
       // If chart already exists, destroy it
@@ -16,22 +16,23 @@ function ChartComponent({ formData, step }) {
     }
 
     chartRef.current = new Chart(ctx, {
-      type: "scatter",
+      type: "bar",
       data: chartData,
       options: {
         scales: {
           y: {
             beginAtZero: true,
             suggestedMin: 0,
-            suggestedMax: 100,
+            suggestedMax: 5,
             ticks: {
-              stepSize: 10,
+              stepSize: 1,
             },
           },
         },
         plugins: {
           legend: {
-            position: "bottom",
+            position: "top",
+            display: false
           },
         },
       },
@@ -46,4 +47,4 @@ function ChartComponent({ formData, step }) {
   return <canvas ref={canvasRef} />;
 }
 
-export default ChartComponent;
+export default ChartComponentRole;

@@ -24,7 +24,6 @@ function Description({ harmonie, qvt, bgcolor1, bgcolor2}) {
               {qvt}%
             </span>
           </div>
-          <br />
           <div className="text-gray-600 italic text-center text-xs">
             La façon dont je me sens <br /> au travail actuellement
           </div>

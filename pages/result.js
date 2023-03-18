@@ -4,18 +4,65 @@ import styles from "/styles/Home.module.css";
 import ChartComponent from "../components/Chart/ChartComponent";
 import { useRouter } from "next/router";
 import RadarChartComponent from "../components/Chart/RadarChartComponent";
-import { generateSecuRadialChartData } from "../utils/chartFunctions";
-import { generateSecuData } from "../utils/otherFunctions";
+import {
+  generateInclusionRadialChartData,
+  generatePouvoiragirRadialChartData,
+  generateSatisfactionRadialChartData,
+  generateSecuRadialChartData,
+  generateSensRadialChartData,
+} from "../utils/chartFunctions";
+import {
+  generateInclusionData,
+  generatePouvoiragirData,
+  generateSatisfactionData,
+  generateSecuData,
+  generateSensData,
+} from "../utils/otherFunctions";
+import { useEffect, useState } from "react";
+import NavigationButton from "../components/Form/NavigationButton";
+import ImagePass from "../components/Form/ImagePass";
+import Result3 from "../components/Result/Result3";
+import Result2 from "../components/Result/Result2";
+import Result1 from "../components/Result/Result1";
 
 const inter = Inter({ subsets: ["latin"] });
 
 function Result() {
+  const [formData, setFormData] = useState(undefined);
+  // const router = useRouter();
+
+  // console.log(router.query.formData);
+
+  // // Parse the formData object from the query string
+  // const formData = JSON.parse(router.query.formData);
+
+  useEffect(() => {
+    // this code will run after the state has been updated
+    setFormData(JSON.parse(localStorage.getItem("lastTest")));
+    console.log(formData);
+  }, []);
+
+  const [step, setStep] = useState(1);
   const router = useRouter();
 
-  console.log(router.query.formData);
+  const handleNext = () => {
+    setStep(step + 1);
+  };
 
-  // Parse the formData object from the query string
-  const formData = JSON.parse(router.query.formData);
+  const handlePrev = () => {
+    setStep(step - 1);
+  };
+
+  const handleSubmit = () => {
+    router.push({
+      pathname: "/plan_action",
+      // query: { formData: JSON.stringify(formData) },
+    });
+  };
+
+  if (step == 10) {
+    handleSubmit();
+  }
 
   return (
     <>
@@ -25,51 +72,140 @@ function Result() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className="flex flex-wrap justify-around items-center gap-10">
-          <RadarChartComponent
-            formData={formData}
-            chartFunction={generateSecuRadialChartData}
-            chartDataFunction={generateSecuData}
-            title={"Ma QVT selon mes besoins de Sécurité"}
-            bgcolor1={"bg-securite1"}
-            bgcolor2={"bg-securite2"}
-          />
-          <RadarChartComponent
-            formData={formData}
-            chartFunction={generateSecuRadialChartData}
-            chartDataFunction={generateSecuData}
-            title={"Ma QVT selon mes besoins de Satisfaction"}
-            bgcolor1={"bg-satisfaction1"}
-            bgcolor2={"bg-satisfaction2"}
-          />
-          <RadarChartComponent
-            formData={formData}
-            chartFunction={generateSecuRadialChartData}
-            chartDataFunction={generateSecuData}
-            title={"Ma QVT selon mes besoins d'Inclusion"}
-            bgcolor1={"bg-inclusion1"}
-            bgcolor2={"bg-inclusion2"}
-          />
-          <RadarChartComponent
-            formData={formData}
-            chartFunction={generateSecuRadialChartData}
-            chartDataFunction={generateSecuData}
-            title={"Ma QVT selon mes besoins de Pouvoir d'agir"}
-            bgcolor1={"bg-pouvoiragir1"}
-            bgcolor2={"bg-pouvoiragir2"}
-          />
-          <RadarChartComponent
-            formData={formData}
-            chartFunction={generateSecuRadialChartData}
-            chartDataFunction={generateSecuData}
-            title={"Ma QVT selon mes besoins de Sens"}
-            bgcolor1={"bg-sens1"}
-            bgcolor2={"bg-sens2"}
-          />
-        </div>
-          <ChartComponent formData={formData} step="securiteOne" />
-      </main>
+
+      {formData && (
+        <main className={styles.main}>
+          <div>
+            {step === 1 && (
+              <>
+                <Result1 formData={formData} step="" />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={0}
+                />
+              </>
+            )}
+            {step === 2 && (
+              <>
+                <Result2 formData={formData} />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={1}
+                />
+              </>
+            )}
+            {step === 3 && (
+              <>
+                <Result3 formData={formData} />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={1}
+                />
+              </>
+            )}
+            {step === 4 && (
+              <>
+                <RadarChartComponent
+                  formData={formData}
+                  chartFunction={generateSecuRadialChartData}
+                  chartDataFunction={generateSecuData}
+                  title={<>Ma QVT selon mes besoins de <span className="text-orange-500">Sécurité</span></>}
+                  bgcolor1={"bg-securite1"}
+                  bgcolor2={"bg-securite2"}
+                />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={1}
+                />
+              </>
+            )}
+            {step === 5 && (
+              <>
+                <RadarChartComponent
+                  formData={formData}
+                  chartFunction={generateSatisfactionRadialChartData}
+                  chartDataFunction={generateSatisfactionData}
+                  title={<>Ma QVT selon mes besoins de <span className="text-fuchsia-600">Satisfaction</span></>}
+                  bgcolor1={"bg-satisfaction1"}
+                  bgcolor2={"bg-satisfaction2"}
+                />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={1}
+                />
+              </>
+            )}
+            {step === 6 && (
+              <>
+                <RadarChartComponent
+                  formData={formData}
+                  chartFunction={generateInclusionRadialChartData}
+                  chartDataFunction={generateInclusionData}
+                  title={<>Ma QVT selon mes besoins d&apos;<span className="text-inclusion1">Inclusion</span></>}
+                  bgcolor1={"bg-inclusion1"}
+                  bgcolor2={"bg-inclusion2"}
+                />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={1}
+                />
+              </>
+            )}
+            {step === 7 && (
+              <>
+                <RadarChartComponent
+                  formData={formData}
+                  chartFunction={generatePouvoiragirRadialChartData}
+                  chartDataFunction={generatePouvoiragirData}
+                  title={<>Ma QVT selon mes besoins de <span className="text-sky-700">Pouvoir d&apos;agir</span></>}
+                  bgcolor1={"bg-pouvoiragir1"}
+                  bgcolor2={"bg-pouvoiragir2"}
+                />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={1}
+                />
+              </>
+            )}
+            {step === 8 && (
+              <>
+                <RadarChartComponent
+                  formData={formData}
+                  chartFunction={generateSensRadialChartData}
+                  chartDataFunction={generateSensData}
+                  title={<>Ma QVT selon mes besoins de <span className="text-sens1">Sens</span></>}
+                  bgcolor1={"bg-sens1"}
+                  bgcolor2={"bg-sens2"}
+                />
+                <NavigationButton
+                  handlePrev={handlePrev}
+                  handleNext={handleNext}
+                  position={2}
+                />
+              </>
+            )}
+            {step === 9 && (
+              <ImagePass
+                handlePrev={handlePrev}
+                handleNext={handleNext}
+                image={"/plandaction.png"}
+                alt={"Image de Plan d'action"}
+                position={-1}
+                texteSuivant={"Etablir mon plan d'action"}
+              />
+            )}
+          </div>
+
+          <div className="flex flex-wrap justify-around items-center gap-10"></div>
+        </main>
+      )}
     </>
   );
 }

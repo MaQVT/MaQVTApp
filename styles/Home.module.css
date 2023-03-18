@@ -1,9 +1,9 @@
 .main {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-around;
   gap: 5;
-  align-items: center;
+  align-items: center; */
   padding: 6rem;
   min-height: 100vh;
   background-image: url("../public/backgound.png");
