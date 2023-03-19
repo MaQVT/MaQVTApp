@@ -8,7 +8,7 @@ export default function ImagePass({ handlePrev, handleNext, image, alt, position
         {/* {(position > 0 || position == -1) && <button type="button" onClick={handlePrev}>Précédant</button>} */}
         {(position > 0) && <button type="button" onClick={handlePrev}>Précédant</button>}
         {(position != -1) && <button onClick={handleNext}>Suivant</button>}
-        {texteSuivant && (position == -1) ? <button onClick={handleNext}>{texteSuivant}</button> : <button onClick={handleNext}>Voir mes resultats</button>}
+        {(position == -1) && (texteSuivant ? <button onClick={handleNext}>{texteSuivant}</button> : <button onClick={handleNext}>Voir mes resultats</button>)}
     </div>
       
   )

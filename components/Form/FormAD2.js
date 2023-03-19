@@ -8,8 +8,8 @@ export default function FormAD2({
   titleName,
 }) {
   const [values, setValues] = useState({
-    physique: "1",
-    emotionnel: "2",
+    physique: "8",
+    emotionnel: "1",
   });
 
   const handleChange = (event) => {
@@ -33,7 +33,7 @@ export default function FormAD2({
               <div>
                 <div className="flex">
                   <label htmlFor="physique8">8</label>
-                  <input type="radio" id="physique8" name="physique" value="8" />
+                  <input type="radio" id="physique8" name="physique" value="8" defaultChecked />
                 </div>
                 <div className="flex">
                   <label htmlFor="physique7">7</label>
@@ -62,7 +62,7 @@ export default function FormAD2({
                   <label htmlFor="physique2">2</label>
                 </div>
                 <div className="flex">
-                  <input type="radio" id="physique1" name="physique" value="1" defaultChecked />
+                  <input type="radio" id="physique1" name="physique" value="1" />
                   <label htmlFor="physique1">1</label>
                 </div>
               </div>
@@ -77,6 +77,7 @@ export default function FormAD2({
                   id="emotionnel1"
                   name="emotionnel"
                   value="1"
+                  defaultChecked
                 />
                 <label htmlFor="emotionnel1">
                   <img className="h-12" src="./form/star0.png" alt="4" />

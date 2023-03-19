@@ -9,7 +9,7 @@ export default function FormAD1({
 }) {
   const [values, setValues] = useState({
     dispo: "2",
-    motivation: "1",
+    motivation: "4",
   });
 
   const handleChange = (event) => {
@@ -39,7 +39,7 @@ export default function FormAD1({
                 <label htmlFor="dispo2">
                   <img className="h-12" src="./form/egal.png" alt="=" />
                 </label>
-                <input type="radio" id="dispo2" name="dispo" value="2" />
+                <input type="radio" id="dispo2" name="dispo" value="2" defaultChecked />
               </div>
               <div className="flex">
                 <input type="radio" id="dispo3" name="dispo" value="3" />
@@ -61,6 +61,7 @@ export default function FormAD1({
                   id="motivation1"
                   name="motivation"
                   value="4"
+                  defaultChecked
                 />
               </div>
               <div className="flex flex-col justify-center">
