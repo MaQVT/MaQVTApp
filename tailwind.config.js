@@ -21,12 +21,16 @@ module.exports = {
         pouvoiragir2: "#B3C5E6",
         sens1: "#6E2F9F",
         sens2: "#C3B5F9",
+        rose_pr:"#f9eee8",
+        customGray: "#615240"
       },
     },
     fontFamily: {
       PlayfairDisplay: ['Playfair Display', 'Segoe UI', 'serif'],
+      Trocchi: ['Trocchi', 'Segoe UI', 'serif'],
       Benedict: ['Benedict', 'Segoe UI', 'serif'],
       MoonTime: ['MoonTime', 'Segoe UI', 'serif'],
+      AnticDidone: ['Antic Didone', 'Segoe UI', 'serif'],
     },
   },
   plugins: [],

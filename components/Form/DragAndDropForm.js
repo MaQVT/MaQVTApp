@@ -80,7 +80,7 @@ const Draggable = ({ item, index, setDraggingId, moveCard }) => {
   drag(drop(ref));
 
   return (
-    <div ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }} className="my-5 border-dashed border-2 border-black p-2">
+    <div ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }} className="my-2 p-4 text-center space-x-2 rounded-xl bg-gray-200 p-2">
       <span>{item.content}</span>
     </div>
   );
@@ -99,15 +99,26 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
   
 
   return (
-    <>
-      <h1>Quel est le rôle du travail pour moi de manière générale?</h1>
-      <h2>CLASSER LES 5 ITEMS PAR ORDRE DE PRIORITÉ (1 = MAXI / 5 = MINI)</h2>
-      <DndProvider backend={HTML5Backend}>
-        <ItemList items={items} setItems={setItems} />
-      </DndProvider>
-      {(position > 0 || position == -1) && <button type="button" onClick={handlePrev}>Précédant</button>}
-      <button onClick={handleNextClick}>{position == -1 ? "Terminer" : "Suivant"}</button>
-    </>
+    <div className="h-full bg-rose_pr flex flex-col" >
+      {/* <h2 className="w-full font-bold text-6xl">La vie au travail et moi</h2> */}
+      <div className="flex flex-col justify-center items-center flex-1">
+      <h1 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">Quel est le rôle du travail pour moi de manière générale?</h1>
+      <div className="p-4 rounded-lg">
+      <p className="font-thin text-xs text-center mb-5">CLASSER LES 5 ITEMS PAR ORDRE DE PRIORITÉ (1 = MAXI / 5 = MINI)</p>
+        <DndProvider backend={HTML5Backend}>
+          <ItemList items={items} setItems={setItems} />
+        </DndProvider>
+      </div>
+      </div>
+      <div className='absolute bottom-[30px] flex flex-row justify-center items-center w-full'>
+          {(position > 0 || position == -1) && (
+            <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
+              Précédant
+            </button>
+          )}
+          <button onClick={handleNextClick} className="w-[100px] h-[50px] rounded mx-40" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
+      </div>
+    </div>
   );
 };
 

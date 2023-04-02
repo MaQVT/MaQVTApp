@@ -16,6 +16,8 @@ const harmonieAndQVT = (data) => {
     );
   }
 
+  result[2] = Number(data["vecu"]);
+
   return result;
 };
 
@@ -61,7 +63,12 @@ export const generateSecuData = (formData) => {
       Number(securite6["vecu"])) /
     6;
 
-  return { Harmonie, Vecu, QVT };
+  return {
+    Harmonie,
+    Vecu,
+    QVT,
+    Every: { harmQVT1, harmQVT2, harmQVT3, harmQVT4, harmQVT5, harmQVT6 },
+  };
 };
 
 export const generateSatisfactionData = (formData) => {
@@ -91,7 +98,12 @@ export const generateSatisfactionData = (formData) => {
       Number(satisfaction5["vecu"])) /
     5;
 
-  return { Harmonie, Vecu, QVT };
+  return {
+    Harmonie,
+    Vecu,
+    QVT,
+    Every: { harmQVT1, harmQVT2, harmQVT3, harmQVT4, harmQVT5 },
+  };
 };
 
 export const generateInclusionData = (formData) => {
@@ -121,7 +133,12 @@ export const generateInclusionData = (formData) => {
       Number(inclusion5["vecu"])) /
     5;
 
-  return { Harmonie, Vecu, QVT };
+  return {
+    Harmonie,
+    Vecu,
+    QVT,
+    Every: { harmQVT1, harmQVT2, harmQVT3, harmQVT4, harmQVT5 },
+  };
 };
 
 export const generatePouvoiragirData = (formData) => {
@@ -166,7 +183,12 @@ export const generatePouvoiragirData = (formData) => {
       Number(pouvoiragir6["vecu"])) /
     6;
 
-  return { Harmonie, Vecu, QVT };
+  return {
+    Harmonie,
+    Vecu,
+    QVT,
+    Every: { harmQVT1, harmQVT2, harmQVT3, harmQVT4, harmQVT5, harmQVT6 },
+  };
 };
 
 export const generateSensData = (formData) => {
@@ -196,7 +218,12 @@ export const generateSensData = (formData) => {
       Number(sens5["vecu"])) /
     5;
 
-  return { Harmonie, Vecu, QVT };
+  return {
+    Harmonie,
+    Vecu,
+    QVT,
+    Every: { harmQVT1, harmQVT2, harmQVT3, harmQVT4, harmQVT5 },
+  };
 };
 
 export const generateTotalData = (formData) => {
@@ -222,9 +249,49 @@ export const generateTotalData = (formData) => {
     }
   }
 
-  const Harmonie = Math.round((securite.Harmonie + satisfaction.Harmonie + inclusion.Harmonie + pouvoiragir.Harmonie + sens.Harmonie)/5);
-  const QVT = Math.round((securite.QVT + satisfaction.QVT + inclusion.QVT + pouvoiragir.QVT + sens.QVT)/5);
-  const Grise = Math.round(100*countGrise/(27*3));
+  const Harmonie = Math.round(
+    (securite.Harmonie +
+      satisfaction.Harmonie +
+      inclusion.Harmonie +
+      pouvoiragir.Harmonie +
+      sens.Harmonie) /
+      5
+  );
+  const QVT = Math.round(
+    (securite.QVT +
+      satisfaction.QVT +
+      inclusion.QVT +
+      pouvoiragir.QVT +
+      sens.QVT) /
+      5
+  );
+  const Grise = Math.round((100 * countGrise) / (27 * 3));
 
   return { Harmonie, QVT, Grise };
+};
+
+export const positionEtatPresent = (formData) => {
+  let physique = Number(formData["demarrer2"]["physique"]);
+  let emotionnel = Number(formData["demarrer2"]["emotionnel"]);
+  if (physique * physique + emotionnel * emotionnel < 20) {
+    return 0;
+  } else if (physique * physique + emotionnel * emotionnel >= 60) {
+    return 2;
+  } else {
+    return 1;
+  }
+};
+
+export const positionNiveauPresence = (formData) => {
+  let dispo = Number(formData["demarrer1"]["dispo"]);
+  let motivation = Number(formData["demarrer1"]["motivation"]);
+  if (dispo * dispo + motivation * motivation < 5) {
+    return 0;
+  } else if (dispo * dispo + motivation * motivation == 5) {
+    return 1;
+  } else if (dispo * dispo + motivation * motivation <= 13) {
+    return 2;
+  } else {
+    return 3;
+  }
 };

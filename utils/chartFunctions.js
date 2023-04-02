@@ -1,4 +1,40 @@
-import { generateInclusionData, generatePouvoiragirData, generateSatisfactionData, generateSecuData, generateSensData } from "./otherFunctions";
+import { besoinAsymetrique } from "./chartFunctionsPriority";
+import {
+  generateInclusionData,
+  generatePouvoiragirData,
+  generateSatisfactionData,
+  generateSecuData,
+  generateSensData,
+} from "./otherFunctions";
+
+export const generateChartPlaceTravailData = (formData, step) => {
+  const place = Number(formData["importanceTravail"]["placeT"])
+  const vecu = Number(formData["importanceTravail"]["vecuT"])
+
+  return {
+    datasets: [
+      {
+        label: "Place du travail dans ma vie",
+        data: [place, 7-place],
+        borderColor: "rgba(255, 255, 255, 0.5)",
+        backgroundColor: ["#4371C7", "#E2CDC1"],
+        borderWidth: 1,
+        order: 2,
+      },
+      {
+        label: "Place du travail ressenti",
+        data: [vecu, 7-vecu],
+        fill: false,
+        backgroundColor: ["#8CB0CE", "#E2CDC1"],
+        borderColor: "rgba(255, 255, 255, 0.5)",
+        pointBackgroundColor: "rgb(255, 255, 255, 1)",
+        borderWidth: 1,
+        cubicInterpolationMode: "monotone",
+        order: 1,
+      },
+    ],
+  };
+};
 
 export const generateChartData = (formData, step) => {
   const securite = generateSecuData(formData);
@@ -8,34 +44,52 @@ export const generateChartData = (formData, step) => {
   const sens = generateSensData(formData);
 
   return {
-    labels: ["1 - SECURITE", "2 - SATISFACTION", "3 - INCLUSION", "4 - POUVOIR D'AGIR", "5 - SENS"],
+    labels: [
+      "1 - SECURITE",
+      "2 - SATISFACTION",
+      "3 - INCLUSION",
+      "4 - POUVOIR D'AGIR",
+      "5 - SENS",
+    ],
     datasets: [
       {
         type: "bar",
         label: "Indice QVT",
-        data: [securite.QVT, satisfaction.QVT, inclusion.QVT, pouvoiragir.QVT, sens.QVT],
+        data: [
+          securite.QVT,
+          satisfaction.QVT,
+          inclusion.QVT,
+          pouvoiragir.QVT,
+          sens.QVT,
+        ],
         borderColor: "white",
         backgroundColor: [
-					'#ED7D31',
-					'#DF02FF',
-					'#2BBCC8',
-					'#4472C4',
-					'#6F30A0',
-				],
+          "#ED7D31",
+          "#DF02FF",
+          "#2BBCC8",
+          "#4472C4",
+          "#6F30A0",
+        ],
         borderWidth: 3,
-        order: 2
+        order: 2,
       },
       {
         type: "line",
         label: "Harmonie",
-        data: [securite.Harmonie, satisfaction.Harmonie, inclusion.Harmonie, pouvoiragir.Harmonie, sens.Harmonie],
+        data: [
+          securite.Harmonie,
+          satisfaction.Harmonie,
+          inclusion.Harmonie,
+          pouvoiragir.Harmonie,
+          sens.Harmonie,
+        ],
         fill: false,
         backgroundColor: "rgba(255, 255, 255, 1)",
         borderColor: "rgba(255, 255, 255, 1)",
         pointBackgroundColor: "rgb(255, 255, 255, 1)",
         borderWidth: 3,
-        cubicInterpolationMode: 'monotone',
-        order: 1
+        cubicInterpolationMode: "monotone",
+        order: 1,
       },
     ],
   };
@@ -44,10 +98,22 @@ export const generateChartData = (formData, step) => {
 export const generateChartRoleData = (formData) => {
   const data = formData["roleTravail"];
 
-  const titre = ["MATERIEL", "LIEN SOCIAL", "IDENTITAIRE", "REALISATION DE SOI", "SOCIETAL"]
+  const titre = [
+    "MATERIEL",
+    "LIEN SOCIAL",
+    "IDENTITAIRE",
+    "REALISATION DE SOI",
+    "SOCIETAL",
+  ];
 
   return {
-    labels: [titre[Number(data[3]) - 1], titre[Number(data[1]) - 1], titre[Number(data[0]) - 1], titre[Number(data[2]) - 1], titre[Number(data[4]) - 1]],
+    labels: [
+      titre[Number(data[3]) - 1],
+      titre[Number(data[1]) - 1],
+      titre[Number(data[0]) - 1],
+      titre[Number(data[2]) - 1],
+      titre[Number(data[4]) - 1],
+    ],
     datasets: [
       {
         type: "bar",
@@ -55,15 +121,15 @@ export const generateChartRoleData = (formData) => {
         data: [2, 4, 5, 3, 1],
         borderColor: "white",
         backgroundColor: [
-					'#ED7D31',
-					'#DF02FF',
-					'#2BBCC8',
-					'#4472C4',
-					'#6F30A0',
-				],
+          "#ED7D31",
+          "#DF02FF",
+          "#2BBCC8",
+          "#4472C4",
+          "#6F30A0",
+        ],
         borderWidth: 3,
-        order: 2
-      }
+        order: 2,
+      },
     ],
   };
 };
@@ -75,33 +141,19 @@ export const generateSecuRadialChartData = (formData) => {
   const securite4 = formData["securiteFour"];
   const securite5 = formData["securiteFive"];
   const securite6 = formData["securiteSix"];
+
+  const securite = generateSecuData(formData);
+
   return {
     labels: [
-      "Sécurité matérielle",
-      "Sentiment sécurité",
-      "Equité",
-      "Clarté missions",
-      "Soutien collègues",
-      "Soutien hiérarchie",
+      besoinAsymetrique(securite.Every.harmQVT1) + "Sécurité matérielle",
+      besoinAsymetrique(securite.Every.harmQVT2) + "Sentiment sécurité",
+      besoinAsymetrique(securite.Every.harmQVT3) + "Equité",
+      besoinAsymetrique(securite.Every.harmQVT4) + "Clarté missions",
+      besoinAsymetrique(securite.Every.harmQVT5) + "Soutien collègues",
+      besoinAsymetrique(securite.Every.harmQVT6) + "Soutien hiérarchie",
     ],
     datasets: [
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
       {
         label: "Idéal",
         data: [
@@ -157,23 +209,6 @@ export const generateSecuRadialChartData = (formData) => {
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
     ],
   };
 };
@@ -184,32 +219,18 @@ export const generateSatisfactionRadialChartData = (formData) => {
   const satisfaction3 = formData["satisfactionThree"];
   const satisfaction4 = formData["satisfactionFour"];
   const satisfaction5 = formData["satisfactionFive"];
+
+  const satisfaction = generateSatisfactionData(formData);
+
   return {
     labels: [
-      "Equilibre de vie",
-      "Confort matériel",
-      "Plaisir",
-      "Intérêt",
-      "Qualité relations",
+      besoinAsymetrique(satisfaction.Every.harmQVT1) + "Equilibre de vie",
+      besoinAsymetrique(satisfaction.Every.harmQVT2) + "Confort matériel",
+      besoinAsymetrique(satisfaction.Every.harmQVT3) + "Plaisir",
+      besoinAsymetrique(satisfaction.Every.harmQVT4) + "Intérêt",
+      besoinAsymetrique(satisfaction.Every.harmQVT5) + "Qualité relations",
     ],
     datasets: [
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
       {
         label: "Idéal",
         data: [
@@ -262,23 +283,6 @@ export const generateSatisfactionRadialChartData = (formData) => {
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
     ],
   };
 };
@@ -289,32 +293,18 @@ export const generateInclusionRadialChartData = (formData) => {
   const inclusion3 = formData["inclusionThree"];
   const inclusion4 = formData["inclusionFour"];
   const inclusion5 = formData["inclusionFive"];
+
+  const inclusion = generateInclusionData(formData);
+
   return {
     labels: [
-      "Sentiment d'appartenance",
-      "Place",
-      "Reconnaissance",
-      "Estime personnelle",
-      "Estime professionnelle",
+      besoinAsymetrique(inclusion.Every.harmQVT1) + "Sentiment d'appartenance",
+      besoinAsymetrique(inclusion.Every.harmQVT2) + "Place",
+      besoinAsymetrique(inclusion.Every.harmQVT3) + "Reconnaissance",
+      besoinAsymetrique(inclusion.Every.harmQVT4) + "Estime personnelle",
+      besoinAsymetrique(inclusion.Every.harmQVT5) + "Estime professionnelle",
     ],
     datasets: [
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
       {
         label: "Idéal",
         data: [
@@ -367,23 +357,6 @@ export const generateInclusionRadialChartData = (formData) => {
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
     ],
   };
 };
@@ -395,33 +368,19 @@ export const generatePouvoiragirRadialChartData = (formData) => {
   const pouvoiragir4 = formData["pouvoiragirFour"];
   const pouvoiragir5 = formData["pouvoiragirFive"];
   const pouvoiragir6 = formData["pouvoiragirSix"];
+
+  const pouvoiragir = generatePouvoiragirData(formData);
+
   return {
     labels: [
-      "Apprentissage",
-      "Autonomie",
-      "Expression",
-      "Authenticité",
-      "Responsabilités",
-      "Perspectives",
+      besoinAsymetrique(pouvoiragir.Every.harmQVT1) + "Apprentissage",
+      besoinAsymetrique(pouvoiragir.Every.harmQVT2) + "Autonomie",
+      besoinAsymetrique(pouvoiragir.Every.harmQVT3) + "Expression",
+      besoinAsymetrique(pouvoiragir.Every.harmQVT4) + "Authenticité",
+      besoinAsymetrique(pouvoiragir.Every.harmQVT5) + "Responsabilités",
+      besoinAsymetrique(pouvoiragir.Every.harmQVT6) + "Perspectives",
     ],
     datasets: [
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
       {
         label: "Idéal",
         data: [
@@ -477,23 +436,6 @@ export const generatePouvoiragirRadialChartData = (formData) => {
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
     ],
   };
 };
@@ -504,26 +446,18 @@ export const generateSensRadialChartData = (formData) => {
   const sens3 = formData["sensThree"];
   const sens4 = formData["sensFour"];
   const sens5 = formData["sensFive"];
+
+  const sens = generateSensData(formData);
+
   return {
-    labels: ["Sens", "Valeurs", "Utilité", "Compétences", "Réalisation de soi"],
+    labels: [
+      besoinAsymetrique(sens.Every.harmQVT1) + "Sens",
+      besoinAsymetrique(sens.Every.harmQVT2) + "Valeurs",
+      besoinAsymetrique(sens.Every.harmQVT3) + "Utilité",
+      besoinAsymetrique(sens.Every.harmQVT4) + "Compétences",
+      besoinAsymetrique(sens.Every.harmQVT5) + "Réalisation de soi",
+    ],
     datasets: [
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
-      },
       {
         label: "Idéal",
         data: [
@@ -575,23 +509,6 @@ export const generateSensRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
-      },
-      {
-        label: "",
-        data: [0],
-        backgroundColor: "rgba(0, 0, 0, 0.0)",
-        borderColor: "rgba(0, 0, 0, 0.0)",
-        pointBackgroundColor: "rgba(0, 0, 0, 0)",
-        fill: true,
-        pointRadius: 0,
-        showTooltip: false,
-        showLine: false,
-        hoverOffset: 0,
-        pointHoverRadius: 0,
-        hoverRadius: 0,
-        pointHitRadius: 0,
-        spanGaps: true,
-        hideInLegendAndTooltip: true,
       },
     ],
   };

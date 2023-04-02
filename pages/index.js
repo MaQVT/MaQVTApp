@@ -4,6 +4,7 @@ import styles from "/styles/Home.module.css";
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 import cookies from "next-cookies";
+import Layout from "./layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ function Home({ user }) {
   };
 
   const taketest = () => {
-    router.push("/take_diagnostic_test");
+    router.push("/take_diagnostic_test",query={user});
   };
 
   const getusers = async () => {
@@ -32,15 +33,11 @@ function Home({ user }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {user.email && (
-        <main className={styles.main}>
-          <button onClick={logout}>Se Deconnecter</button>
-          <button onClick={taketest}>Faire l&apos;auto diagnostic QVT</button>
-          {user.role == "Admin" && (
-            <button onClick={getusers}>
-              Ajouter ou Supprimer des utilisateurs
-            </button>
-          )}
-        </main>
+        <Layout user={user}>
+          <div className="w-full h-full flex justify-center items-center">
+            <p className="text-6xl font-thin font-Benedict">Page d&apos;accueil</p>
+          </div>
+        </Layout>
       )}
     </>
   );

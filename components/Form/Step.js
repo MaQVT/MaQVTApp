@@ -20,8 +20,12 @@ export default function Step({ handlePrev, handleNext, stepName, position, title
 
   return (
     <>
-      <h2>{titleName}</h2>
-      <Form handlePrev = {handlePrev} handleChange = {handleChange} handleFormSubmit = {handleFormSubmit} position={position} />
+      <div className="w-full h-full bg-rose_pr">
+          <div className='absolute w-screen h-screen flex flex-col justify-center items-center'>
+            <h2 className='font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray text-center'>{titleName}</h2>
+            <Form handlePrev = {handlePrev} handleChange = {handleChange} handleFormSubmit = {handleFormSubmit} position={position} stepName={stepName}/>
+          </div>
+      </div>
     </>
   )
 }

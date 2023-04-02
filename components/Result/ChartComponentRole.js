@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { generateChartRoleData } from "../../utils/chartFunctions";
 
-function ChartComponentRole({ formData, step }) {
+function ChartComponentRole({ formData, step,title }) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
@@ -32,7 +32,7 @@ function ChartComponentRole({ formData, step }) {
         plugins: {
           legend: {
             position: "top",
-            display: false
+            display: false,
           },
         },
       },
@@ -44,7 +44,12 @@ function ChartComponentRole({ formData, step }) {
     };
   }, [formData, step]);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <div className="flex flex-col p-4 w-[500px] lg:w-[700px] rounded-lg items-center m-2">
+      <h1 className="text-xl my-4">{title}</h1>
+      <canvas ref={canvasRef} />
+    </div>
+  );
 }
 
 export default ChartComponentRole;

@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       const token = signJwt(
         { email: user.email, role: user.role, username: user.username },
         process.env.NEXT_PUBLIC_JWT_SECRET_KEY,
-        3600
+        3600*12
       ); // Expires in 1 hour
 
       // res.setHeader("Set-Cookie", `token=${token}; HttpOnly`);
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
         path: '/',
         sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production',
-        expires: new Date(Date.now() + 3600 * 1000)
+        expires: new Date(Date.now() + 3600 * 12 * 1000)
       });
       res.setHeader('Set-Cookie', cookieSerialized);
 

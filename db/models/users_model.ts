@@ -1,4 +1,3 @@
-import moment from "moment";
 import { mongoose } from "../connexion";
 
 let userSchema = new mongoose.Schema({

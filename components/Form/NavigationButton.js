@@ -2,16 +2,16 @@ import React from "react";
 
 function NavigationButton({ handlePrev, handleNext, position, texte }) {
   return (
-    <div>
+    <div className="flex absolute bottom-[30px] justify-center w-full">
       {position > 0 && (
-        <button type="button" onClick={handlePrev}>
+        <button type="button" onClick={handlePrev} className="w-[100px] h-[50px]">
           Précédant
         </button>
       )}
-      {(position == 0 || position == 1) && <button onClick={handleNext}>Suivant</button>}
-      {position == 2 && <button onClick={handleNext}>Terminer</button>}
+      {(position == 0 || position == 1) && <button onClick={handleNext} className={`w-[100px] h-[50px] rounded  ${position == 0 ? "" : "ml-40"}`}>Suivant</button>}
+      {position == 2 && <button onClick={handleNext} className="w-[100px] h-[50px] rounded ml-40">Terminer</button>}
       {position == -1 && (
-        <button onClick={handleNext}>{texte}</button>
+        <button onClick={handleNext} className="min-w-[100px] h-[50px] rounded">{texte}</button>
       )}
     </div>
   );

@@ -12,6 +12,7 @@ import FormAD2 from "./FormAD2";
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const [sent, setSent] = useState(false);
   const router = useRouter();
 
   const handleNext = (data) => {
@@ -28,8 +29,8 @@ export default function MultiStepForm() {
   };
 
   const handleSubmit = () => {
-    console.log(formData);
-    localStorage.setItem("lastTest", JSON.stringify(formData));
+    // console.log(formData);
+    // localStorage.setItem("lastTest", JSON.stringify(formData));
     router.push({
       pathname: "/result",
       // query: { formData: JSON.stringify(formData) },
@@ -39,12 +40,34 @@ export default function MultiStepForm() {
     handleSubmit();
   }
 
+  if (step == 42 && sent == false) {
+    setTimeout(async () => {
+      const res = await fetch("/api/diagnostic", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token:localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ form_data: formData, email: localStorage.getItem("email")}),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        console.log(json);
+        localStorage.setItem("lastID", json.data._id)
+        setSent(true);
+      } else {
+        const json = await res.json();
+        console.log(json)
+      }
+    }, 100);
+  }
+
   useEffect(() => {
     // this code will run after the state has been updated
   }, [formData]);
 
   return (
-    <div>
+    <div className="h-full w-full">
       {step === 1 && (
         <ImagePass
           handleNext={handleNextImage}
@@ -443,7 +466,7 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           stepName={"sensFive"}
           titleName={"Je me réalise, je m’accomplis dans mon travail."}
-          position={2}
+          position={-1}
         />
       )}
 

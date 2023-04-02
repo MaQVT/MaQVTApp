@@ -1,47 +1,53 @@
 import React from 'react'
 import { generateTotalData } from '../../utils/otherFunctions'
 
-function Result2({formData}) {
-    const total = generateTotalData(formData);
+function Result2({ formData }) {
+  const total = generateTotalData(formData);
   return (
-    <div className='flex justify-around'>
-      <div className='flex flex-col justify-center'>
-        <div className="flex flex-col justify-center items-center gap-1">
+    <div className='flex flex-row w-full justify-center items-center flex-1 font-PlayfairDisplay gap-5'>
+      <div className='flex flex-col gap-5'>
+        <div className='bg-white opacity-60 p-4 rounded-lg w-[400px] h-max flex flex-col justify-start items-center'>
+          <div className="flex flex-col justify-center items-center gap-1">
+            <div className=''>
+              <p className='font-bold text-xl mt-5 text-customGray text-center text-[#325ba8]'>Mon taux d&apos;harmonie générale</p>
+            </div>
+            <div className="font-thin text-customGray italic text-center text-xs">
+              Niveau de satisfaction de mes besoins
+              <br /> au travail actuellement
+            </div>
+          </div>
           <div>
-            <span>Mon taux d&apos;harmonie générale</span>
-          </div>
-          <div className="text-gray-600 italic text-center text-xs">
-            Niveau de satisfaction de mes besoins
-            <br /> au travail actuellement
+            <p className='text-[#325ba8] font-bold text-6xl my-4'>{total.Harmonie}%</p>
           </div>
         </div>
-        <div>
-            <span>{total.Harmonie}%</span>
-        </div>
-      </div>
-      <div className='flex flex-col justify-center'>
-        <div className="flex flex-col justify-center items-center gap-1">
+        <div className='bg-white opacity-60 p-4 rounded-lg w-[400px] h-max flex flex-col justify-start items-center'>
+          <div className="flex flex-col justify-center items-center gap-1">
+            <div>
+              <p className='font-bold text-xl mt-5 text-customGray text-center text-[#b82baa]'>Mon indice QVT global</p>
+            </div>
+            <div className="font-thin text-customGray italic text-center text-xs">
+              La façon dont je me sens <br /> au travail actuellement
+            </div>
+          </div>
           <div>
-            <span>Mon indice QVT global</span>
-          </div>
-          <div className="text-gray-600 italic text-center text-xs">
-            La façon dont je me sens <br /> au travail actuellement
+            <p className='text-[#b82baa] font-bold text-6xl my-4'>{total.QVT}%</p>
           </div>
         </div>
-        <div>
-            <span>{total.QVT}%</span>
+      </div>
+
+      <div className='flex flex-col justify-around gap-20'>
+        <div className="flex flex-col justify-center items-center gap-1">
+          <p className='font-normal text-7xl mt-5 font-MoonTime text-customGray'>Indices <br />globaux</p>
+        </div>
+        <div className='bg-white opacity-60 p-4 rounded-lg w-[300px] h-max flex flex-col justify-start items-center'>
+          <div className='flex flex-col justify-center text-center'>
+            <span className='font-bold text-xl mt-5 text-customGray text-center text-[#c67524]'>Zone grise</span>
+            <span className='font-thin text-customGray italic text-center text-xs'>Occurence de réponses neutres</span>
+            <p className='text-[#c67524] font-bold text-6xl my-4'>{total.Grise}%</p>
+          </div>
         </div>
       </div>
-      <div className='flex flex-col justify-center'>
-        <div>
-            <span>Indices globaux</span>
-        </div>
-        <div className='flex flex-col justify-center'>
-            <span>Zone grise</span>
-            <span>Occurence de réponses neutres</span>
-            <span>{total.Grise}%</span>
-        </div>
-      </div>
+
     </div>
   )
 }

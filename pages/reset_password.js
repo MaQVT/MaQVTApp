@@ -47,42 +47,40 @@ export default function ResetPassword() {
   return (
     <div>
       <Head>
-        <title>Réinitialiser votre mot de passe</title>
+        <title>Réinitialisation du mot de passe</title>
       </Head>
       <main className={styles.main}>
-        <h1>Réinitialiser votre mot de passe</h1>
+        <div>
+          <h1 className="font-semibold text-3xl" >Réinitialiser votre mot de passe</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Nouveau mot de passe:
+              <input
+              className="mb-5 mt-2 h-14 p-2 rounded block mx-0 w-[500px]"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </label>
+            <label>
+              Confirmer le nouveau mot de passe:
+              <input
+              className="mb-5 mt-2 h-14 p-2 rounded block mx-0 w-[500px]"
+                type="password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+            </label>
 
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nouveau mot de passe:
-            <input
-            className="border"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
+            <br />
 
-          <br />
+            {errorMessage && <p className="py-5 text-red">{errorMessage}</p>}
 
-          <label>
-            Confirmer le nouveau mot de passe:
-            <input
-            className="border"
-              type="password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-            />
-          </label>
-
-          <br />
-
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Chargement..." : "Réinitialiser"}
-          </button>
-        </form>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Chargement..." : "Réinitialiser"}
+            </button>
+          </form>
+        </div>
       </main>
     </div>
   );

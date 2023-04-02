@@ -43,7 +43,7 @@ function ChartComponent({ formData, step }) {
     };
   }, [formData, step]);
 
-  return <canvas ref={canvasRef} />;
+  return <canvas ref={canvasRef} className="h-full"/>;
 }
 
 export default ChartComponent;

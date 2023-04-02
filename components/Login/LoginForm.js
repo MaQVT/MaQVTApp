@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
+import Link from 'next/link'
 import { authenticate } from "../../utils/auth";
 
 export default function LoginForm() {
@@ -39,32 +40,31 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <br />
-      {errorMessage && <p style={{ color: color }}>{errorMessage}</p>}
-      <br />
-
+    <form onSubmit={handleSubmit} className="pb-5 w-[500px]">
+      {errorMessage && <p className="py-5 text-red">{errorMessage}</p>}
       <label>
         Email:
         <input
-          className="border"
+          className="mb-5 mt-2 h-14 p-2 rounded-md block mx-0 w-[500px]"
           type="email"
           value={email}
+          placeholder="armelieLaBiau@gmail.com"
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <br />
       <label>
         Mot de passe:
         <input
-          className="border"
+          className="mb-5 mt-2 h-14 p-2 rounded-md block mx-0 w-[500px]"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <br />
-      <button type="submit">Se Connecter</button>
+      <Link href={"/ask_reset_password"}>
+        <p className="px-5 text-right font-thin text-red-600">Mot de passe oublié ?</p>
+      </Link>
+      <button type="submit" className=" font-semibold">Se Connecter</button>
     </form>
   );
 }
