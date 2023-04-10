@@ -14,24 +14,12 @@ function AddUser({handleAddUser}) {
     };
   
     return (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="send_mail">
-              Activer les Emails
-            <input
-            className='border'
-              type="checkbox"
-              name="send_mail"
-              id="send_mail"
-              checked={sendMail}
-              onChange={(e) => setSendMail(e.target.checked)}
-            />
-          </label>
-        </div>
+      <form onSubmit={handleSubmit} className="p-4">
+        <h2 className='text-customGray mb-5'>Ajouter un utilisateur</h2>
         <div>
           <label htmlFor="username">Nom d&apos;utilisateur:</label>
           <input
-          className='border'
+          className='mb-5 mt-1 h-14 px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
             type="text"
             name="username"
             id="username"
@@ -42,7 +30,7 @@ function AddUser({handleAddUser}) {
         <div>
           <label htmlFor="email">Email:</label>
           <input
-          className='border'
+          className='mb-5 mt-1 h-14 px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
             type="email"
             name="email"
             id="email"
@@ -55,6 +43,7 @@ function AddUser({handleAddUser}) {
           <select
             name="role"
             id="role"
+            className='mb-5 mt-2 h-14 px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px]'
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -65,8 +54,21 @@ function AddUser({handleAddUser}) {
             <option value="Consultant">Consultant</option>
           </select>
         </div>
+        <div className='my-3'>
+          <label htmlFor="send_mail">
+              Activer les Emails
+          </label>
+          <input
+            className='border'
+              type="checkbox"
+              name="send_mail"
+              id="send_mail"
+              checked={sendMail}
+              onChange={(e) => setSendMail(e.target.checked)}
+            />
+        </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" className='rounded-lg w-[100px]'>  Submit  </button>
         </div>
       </form>
     );
