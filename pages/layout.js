@@ -10,11 +10,11 @@ function Layout({ user, children }) {
   const router = useRouter();
   const logout = () => {
     unauthenticate();
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   const taketest = () => {
-    router.push("/take_diagnostic_test");
+    router.push("/testqvt/take_diagnostic_test");
   };
 
   const getusers = async () => {

@@ -5,6 +5,7 @@ import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 import cookies from "next-cookies";
 import Layout from "./layout";
+import { verifyJwt } from "../utils/jwt";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,11 +13,11 @@ function Home({ user }) {
   const router = useRouter();
   const logout = () => {
     unauthenticate();
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   const taketest = () => {
-    router.push("/take_diagnostic_test",query={user});
+    router.push("/testqvt/take_diagnostic_test",query={user});
   };
 
   const getusers = async () => {
@@ -44,8 +45,9 @@ function Home({ user }) {
 }
 export async function getServerSideProps(context) {
   const token = cookies(context).token;
+  const email = verifyJwt(token).email;
 
-  const userResponse = await fetch("http://localhost:3000/api/user", {
+  const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

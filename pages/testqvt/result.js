@@ -1,30 +1,30 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "/styles/Home.module.css";
-import ChartComponent from "../components/Chart/ChartComponent";
+import ChartComponent from "../../components/Chart/ChartComponent";
 import { useRouter } from "next/router";
-import RadarChartComponent from "../components/Chart/RadarChartComponent";
+import RadarChartComponent from "../../components/Chart/RadarChartComponent";
 import {
   generateInclusionRadialChartData,
   generatePouvoiragirRadialChartData,
   generateSatisfactionRadialChartData,
   generateSecuRadialChartData,
   generateSensRadialChartData,
-} from "../utils/chartFunctions";
+} from "../../utils/chartFunctions";
 import {
   generateInclusionData,
   generatePouvoiragirData,
   generateSatisfactionData,
   generateSecuData,
   generateSensData,
-} from "../utils/otherFunctions";
+} from "../../utils/otherFunctions";
 import { useEffect, useState } from "react";
-import NavigationButton from "../components/Form/NavigationButton";
-import ImagePass from "../components/Form/ImagePass";
-import Result3 from "../components/Result/Result3";
-import Result2 from "../components/Result/Result2";
-import Result1 from "../components/Result/Result1";
-import Layout from "../pages/layout"
+import NavigationButton from "../../components/Form/NavigationButton";
+import ImagePass from "../../components/Form/ImagePass";
+import Result3 from "../../components/Result/Result3";
+import Result2 from "../../components/Result/Result2";
+import Result1 from "../../components/Result/Result1";
+import Layout from "../layout"
 const inter = Inter({ subsets: ["latin"] });
 
 function Result() {

@@ -48,7 +48,7 @@ export default function FormAD1({
                 htmlFor="dispo1"
                 className="block mt-[119px] mr-6 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img className="" src="./form/moins.png" alt="-" />
+                <img className="" src="/form/moins.png" alt="-" />
               </label>
             </div>
             <div className="flex flex-col">
@@ -65,7 +65,7 @@ export default function FormAD1({
                 htmlFor="dispo2"
                 className="block cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img className="" src="./form/egal.png" alt="=" />
+                <img className="" src="/form/egal.png" alt="=" />
               </label>
             </div>
             <div className="flex">
@@ -81,7 +81,7 @@ export default function FormAD1({
                 htmlFor="dispo3"
                 className="block mt-[119px] ml-6 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img className="" src="./form/plus.png" alt="+" />
+                <img className="" src="/form/plus.png" alt="+" />
               </label>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function FormAD1({
                 htmlFor="motivation1"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img src="./form/motivation4.png" alt="4" />
+                <img src="/form/motivation4.png" alt="4" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -121,7 +121,7 @@ export default function FormAD1({
                 htmlFor="motivation2"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img src="./form/motivation3.png" alt="3" />
+                <img src="/form/motivation3.png" alt="3" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -137,7 +137,7 @@ export default function FormAD1({
                 htmlFor="motivation3"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img src="./form/motivation2.png" alt="2" />
+                <img src="/form/motivation2.png" alt="2" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -153,7 +153,7 @@ export default function FormAD1({
                 htmlFor="motivation4"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
               >
-                <img src="./form/motivation1.png" alt="1" />
+                <img src="/form/motivation1.png" alt="1" />
               </label>
             </div>
           </div>

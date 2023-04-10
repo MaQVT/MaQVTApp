@@ -21,9 +21,6 @@ const handler = async (req, res) => {
       case "PUT":
         await updateUserProfileRoute(req, res);
         break;
-      case "DELETE":
-        await deleteUserRoute(req, res);
-        break;
       default:
         res.status(405).send({ message: "Methode non authorisé" });
         break;

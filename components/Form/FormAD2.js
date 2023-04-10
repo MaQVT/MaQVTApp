@@ -185,7 +185,7 @@ export default function FormAD2({
                 defaultChecked
               />
               <label htmlFor="emotionnel1">
-                <img className="h-12" src="./form/star0.png" alt="4" />
+                <img className="h-12" src="/form/star0.png" alt="4" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -197,7 +197,7 @@ export default function FormAD2({
                 value="2"
               />
               <label htmlFor="emotionnel2">
-                <img className="h-12" src="./form/star1.png" alt="3" />
+                <img className="h-12" src="/form/star1.png" alt="3" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -209,7 +209,7 @@ export default function FormAD2({
                 value="3"
               />
               <label htmlFor="emotionnel3">
-                <img className="h-12" src="./form/star1.png" alt="2" />
+                <img className="h-12" src="/form/star1.png" alt="2" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -221,7 +221,7 @@ export default function FormAD2({
                 value="4"
               />
               <label htmlFor="emotionnel4">
-                <img className="h-12" src="./form/star2.png" alt="1" />
+                <img className="h-12" src="/form/star2.png" alt="1" />
               </label>
             </div>
           </div>

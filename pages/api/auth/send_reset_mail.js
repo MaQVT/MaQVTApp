@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       ); // Expires in 1 hour
 
       // Construct the password reset link
-      const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/reset_password?token=${token}`;
+      const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset_password?token=${token}`;
 
       console.log(resetLink);
 

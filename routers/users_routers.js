@@ -215,12 +215,11 @@ export const deleteByIdUserRoute = async (req, res) => {
       throw new Error("Anoter user trying to access anoter user info");
     }
 
-    let user = (user = await getUserById(id));
-    console.log(user);
+    let user = await getUserById(id);
 
     if (user) {
       await deleteUserByEmail(user.email);
-      res.status(200).json({ data: email, message: "Données envoyées" });
+      res.status(200).json({ data: user.email, message: "Données envoyées" });
     } else {
       res.status(400).json({ data: false, message: "Utilisateur inexistant" });
     }

@@ -32,7 +32,7 @@ export default function MultiStepForm() {
     // console.log(formData);
     // localStorage.setItem("lastTest", JSON.stringify(formData));
     router.push({
-      pathname: "/result",
+      pathname: "/testqvt/result",
       // query: { formData: JSON.stringify(formData) },
     });
   };

@@ -9,8 +9,8 @@ export const withAuth = (WrappedComponent) => {
     useEffect(() => {
       // Redirect the user to the login page if they are not authenticated
       console.log(router.route)
-      if (!isAuthenticated() && router.route != "/reset_password") {
-        router.push('/login');
+      if (!isAuthenticated() && router.route != "/auth/reset_password") {
+        router.push('/auth/login');
       }
     }, []);
 

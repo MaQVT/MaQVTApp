@@ -5,6 +5,7 @@ import cookies from "next-cookies";
 import UserItem from "../../components/Users/UserItem";
 import { useState } from "react";
 import AddUser from "../../components/Users/AddUser";
+import { verifyJwt } from "../../utils/jwt";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,17 +14,17 @@ function ManageUsers({ users, user }) {
   
   async function handleDeleteUser(id) {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3000/api/users`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/id/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         token: token,
       },
-      body: JSON.stringify({_id: id})
+      // body: JSON.stringify({_id: id})
     });
     if (response.ok) {
       // If user is deleted successfully, refresh the user list
-      const usersResponse = await fetch("http://localhost:3000/api/users", {
+      const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,7 @@ function ManageUsers({ users, user }) {
     });
     if (response.ok) {
       // If user is deleted successfully, refresh the user list
-      const usersResponse = await fetch("http://localhost:3000/api/users", {
+      const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -92,15 +93,16 @@ function ManageUsers({ users, user }) {
 
 export async function getServerSideProps(context) {
   const token = cookies(context).token;
+  const email = verifyJwt(token).email;
 
-  const userResponse = await fetch("http://localhost:3000/api/user", {
+  const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       token: token,
     },
   });
-  const usersResponse = await fetch("http://localhost:3000/api/users", {
+  const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/users`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

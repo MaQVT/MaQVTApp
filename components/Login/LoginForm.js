@@ -61,7 +61,7 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <Link href={"/ask_reset_password"}>
+      <Link href={"/auth/ask_reset_password"}>
         <p className="px-5 text-right font-thin text-red-600">Mot de passe oublié ?</p>
       </Link>
       <button type="submit" className=" font-semibold">Se Connecter</button>
