@@ -30,7 +30,7 @@ function Layout({ user, children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {user?.email && (
-        <main className="flex flex-col w-screen h-screen items-center relative bg-[url('../public/backgound.png')]">
+        <main className="flex flex-col w-screen h-screen items-center relative bg-[url('/backgound.png')]">
           <div className="grow w-full h-full">{{ ...children }}</div>
           <div className="h-[100px] z-40 drop-shadow-lg border bg-white rounded-full w-[500px] flex flex-row justify-center items-center mb-5 absolute bottom-5">
             <button
