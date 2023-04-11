@@ -2,6 +2,7 @@ import {
   getUserByMail,
   updateUserProfile,
 } from "../../../db/handlers/users_handlers";
+import { hashPassword } from "../../../utils/hash";
 import { signJwt, verifyJwt } from "../../../utils/jwt";
 
 export default async function handler(req, res) {
@@ -25,7 +26,7 @@ export default async function handler(req, res) {
     const user = await getUserByMail(email);
 
     if (user) {
-      updateUserProfile({ email: email, password: password });
+      updateUserProfile({ email: email, password: hashPassword(password) });
       // Generate a new JWT token with the user's email
       const newToken = signJwt(
         { email: user.email, role: user.role, username: user.username },

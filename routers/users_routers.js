@@ -18,6 +18,7 @@ import {
 import { getMailTemplate } from "../utils/getMailTemplate";
 import { sendEmail } from "../utils/sendMail";
 import { verifyJwt } from "../utils/jwt";
+import { hashPassword } from "../utils/hash";
 
 export const getAllUsersRoute = async (req, res) => {
   try {
@@ -83,7 +84,9 @@ export const deleteUserRoute = async (req, res) => {
 export const addUserRoute = async (req, res) => {
   try {
     req.body.date = moment(moment.now()).format("MM/DD/YYYY HH:mm:ss");
-    if (!req.body.password) req.body.password = "2023";
+    if (!req.body.password) { req.body.password = hashPassword("2023"); }
+    else { req.body.password = hashPassword(req.body.password) }
+    
     if (addUserValidator.validate(req.body).error) {
       throw new Error("Données insuffisantes");
     } else {
@@ -218,9 +221,9 @@ export const deleteByIdUserRoute = async (req, res) => {
     let user = await getUserById(id);
 
     if (user) {
-      if(user.email == process.env.ADMIN_EMAIL){
+      if (user.email == process.env.ADMIN_EMAIL) {
         res.status(405).json({ data: user.email, message: "Suppression non autorisé" });
-      }else{
+      } else {
         await deleteUserByEmail(user.email);
         res.status(200).json({ data: user.email, message: "Données envoyées" });
       }

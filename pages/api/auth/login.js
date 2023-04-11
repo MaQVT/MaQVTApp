@@ -1,4 +1,5 @@
 import { getUserByMail } from "../../../db/handlers/users_handlers";
+import { verifyPassword } from "../../../utils/hash";
 import { signJwt } from "../../../utils/jwt";
 import { serialize } from 'cookie';
 
@@ -15,7 +16,7 @@ export default async function handler(req, res) {
     }
 
     if (user.password == undefined) user.password = "";
-    if (password != user.password) {
+    if (verifyPassword(password, user.password) == false) {
       res.status(401).json({ message: "Adresse Mail ou Mot de Passe Incorrect" });
     } else {
       // If authentication is successful, set a cookie with the JWT token
