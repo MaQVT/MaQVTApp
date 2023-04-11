@@ -45,7 +45,7 @@ function Home({ user }) {
 }
 export async function getServerSideProps(context) {
   const token = cookies(context).token;
-  const email = verifyJwt(token).email;
+  const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
 
   const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
     method: "GET",
