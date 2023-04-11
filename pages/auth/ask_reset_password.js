@@ -46,17 +46,17 @@ export default function LoginPage() {
       </Head>
       <main className={styles.main}>
         {!loggedIn && (
-          <div>
-            <h1 className="font-semibold text-3xl w-[400px] my-4">
+          <div className="font-PlayfairDisplay">
+            <h1 className="font-semibold text-5xl w-[500px] font-Benedict my-4">
                 Demander la reinitialisation de votre mot de passe
             </h1>
             <input
-             className="mb-5 mt-2 h-14 p-2 rounded block mx-0 w-[500px]"
+             className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button onClick={resetMail}>Envoyer</button>
+            <button onClick={resetMail} className="w-[100px] mb-3">Envoyer</button>
             <br />
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           </div>

@@ -50,13 +50,13 @@ export default function ResetPassword() {
         <title>Réinitialisation du mot de passe</title>
       </Head>
       <main className={styles.main}>
-        <div>
-          <h1 className="font-semibold text-3xl" >Réinitialiser votre mot de passe</h1>
+        <div className="font-PlayfairDisplay">
+          <h1 className="font-semibold text-5xl font-Benedict mb-5" >Réinitialiser votre mot de passe</h1>
           <form onSubmit={handleSubmit}>
             <label>
               Nouveau mot de passe:
               <input
-              className="mb-5 mt-2 h-14 p-2 rounded block mx-0 w-[500px]"
+              className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] bg-white focus:outline-none"
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -65,20 +65,20 @@ export default function ResetPassword() {
             <label>
               Confirmer le nouveau mot de passe:
               <input
-              className="mb-5 mt-2 h-14 p-2 rounded block mx-0 w-[500px]"
+              className="mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none"
                 type="password"
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
               />
             </label>
 
-            <br />
-
-            {errorMessage && <p className="py-5 text-red">{errorMessage}</p>}
-
-            <button type="submit" disabled={isLoading}>
+            <button type="submit" disabled={isLoading} className="w-[100px] mt-5">
               {isLoading ? "Chargement..." : "Réinitialiser"}
             </button>
+
+            <br />
+            {errorMessage && <p className="mt-5 text-red-600">{errorMessage}</p>}
+
           </form>
         </div>
       </main>

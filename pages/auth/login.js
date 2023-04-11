@@ -29,8 +29,8 @@ export default function LoginPage() {
       </Head>
       <main className={styles.main}>
         {!loggedIn && (
-          <div className="w-full h-full flex flex-col justify-center items-center">
-            <h1 className="font-semibold text-3xl">Se Connecter</h1>
+          <div className="w-full h-full flex flex-col justify-center items-center font-PlayfairDisplay">
+            <h1 className="font-semibold text-6xl font-Benedict">Se Connecter</h1>
             <LoginForm />
           </div>
         )}

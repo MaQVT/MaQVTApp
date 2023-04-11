@@ -41,21 +41,21 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="pb-5 w-[500px]">
-      {errorMessage && <p className="py-5 text-red">{errorMessage}</p>}
+      {errorMessage && <p className={`py-5 text-${color}-600`}>{errorMessage}</p>}
       <label>
         Email:
         <input
-          className="mb-5 mt-2 h-14 p-2 rounded-md block mx-0 w-[500px]"
+          className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none"
           type="email"
           value={email}
-          placeholder="armelieLaBiau@gmail.com"
+          placeholder="utilisateur@example.com"
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
       <label>
         Mot de passe:
         <input
-          className="mb-5 mt-2 h-14 p-2 rounded-md block mx-0 w-[500px]"
+          className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
