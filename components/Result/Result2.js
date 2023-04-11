@@ -9,7 +9,7 @@ function Result2({ formData }) {
         <div className='bg-white opacity-60 p-4 rounded-lg w-[400px] h-max flex flex-col justify-start items-center'>
           <div className="flex flex-col justify-center items-center gap-1">
             <div className=''>
-              <p className='font-bold text-xl mt-5 text-customGray text-center text-[#325ba8]'>Mon taux d&apos;harmonie générale</p>
+              <p className='font-bold text-xl mt-5 text-center text-[#325ba8]'>Mon taux d&apos;harmonie générale</p>
             </div>
             <div className="font-thin text-customGray italic text-center text-xs">
               Niveau de satisfaction de mes besoins
@@ -23,7 +23,7 @@ function Result2({ formData }) {
         <div className='bg-white opacity-60 p-4 rounded-lg w-[400px] h-max flex flex-col justify-start items-center'>
           <div className="flex flex-col justify-center items-center gap-1">
             <div>
-              <p className='font-bold text-xl mt-5 text-customGray text-center text-[#b82baa]'>Mon indice QVT global</p>
+              <p className='font-bold text-xl mt-5 text-center text-[#b82baa]'>Mon indice QVT global</p>
             </div>
             <div className="font-thin text-customGray italic text-center text-xs">
               La façon dont je me sens <br /> au travail actuellement
@@ -41,7 +41,7 @@ function Result2({ formData }) {
         </div>
         <div className='bg-white opacity-60 p-4 rounded-lg w-[300px] h-max flex flex-col justify-start items-center'>
           <div className='flex flex-col justify-center text-center'>
-            <span className='font-bold text-xl mt-5 text-customGray text-center text-[#c67524]'>Zone grise</span>
+            <span className='font-bold text-xl mt-5 text-center text-[#c67524]'>Zone grise</span>
             <span className='font-thin text-customGray italic text-center text-xs'>Occurence de réponses neutres</span>
             <p className='text-[#c67524] font-bold text-6xl my-4'>{total.Grise}%</p>
           </div>

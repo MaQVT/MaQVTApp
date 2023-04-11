@@ -218,8 +218,12 @@ export const deleteByIdUserRoute = async (req, res) => {
     let user = await getUserById(id);
 
     if (user) {
-      await deleteUserByEmail(user.email);
-      res.status(200).json({ data: user.email, message: "Données envoyées" });
+      if(user.email == process.env.ADMIN_EMAIL){
+        res.status(405).json({ data: user.email, message: "Suppression non autorisé" });
+      }else{
+        await deleteUserByEmail(user.email);
+        res.status(200).json({ data: user.email, message: "Données envoyées" });
+      }
     } else {
       res.status(400).json({ data: false, message: "Utilisateur inexistant" });
     }
