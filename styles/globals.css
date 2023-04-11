@@ -6,7 +6,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
+/* @layer base{
     @font-face {
         font-family: 'Benedict', serif;
         src: url("../assets/Benedict-Regular.otf") format('opentype');
@@ -17,7 +17,7 @@
         src: url("../assets/MoonTime-Regular.ttf") format('truetype');
         src: url("../assets/MoonTime-Regular.otf") format('opentype');
     }
-}
+} */
 
 h1, h2{
     font-size: larger;

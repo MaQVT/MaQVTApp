@@ -28,8 +28,8 @@ module.exports = {
     fontFamily: {
       PlayfairDisplay: ['Playfair Display', 'Segoe UI', 'serif'],
       Trocchi: ['Trocchi', 'Segoe UI', 'serif'],
-      Benedict: ['Benedict', 'Segoe UI', 'serif'],
-      MoonTime: ['MoonTime', 'Segoe UI', 'serif'],
+      Benedict: ['var(--benedict)', 'Segoe UI', 'serif'],
+      MoonTime: ['var(--moon-time)', 'Segoe UI', 'serif'],
       AnticDidone: ['Antic Didone', 'Segoe UI', 'serif'],
     },
   },
