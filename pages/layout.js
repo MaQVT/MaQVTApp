@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 function Layout({ user, children }) {
+  console.log("Layout : user -- \n" + user)
   const router = useRouter();
   const logout = () => {
     unauthenticate();
@@ -28,7 +29,7 @@ function Layout({ user, children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {user.email && (
+      {user?.email && (
         <main className="flex flex-col w-screen h-screen items-center relative bg-[url('../public/backgound.png')]">
           <div className="grow w-full h-full">{{ ...children }}</div>
           <div className="h-[100px] z-40 drop-shadow-lg border bg-white rounded-full w-[500px] flex flex-row justify-center items-center mb-5 absolute bottom-5">
@@ -46,7 +47,7 @@ function Layout({ user, children }) {
             >
               <BiNote size={30} />
             </button>
-            {user.role == "Admin" && (
+            {user?.role == "Admin" && (
               <button
                 title="Ajouter ou Supprimer des Utilisateurs"
                 className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
