@@ -59,8 +59,8 @@ function PlaceTravailChart({
   }, [formData]);
 
   return (
-    <div className="flex flex-col p-4 rounded-lg items-center m-2">
-      <h1 className="text-xl my-4">{title}</h1>
+    <div className="flex flex-col p-4 rounded-lg items-center m-2 basis-1/2">
+      <h1 className="text-xl my-4 text-center">{title}</h1>
       <div>
         <div className="w-[200px] h-[200px] mt-1 mb-1">
           <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
