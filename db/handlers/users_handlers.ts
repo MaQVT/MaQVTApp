@@ -10,6 +10,13 @@ const getAllManagers = async () => {
   return users;
 };
 
+const getAllUsersByRole = async (role) => {
+  const users = await UserModel.find({ role: role });
+  return users;
+};
+const getUsersByParents = async (parentId) =>{
+  return await UserModel.find({ parentId: parentId });
+}
 const getAllClients = async () => {
   const users = await UserModel.find({ role: "Client" });
   return users;
@@ -80,4 +87,6 @@ export {
   deleteUserByEmail,
   updateUserProfile,
   addUser,
+  getUsersByParents,
+  getAllUsersByRole
 };

@@ -7,6 +7,7 @@ const addUserValidator = Joi.object({
   password: Joi.string(),
   role: Joi.string(),
   profile_image: Joi.string(),
+  parentId:Joi.string(),
   send_mail: Joi.boolean(),
   expired_date: Joi.string(),
 });

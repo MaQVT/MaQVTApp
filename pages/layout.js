@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
-import { BiLogOutCircle, BiNote, BiUser } from "react-icons/bi";
+import { BiGroup, BiLogOutCircle, BiNote, BiUser } from "react-icons/bi";
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 
@@ -19,8 +19,20 @@ function Layout({ user, children }) {
   };
 
   const getusers = async () => {
-    router.push("/admin/manage_users");
+    router.push({
+      pathname: '/admin/manage_users_page',
+      query: {
+        user:user._id,
+        username:user.username,
+       }
+    },'/admin/manage_users_page');
+    //router.push("/admin/manage_users_page");
   };
+
+  const getAccount = () =>{
+    router.push("/account_page")
+  }
+
   return (
     <>
       <Head>
@@ -47,15 +59,23 @@ function Layout({ user, children }) {
             >
               <BiNote size={30} />
             </button>
-            {user?.role == "Admin" && (
+            {user?.role =="Admin"  && (
               <button
                 title="Ajouter ou Supprimer des Utilisateurs"
                 className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
                 onClick={getusers}
               >
-                <BiUser size={30} />
+                <BiGroup size={30} />
               </button>
             )}
+            
+              <button
+                title="Ajouter ou Supprimer des Utilisateurs"
+                className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                onClick={getAccount}
+              >
+                <BiUser size={30} />
+              </button>
           </div>
         </main>
       )}

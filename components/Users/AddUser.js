@@ -1,21 +1,60 @@
 import React from 'react'
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import cookies from "next-cookies";
 
-function AddUser({handleAddUser}) {
+function AddUser({handleAddUser,roles,parent_id}) {
     const [sendMail, setSendMail] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("User");
+    const [superieur,setSuperieur] = useState("")
+    const [superieurs,setSuperieurs] = useState([])
+
+
+    // useEffect(()=> {
+    //   async function fetchSuperieur(){
+    //     const token = localStorage.getItem("token");
+    //     let superieurRole = ""
+    //     let theRoles = ["Admin","Consultant","Manager","User"]
+    //     if(role=="Admin"){
+    //       superieurRole = "Admin"
+    //     }else{
+    //       superieurRole = theRoles[(theRoles.indexOf(role)-1)]
+    //     }
+
+    //     const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/role/${superieurRole}`, {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         token: token,
+    //       },
+    //     });
+    //     let result = await response.json()
+    //     setSuperieurs(result.data)
+    //     let firstsup = result.data[0]?result.data[0]._id:""
+    //     setSuperieur(firstsup)
+    //   }
+    //   fetchSuperieur()
+    // },[role])
   
+
+    
     const handleSubmit = async (event) => {
       event.preventDefault();
-      const formData = { send_mail: sendMail, username, email, role };
+      const formData = { send_mail: sendMail, username, email, role,parentId:parent_id };
       handleAddUser(formData);
+      setEmail("")
+      setSendMail(false);
+      setUsername("");
+      setEmail("");
+      setRole("User");
+      setSuperieur("")
+      setSuperieurs([])
+
     };
   
     return (
       <form onSubmit={handleSubmit} className="p-4">
-        <h2 className='text-customGray mb-5'>Ajouter un utilisateur</h2>
         <div>
           <label htmlFor="username">Nom d&apos;utilisateur:</label>
           <input
@@ -47,13 +86,10 @@ function AddUser({handleAddUser}) {
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
-            <option value="Client">Client</option>
-            <option value="User">User</option>
-            <option value="Consultant">Consultant</option>
+            {roles.map((role,index)=><option value={role} key={index}>{role}</option>)}
           </select>
         </div>
+        
         <div className='my-3'>
           <label htmlFor="send_mail">
               Activer les Emails

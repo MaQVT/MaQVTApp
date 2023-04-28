@@ -19,6 +19,10 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  parentId:{
+    type:String,
+    required:true,
+  },
   role: {
     type: String,
     enum: ["Admin", "Consultant", "Client", "Manager", "User"],
@@ -34,5 +38,4 @@ let userSchema = new mongoose.Schema({
   },
 });
 
-export const UserModel =
-  mongoose.models.User || mongoose.model("User", userSchema);
+export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);
