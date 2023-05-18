@@ -9,7 +9,7 @@ const harmonieAndQVT = (data) => {
   } else {
     result[0] = Math.round(
       Math.abs(Math.abs(Number(data["ideal"]) - Number(data["actu"])) - 6) *
-      16.67
+        16.67
     );
     result[1] = Math.round(
       (Number(data["vecu"]) - 1) * (100 / 7) + result[0] / 7
@@ -43,7 +43,7 @@ export const generateSecuData = (formData) => {
       harmQVT4[0] +
       harmQVT5[0] +
       harmQVT6[0]) /
-    6
+      6
   );
   const QVT = Math.round(
     (harmQVT1[1] +
@@ -52,7 +52,7 @@ export const generateSecuData = (formData) => {
       harmQVT4[1] +
       harmQVT5[1] +
       harmQVT6[1]) /
-    6
+      6
   );
   const Vecu =
     (Number(securite1["vecu"]) +
@@ -163,7 +163,7 @@ export const generatePouvoiragirData = (formData) => {
       harmQVT4[0] +
       harmQVT5[0] +
       harmQVT6[0]) /
-    6
+      6
   );
   const QVT = Math.round(
     (harmQVT1[1] +
@@ -172,7 +172,7 @@ export const generatePouvoiragirData = (formData) => {
       harmQVT4[1] +
       harmQVT5[1] +
       harmQVT6[1]) /
-    6
+      6
   );
   const Vecu =
     (Number(pouvoiragir1["vecu"]) +
@@ -255,7 +255,7 @@ export const generateTotalData = (formData) => {
       inclusion.Harmonie +
       pouvoiragir.Harmonie +
       sens.Harmonie) /
-    5
+      5
   );
   const QVT = Math.round(
     (securite.QVT +
@@ -263,7 +263,7 @@ export const generateTotalData = (formData) => {
       inclusion.QVT +
       pouvoiragir.QVT +
       sens.QVT) /
-    5
+      5
   );
   const Grise = Math.round((100 * countGrise) / (27 * 3));
 
@@ -304,7 +304,7 @@ export const positionSituationPsychosociale = (formData) => {
     4: 3,
     5: 4,
     6: 5,
-    7: 6
+    7: 6,
   };
   const matchObjNeg = {
     1: 6,
@@ -313,12 +313,80 @@ export const positionSituationPsychosociale = (formData) => {
     4: 3,
     5: 2,
     6: 1,
-    7: 0
+    7: 0,
   };
 
   let sensation = Number(formData["enGeneral"]["sensation"]);
   let motivation = Number(formData["enGeneral"]["motivation"]);
   let vecuS = Number(formData["cesTemps"]["vecuS"]);
   let vecuP = Number(formData["cesTemps"]["vecuP"]);
-  return (matchObjPos[sensation] + matchObjPos[motivation] + matchObjNeg[vecuS] + matchObjNeg[vecuP]) * 4.16
+  return (
+    (matchObjPos[sensation] +
+      matchObjPos[motivation] +
+      matchObjNeg[vecuS] +
+      matchObjNeg[vecuP]) *
+    4.16
+  );
+};
+
+const asymetrique = (harmQVT) => {
+  if (harmQVT[0] >= 80 && harmQVT[2] < 4) return 1;
+  return 0;
+};
+
+export const asymetriqueSecurite = (formData) => {
+  let securite = generateSecuData(formData);
+  return (
+    asymetrique(securite.Every.harmQVT1) +
+    asymetrique(securite.Every.harmQVT2) +
+    asymetrique(securite.Every.harmQVT3) +
+    asymetrique(securite.Every.harmQVT4) +
+    asymetrique(securite.Every.harmQVT5) +
+    asymetrique(securite.Every.harmQVT6)
+  );
+};
+
+export const asymetriqueSatisfaction = (formData) => {
+  let satisfaction = generateSatisfactionData(formData);
+  return (
+    asymetrique(satisfaction.Every.harmQVT1) +
+    asymetrique(satisfaction.Every.harmQVT2) +
+    asymetrique(satisfaction.Every.harmQVT3) +
+    asymetrique(satisfaction.Every.harmQVT4) +
+    asymetrique(satisfaction.Every.harmQVT5)
+  );
+};
+
+export const asymetriqueInclusion = (formData) => {
+  let inclusion = generateInclusionData(formData);
+  return (
+    asymetrique(inclusion.Every.harmQVT1) +
+    asymetrique(inclusion.Every.harmQVT2) +
+    asymetrique(inclusion.Every.harmQVT3) +
+    asymetrique(inclusion.Every.harmQVT4) +
+    asymetrique(inclusion.Every.harmQVT5)
+  );
+};
+
+export const asymetriquePouvoiragir = (formData) => {
+  let pouvoiragir = generatePouvoiragirData(formData);
+  return (
+    asymetrique(pouvoiragir.Every.harmQVT1) +
+    asymetrique(pouvoiragir.Every.harmQVT2) +
+    asymetrique(pouvoiragir.Every.harmQVT3) +
+    asymetrique(pouvoiragir.Every.harmQVT4) +
+    asymetrique(pouvoiragir.Every.harmQVT5) +
+    asymetrique(pouvoiragir.Every.harmQVT6)
+  );
+};
+
+export const asymetriqueSens = (formData) => {
+  let sens = generateSensData(formData);
+  return (
+    asymetrique(sens.Every.harmQVT1) +
+    asymetrique(sens.Every.harmQVT2) +
+    asymetrique(sens.Every.harmQVT3) +
+    asymetrique(sens.Every.harmQVT4) +
+    asymetrique(sens.Every.harmQVT5)
+  );
 };

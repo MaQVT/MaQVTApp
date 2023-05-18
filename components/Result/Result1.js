@@ -16,7 +16,7 @@ function Result1({ formData }) {
       {/* <h1 className="font-bold text-4xl">Mes resultats</h1> */}
       <div className="flex flex-col justify-around">
         <div className="basis-1/2">
-          <h2 className="font-thin text-3xl mt-5 text-red-800 text-center">
+          <h2 className="font-thin text-3xl pt-12 text-red-800 text-center">
             Avant la passation
           </h2>
           <div className="flex flex-row flex-1 justify-evenly my-10 gap-10">
@@ -64,7 +64,6 @@ function Result1({ formData }) {
                 <span className="text-blue-600">
                   Place du travail <br /> dans ma vie
                 </span>
-                <span className="text-blue-200"> & ressenti</span>
               </>
             }
           />
@@ -84,7 +83,7 @@ function Result1({ formData }) {
                 formData={formData}
                 title={
                   <span className="text-[#AA5CB7]">
-                    Le role du travail pour moi
+                    Les fonctions du travail pour moi
                   </span>
                 }
               />

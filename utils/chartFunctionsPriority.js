@@ -36,13 +36,13 @@ export const generateSecuRadialChartData = (formData) => {
       besoinAsymetrique(securite.Every.harmQVT1) + "Sécurité matérielle" + preserveAmeliorate(securite.Every.harmQVT1),
       besoinAsymetrique(securite.Every.harmQVT2) + "Sentiment sécurité" + preserveAmeliorate(securite.Every.harmQVT2),
       besoinAsymetrique(securite.Every.harmQVT3) + "Equité" + preserveAmeliorate(securite.Every.harmQVT3),
-      besoinAsymetrique(securite.Every.harmQVT4) + "Clarté missions" + preserveAmeliorate(securite.Every.harmQVT4),
+      besoinAsymetrique(securite.Every.harmQVT4) + "Clarté des missions" + preserveAmeliorate(securite.Every.harmQVT4),
       besoinAsymetrique(securite.Every.harmQVT5) + "Soutien collègues" + preserveAmeliorate(securite.Every.harmQVT5),
       besoinAsymetrique(securite.Every.harmQVT6) + "Soutien hiérarchie" + preserveAmeliorate(securite.Every.harmQVT6),
     ],
     datasets: [
       {
-        label: "Idéal",
+        label: "Ce dont j'ai besoin",
         data: [
           securite1["ideal"],
           securite2["ideal"],
@@ -60,7 +60,7 @@ export const generateSecuRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(255, 99, 132)",
       },
       {
-        label: "Actuellement",
+        label: "Ce que je vis actuellement",
         data: [
           securite1["actu"],
           securite2["actu"],
@@ -78,7 +78,7 @@ export const generateSecuRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
       {
-        label: "Vécu",
+        label: "Comment je le vis",
         data: [
           securite1["vecu"],
           securite2["vecu"],
@@ -111,7 +111,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
 
   return {
     labels: [
-      besoinAsymetrique(satisfaction.Every.harmQVT1) + "Equilibre de vie" + preserveAmeliorate(satisfaction.Every.harmQVT1),
+      besoinAsymetrique(satisfaction.Every.harmQVT1) + "Équilibre vie pro/perso" + preserveAmeliorate(satisfaction.Every.harmQVT1),
       besoinAsymetrique(satisfaction.Every.harmQVT2) + "Confort matériel" + preserveAmeliorate(satisfaction.Every.harmQVT2),
       besoinAsymetrique(satisfaction.Every.harmQVT3) + "Plaisir" + preserveAmeliorate(satisfaction.Every.harmQVT3),
       besoinAsymetrique(satisfaction.Every.harmQVT4) + "Intérêt" + preserveAmeliorate(satisfaction.Every.harmQVT4),
@@ -119,7 +119,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
     ],
     datasets: [
       {
-        label: "Idéal",
+        label: "Ce dont j'ai besoin",
         data: [
           satisfaction1["ideal"],
           satisfaction2["ideal"],
@@ -136,7 +136,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(255, 99, 132)",
       },
       {
-        label: "Actuellement",
+        label: "Ce que je vis actuellement",
         data: [
           satisfaction1["actu"],
           satisfaction2["actu"],
@@ -153,7 +153,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
       {
-        label: "Vécu",
+        label: "Comment je le vis",
         data: [
           satisfaction1["vecu"],
           satisfaction2["vecu"],
@@ -193,7 +193,7 @@ export const generateInclusionRadialChartData = (formData) => {
     ],
     datasets: [
       {
-        label: "Idéal",
+        label: "Ce dont j'ai besoin",
         data: [
           inclusion1["ideal"],
           inclusion2["ideal"],
@@ -210,7 +210,7 @@ export const generateInclusionRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(255, 99, 132)",
       },
       {
-        label: "Actuellement",
+        label: "Ce que je vis actuellement",
         data: [
           inclusion1["actu"],
           inclusion2["actu"],
@@ -227,7 +227,7 @@ export const generateInclusionRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
       {
-        label: "Vécu",
+        label: "Comment je le vis",
         data: [
           inclusion1["vecu"],
           inclusion2["vecu"],
@@ -262,14 +262,14 @@ export const generatePouvoiragirRadialChartData = (formData) => {
     labels: [
       besoinAsymetrique(pouvoiragir.Every.harmQVT1) + "Apprentissage" + preserveAmeliorate(pouvoiragir.Every.harmQVT1),
       besoinAsymetrique(pouvoiragir.Every.harmQVT2) + "Autonomie" + preserveAmeliorate(pouvoiragir.Every.harmQVT2),
-      besoinAsymetrique(pouvoiragir.Every.harmQVT3) + "Expression" + preserveAmeliorate(pouvoiragir.Every.harmQVT3),
+      besoinAsymetrique(pouvoiragir.Every.harmQVT3) + "Communication" + preserveAmeliorate(pouvoiragir.Every.harmQVT3),
       besoinAsymetrique(pouvoiragir.Every.harmQVT4) + "Authenticité" + preserveAmeliorate(pouvoiragir.Every.harmQVT4),
       besoinAsymetrique(pouvoiragir.Every.harmQVT5) + "Responsabilités" + preserveAmeliorate(pouvoiragir.Every.harmQVT5),
       besoinAsymetrique(pouvoiragir.Every.harmQVT6) + "Perspectives" + preserveAmeliorate(pouvoiragir.Every.harmQVT6),
     ],
     datasets: [
       {
-        label: "Idéal",
+        label: "Ce dont j'ai besoin",
         data: [
           pouvoiragir1["ideal"],
           pouvoiragir2["ideal"],
@@ -287,7 +287,7 @@ export const generatePouvoiragirRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(255, 99, 132)",
       },
       {
-        label: "Actuellement",
+        label: "Ce que je vis actuellement",
         data: [
           pouvoiragir1["actu"],
           pouvoiragir2["actu"],
@@ -305,7 +305,7 @@ export const generatePouvoiragirRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
       {
-        label: "Vécu",
+        label: "Comment je le vis",
         data: [
           pouvoiragir1["vecu"],
           pouvoiragir2["vecu"],
@@ -339,14 +339,14 @@ export const generateSensRadialChartData = (formData) => {
   return {
     labels: [
       besoinAsymetrique(sens.Every.harmQVT1) + "Sens" + preserveAmeliorate(sens.Every.harmQVT1),
-      besoinAsymetrique(sens.Every.harmQVT2) + "Valeurs" + preserveAmeliorate(sens.Every.harmQVT2),
+      besoinAsymetrique(sens.Every.harmQVT2) + "Alignement des valeurs" + preserveAmeliorate(sens.Every.harmQVT2),
       besoinAsymetrique(sens.Every.harmQVT3) + "Utilité" + (preserveAmeliorate(sens.Every.harmQVT3)),
       besoinAsymetrique(sens.Every.harmQVT4) + "Compétences" + (preserveAmeliorate(sens.Every.harmQVT4)),
       besoinAsymetrique(sens.Every.harmQVT5) + "Réalisation de soi" + (preserveAmeliorate(sens.Every.harmQVT5)),
     ],
     datasets: [
       {
-        label: "Idéal",
+        label: "Ce dont j'ai besoin",
         data: [
           sens1["ideal"],
           sens2["ideal"],
@@ -363,7 +363,7 @@ export const generateSensRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(255, 99, 132)",
       },
       {
-        label: "Actuellement",
+        label: "Ce que je vis actuellement",
         data: [
           sens1["actu"],
           sens2["actu"],
@@ -380,7 +380,7 @@ export const generateSensRadialChartData = (formData) => {
         pointHoverBorderColor: "rgb(54, 162, 235)",
       },
       {
-        label: "Vécu",
+        label: "Comment je le vis",
         data: [
           sens1["vecu"],
           sens2["vecu"],

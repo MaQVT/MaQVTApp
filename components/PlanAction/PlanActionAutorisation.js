@@ -27,10 +27,10 @@ export default function PlanActionAutorisation({
   };
   return (
     <div className="flex flex-col text-center justify-center">
-      <h2 className="font-Trocchi font-light mb-10 text-2xl">{'""" '}{titleName}{' """'}</h2>
+      <h2 className="font-Trocchi font-light mb-10 text-2xl">{titleName}</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="flex flex-col items-center font-PlayfairDisplay gap-4">
-          <div className="flex">
+          {/* <div className="flex">
             <input
             className="rounded-full"
               type="checkbox"
@@ -43,7 +43,7 @@ export default function PlanActionAutorisation({
               Je souhaite recevoir mon rapport personnel sur ma messagerie
               professionnelle
             </label>
-          </div>
+          </div> */}
           <div className="flex">
             <input
               type="checkbox"
@@ -53,16 +53,15 @@ export default function PlanActionAutorisation({
               value={true}
             />
             <label htmlFor="receive_report">
-              J&apos;accepte que mes résultats soient transmis de manière
-              anonyme pour éditer une synthèse collective
+              J&apos;accepte que mes résultats soient associés à ceux des membres de mon équipe et transmis de manière anonyme pour éditer une synthèse collective
             </label>
           </div>
         </div>
 
-        <div  className='absolute bottom-[30px] w-full'>
+        <div  className='absolute bottom-[110px] w-full'>
           {(position > 0 || position == -1) && (
             <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
-              Précédant
+              Précédent
             </button>
           )}
           <button type="submit" className="w-[100px] h-[50px] rounded mx-40">

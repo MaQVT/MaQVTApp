@@ -22,7 +22,7 @@ export default function FormAD2({
     handleNext({ [stepName]: values });
   };
   return (
-    <div className="h-full bg-rose_pr flex flex-col items-center">
+    <div className="h-full flex flex-col items-center">
       <h2 className="w-full font-bold text-6xl text-center font-MoonTime mt-5 text-customGray">
         {titleName}
       </h2>
@@ -34,9 +34,15 @@ export default function FormAD2({
           <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">
             Mon état physique
           </h2>
-          <div className="flex p-10 flex-col" id="physique">
-            <div className="flex flex-row my-4">
-              <div className="flex mx-4">
+          <div className="flex p-10 text-base items-center gap-6 justify-center" id="physique">
+            <div className="">
+              <div className="flex">
+                <label
+                  htmlFor="physique8"
+                  className=""
+                >
+                  8
+                </label>
                 <input
                   type="radio"
                   id="physique8"
@@ -44,125 +50,119 @@ export default function FormAD2({
                   value="8"
                   defaultChecked
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
-                <label
-                  htmlFor="physique8"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
-                >
-                  8
-                </label>
               </div>
-              <div className="flex mx-4">
+              <div className="flex">
+                <label
+                  htmlFor="physique7"
+                  className=""
+                >
+                  7
+                </label>
                 <input
                   type="radio"
                   id="physique7"
                   name="physique"
                   value="7"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
-                <label
-                  htmlFor="physique7"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
-                >
-                  7
-                </label>
               </div>
-              <div className="flex mx-4">
+              <div className="flex">
+                <label
+                  htmlFor="physique6"
+                  className=""
+                >
+                  6
+                </label>
                 <input
                   type="radio"
                   id="physique6"
                   name="physique"
                   value="6"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
-                <label
-                  htmlFor="physique6"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
-                >
-                  6
-                </label>
               </div>
-              <div className="flex mx-4">
+              <div className="flex">
+                <label
+                  htmlFor="physique5"
+                  className=""
+                >
+                  5
+                </label>
                 <input
                   type="radio"
                   id="physique5"
                   name="physique"
                   value="5"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
-                <label
-                  htmlFor="physique5"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
-                >
-                  5
-                </label>
               </div>
             </div>
-            <div className="flex flex-row my-4">
-              <div className="flex mx-4">
+            <div className="">
+              <div className="flex">
                 <input
                   type="radio"
                   id="physique4"
                   name="physique"
                   value="4"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
                 <label
                   htmlFor="physique4"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
+                  className=""
                 >
                   4
                 </label>
               </div>
-              <div className="flex mx-4">
+              <div className="flex">
                 <input
                   type="radio"
                   id="physique3"
                   name="physique"
                   value="3"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
                 <label
                   htmlFor="physique3"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
+                  className=""
                 >
                   3
                 </label>
               </div>
-              <div className="flex mx-4">
+              <div className="flex">
                 <input
                   type="radio"
                   id="physique2"
                   name="physique"
                   value="2"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
                 <label
                   htmlFor="physique2"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
+                  className=""
                 >
                   2
                 </label>
               </div>
-              <div className="flex mx-4">
+              <div className="flex">
                 <input
                   type="radio"
                   id="physique1"
                   name="physique"
                   value="1"
                   onChange={handleChange}
-                  className="peer hidden"
+                  className=""
                 />
                 <label
                   htmlFor="physique1"
-                  className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-red-500"
+                  className=""
                 >
                   1
                 </label>
@@ -227,14 +227,14 @@ export default function FormAD2({
           </div>
         </div>
       </form>
-      <div className="absolute bottom-[30px]">
+      <div className="absolute bottom-[110px]">
         {(position > 0 || position == -1) && (
           <button
             type="button"
             onClick={handlePrev}
             className="w-[100px] h-[50px] rounded"
           >
-            Précédant
+            Précédent
           </button>
         )}
         <button

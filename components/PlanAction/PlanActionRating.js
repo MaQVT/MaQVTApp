@@ -107,10 +107,10 @@ export default function PlanActionRating({
             </label>
           </div>
         </div>
-        <div  className='absolute bottom-[30px]'>
+        <div  className='absolute bottom-[110px]'>
           {(position > 0 || position == -1) && (
             <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
-              Précédant
+              Précédent
             </button>
           )}
           <button type="submit" className="w-[100px] h-[50px] rounded mx-40">

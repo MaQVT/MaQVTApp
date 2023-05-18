@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { generateChartRoleData } from "../../utils/chartFunctions";
 
-function ChartComponentRole({ formData, step,title }) {
+function ChartComponentRole({ formData, step, title }) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
@@ -26,7 +26,16 @@ function ChartComponentRole({ formData, step,title }) {
             suggestedMax: 5,
             ticks: {
               stepSize: 1,
+              display: false
             },
+            grid: {
+              display: false
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
           },
         },
         plugins: {
@@ -34,6 +43,9 @@ function ChartComponentRole({ formData, step,title }) {
             position: "top",
             display: false,
           },
+          tooltip:{
+            enabled: false
+          }
         },
       },
     });

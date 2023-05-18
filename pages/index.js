@@ -17,7 +17,7 @@ function Home({ user }) {
   };
 
   const taketest = () => {
-    router.push("/testqvt/take_diagnostic_test",query={user});
+    router.push("/testqvt/take_diagnostic_test", query = { user });
   };
 
   const getusers = async () => {
@@ -35,9 +35,15 @@ function Home({ user }) {
       </Head>
       {user.email && (
         <Layout user={user}>
-          <div className="w-full h-full flex justify-center items-center">
-            <p className="text-6xl font-thin font-Benedict">Page d&apos;accueil</p>
-          </div>
+          <main className={styles.main}>
+            <div className="w-full h-full flex justify-center items-center py-5">
+              <p className="text-4xl text-center font-thin font-Benedict">Bonjour {user.username}, <br /><br />
+                Bienvenue dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br />
+                L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
+                L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br />
+              </p>
+            </div>
+          </main>
         </Layout>
       )}
     </>

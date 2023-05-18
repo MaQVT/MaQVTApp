@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        securite1: "#833c0b",
+        securite1: "#EF8D4D",
         securite2: "#FBE3D5",
         satisfaction1: "#FE06FF",
         satisfaction2: "#EBC4FE",
@@ -29,7 +29,8 @@ module.exports = {
       PlayfairDisplay: ['Playfair Display', 'Segoe UI', 'serif'],
       Trocchi: ['Trocchi', 'Segoe UI', 'serif'],
       Benedict: ['var(--benedict)', 'Segoe UI', 'serif'],
-      MoonTime: ['var(--moon-time)', 'Segoe UI', 'serif'],
+      // MoonTime: ['var(--moon-time)', 'Segoe UI', 'serif'],
+      MoonTime: ['Dancing Script', 'Segoe UI', 'serif'],
       AnticDidone: ['Antic Didone', 'Segoe UI', 'serif'],
     },
   },

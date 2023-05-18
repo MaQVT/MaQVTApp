@@ -165,33 +165,43 @@ let diagnosticSchema = new mongoose.Schema({
       vecu: String,
     },
   },
-  preserve: {
-    type: [String],
+  // preserve: {
+  //   type: [String],
+  // },
+  // ameliorate: {
+  //   type: [String],
+  // },
+  // preserveAction: {
+  //   reponse: [String],
+  //   priorite: [String],
+  //   qui: [String],
+  //   envie: String,
+  //   capacite: Boolean
+  // },
+  // ameliorateAction: {
+  //   reponse: [String],
+  //   priorite: [String],
+  //   qui: [String],
+  //   envie: String,
+  //   capacite: Boolean
+  // },
+  frequency: {
+    type: String,
+    default: "trimestrielle",
   },
-  ameliorate: {
-    type: [String],
-  },
-  preserveAction: {
-    reponse: [String],
-    priorite: [String],
-    qui: [String],
-    envie: String,
-    capacite: Boolean
-  },
-  ameliorateAction: {
-    reponse: [String],
-    priorite: [String],
-    qui: [String],
-    envie: String,
-    capacite: Boolean
-  },
-  receive_report: {
+  collectiveSynthesis: {
     type: Boolean,
     default: false,
   },
-  accept_transmission: {
+  consultantAccess: {
     type: Boolean,
     default: false,
+  },
+  status: {
+    type: String,
+    enum: ["private", "consultant", "public"],
+    default: "private",
+    required: false,
   },
   rating: {
     type: String,

@@ -157,9 +157,10 @@ export default function PlanActionForm() {
               handlePrev={handlePrev}
               titleName={
                 <>
-                  Repassez ce test dès que vous en ressentez le besoin, et
-                  notamment <br /> lorsqu&apos;un élément significatif bouge
-                  dans votre contexte personnel / professionnel.
+                  {'"""'} Repassez ce test dès que vous en ressentez le besoin, et
+                  notamment <br /> lorsque vous vivez un changement
+                  dans votre contexte personnel / professionnel. {'"""'} <br />
+                  (Vous pouvez paramétrer vos notifications dans votre espace “Mon Compte”)
                 </>
               }
               position={1}

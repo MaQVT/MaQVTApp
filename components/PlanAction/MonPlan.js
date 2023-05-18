@@ -169,7 +169,7 @@ const MonPlan = ({
         </div>
         {(position > 0 || position == -1) && (
           <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
-            Précédant
+            Précédent
           </button>
         )}
         <button type="submit" className="w-[100px] h-[50px] rounded mx-5">{position == -1 ? "Terminer" : "Suivant"}</button>

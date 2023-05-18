@@ -8,6 +8,7 @@ import FormVTM2 from "./FormVTM2";
 import FormVTM3 from "./FormVTM3";
 import FormAD1 from "./FormAD1";
 import FormAD2 from "./FormAD2";
+import TextPass from "./TextPass";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -46,9 +47,9 @@ export default function MultiStepForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          token:localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         },
-        body: JSON.stringify({ form_data: formData, email: localStorage.getItem("email")}),
+        body: JSON.stringify({ form_data: formData, email: localStorage.getItem("email") }),
       });
       if (res.ok) {
         const json = await res.json();
@@ -67,13 +68,22 @@ export default function MultiStepForm() {
   }, [formData]);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full flex-1">
       {step === 1 && (
-        <ImagePass
+        <TextPass
           handleNext={handleNextImage}
           handlePrev={handlePrev}
-          image="/debut.png"
-          alt="Image de Début"
+          text={<>
+            Bienvenue ! <br />
+            Vous vous apprêtez à vous offrir un temps précieux d’écoute de vous-même, de votre vécu du travail. Et pour cela, déjà, bravo. <br />
+            Vous allez être guidé par une trentaine de questions permettant d’évaluer votre Qualité de Vie au Travail, actuellement. <br />
+            Pour que cette expérience vous soit utile : <br />
+            1&gt; Répondez avec un maximum d’authenticité <br />
+            Vous êtes une personne unique, et personne mieux que vous ne peut savoir ce que vous vivez, ni ce dont vous avez besoin. <br />
+            2&gt; Répondez avec un maximum de spontanéité <br />
+            Ne cherchez pas à imaginer ce qu’il y a “derrière” chaque question, car il n’y a pas de bonne ou mauvaise réponse, vous avez le droit de penser et ressentir tout ce que vous voulez ! <br />
+            C’est à vous… Lancer l’auto-diagnostic <br />
+          </>}
           position={0}
         />
       )}
@@ -114,8 +124,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"importanceTravail"}
-          titleName={"Le travail a t-il une place importante dans ma Vie ?"}
+          titleName={"Le travail est-il important pour moi ?"}
           position={1}
+          pageNumber={"01"}
         />
       )}
 
@@ -125,9 +136,10 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           stepName={"roleTravail"}
           titleName={
-            "Quel est le rôle du travail pour moi, de manière générale ?"
+            "Quelle est la fonction du travail pour moi, de manière générale ?"
           }
           position={1}
+          pageNumber={"02"}
         />
       )}
 
@@ -136,8 +148,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"enGeneral"}
-          titleName={"En général, ces temps-ci,"}
+          titleName={"De manière générale, ces temps-ci,"}
           position={1}
+          pageNumber={"03"}
         />
       )}
 
@@ -148,6 +161,7 @@ export default function MultiStepForm() {
           stepName={"cesTemps"}
           titleName={"Ces temps ci,"}
           position={1}
+          pageNumber={"04"}
         />
       )}
 
@@ -163,11 +177,13 @@ export default function MultiStepForm() {
 
       {/* Questionnaire pour la partie Sécurité */}
       {step === 10 && (
-        <ImagePass
+        <TextPass
           handleNext={handleNextImage}
           handlePrev={handlePrev}
-          image="/securite.png"
-          alt="Image de Securité"
+          text={<>
+          <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
+          <p className="font-Trocchi text-securite1 text-6xl">Sécurité</p>
+          </>}
           position={1}
         />
       )}
@@ -181,6 +197,7 @@ export default function MultiStepForm() {
             "Mon travail contribue à ma sécurité matérielle et à celle de ma famille."
           }
           position={1}
+          pageNumber={<span className="text-securite1">01</span>}
         />
       )}
       {step === 12 && (
@@ -188,8 +205,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"securiteTwo"}
-          titleName={"Je me sens en sécurité dans mon travail."}
+          titleName={"Je suis en sécurité dans mon travail."}
           position={1}
+          pageNumber={<span className="text-securite1">02</span>}
         />
       )}
       {step === 13 && (
@@ -197,8 +215,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"securiteThree"}
-          titleName={"Je suis traité.e équitablement."}
+          titleName={"Je suis traité·e équitablement."}
           position={1}
+          pageNumber={<span className="text-securite1">03</span>}
         />
       )}
       {step === 14 && (
@@ -208,6 +227,7 @@ export default function MultiStepForm() {
           stepName={"securiteFour"}
           titleName={"Mes objectifs et mes tâches sont clairs."}
           position={1}
+          pageNumber={<span className="text-securite1">04</span>}
         />
       )}
       {step === 15 && (
@@ -215,8 +235,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"securiteFive"}
-          titleName={"Je suis soutenu.e et j'ai confiance en mes collègues."}
+          titleName={"Je suis soutenu·e et j'ai confiance en mes collègues."}
           position={1}
+          pageNumber={<span className="text-securite1">05</span>}
         />
       )}
       {step === 16 && (
@@ -224,18 +245,21 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"securiteSix"}
-          titleName={"Je suis soutenu.e et j'ai confiance en ma hiérarchie."}
+          titleName={"Je suis soutenu·e et j'ai confiance en ma hiérarchie."}
           position={1}
+          pageNumber={<span className="text-securite1">06</span>}
         />
       )}
 
       {/* Questionnaire pour la partie Satisfaction */}
       {step === 17 && (
-        <ImagePass
+        <TextPass
           handleNext={handleNextImage}
           handlePrev={handlePrev}
-          image="/satisfaction.png"
-          alt="Image de Satisfaction"
+          text={<>
+            <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
+            <p className="font-Trocchi text-satisfaction1 text-6xl">Plaisir</p>
+            </>}
           position={1}
         />
       )}
@@ -247,6 +271,7 @@ export default function MultiStepForm() {
           stepName={"satisfactionOne"}
           titleName={"Mon travail me laisse du temps pour ma vie personnelle."}
           position={1}
+          pageNumber={<span className="text-satisfaction1">07</span>}
         />
       )}
       {step === 19 && (
@@ -256,6 +281,7 @@ export default function MultiStepForm() {
           stepName={"satisfactionTwo"}
           titleName={"Mes conditions matérielles de travail sont confortables."}
           position={1}
+          pageNumber={<span className="text-satisfaction1">08</span>}
         />
       )}
       {step === 20 && (
@@ -265,6 +291,7 @@ export default function MultiStepForm() {
           stepName={"satisfactionThree"}
           titleName={"J’éprouve du plaisir dans mon travail."}
           position={1}
+          pageNumber={<span className="text-satisfaction1">09</span>}
         />
       )}
       {step === 21 && (
@@ -274,6 +301,7 @@ export default function MultiStepForm() {
           stepName={"satisfactionFour"}
           titleName={"Le contenu de mon travail est intéressant."}
           position={1}
+          pageNumber={<span className="text-satisfaction1">10</span>}
         />
       )}
       {step === 22 && (
@@ -283,16 +311,19 @@ export default function MultiStepForm() {
           stepName={"satisfactionFive"}
           titleName={"Mes relations de travail sont agréables."}
           position={1}
+          pageNumber={<span className="text-satisfaction1">11</span>}
         />
       )}
 
       {/* Questionnaire pour la partie d'Inclusion */}
       {step === 23 && (
-        <ImagePass
+        <TextPass
           handleNext={handleNextImage}
           handlePrev={handlePrev}
-          image="/inclusion.png"
-          alt="Image d'inclusion"
+          text={<>
+            <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin d&apos; ...</p><br />
+            <p className="font-Trocchi text-inclusion1 text-6xl">Inclusion</p>
+            </>}
           position={1}
         />
       )}
@@ -304,6 +335,7 @@ export default function MultiStepForm() {
           stepName={"inclusionOne"}
           titleName={"Je fais partie d’un collectif."}
           position={1}
+          pageNumber={<span className="text-inclusion1">12</span>}
         />
       )}
       {step === 25 && (
@@ -313,6 +345,7 @@ export default function MultiStepForm() {
           stepName={"inclusionTwo"}
           titleName={"J’occupe une place claire et respectée."}
           position={1}
+          pageNumber={<span className="text-inclusion1">13</span>}
         />
       )}
       {step === 26 && (
@@ -322,6 +355,7 @@ export default function MultiStepForm() {
           stepName={"inclusionThree"}
           titleName={"Je reçois de la reconnaissance."}
           position={1}
+          pageNumber={<span className="text-inclusion1">14</span>}
         />
       )}
       {step === 27 && (
@@ -329,8 +363,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"inclusionFour"}
-          titleName={"Je suis apprécié.e en tant que Personne."}
+          titleName={"Je suis apprécié·e en tant que personne."}
           position={1}
+          pageNumber={<span className="text-inclusion1">15</span>}
         />
       )}
       {step === 28 && (
@@ -338,18 +373,21 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"inclusionFive"}
-          titleName={"Je suis estimé.e en tant que Professionnel.le."}
+          titleName={"Je suis estimé·e en tant que professionnel·le."}
           position={1}
+          pageNumber={<span className="text-inclusion1">16</span>}
         />
       )}
 
       {/* Questionnaire pour la partie du Pouvoir d'agir */}
       {step === 29 && (
-        <ImagePass
+        <TextPass
           handleNext={handleNextImage}
           handlePrev={handlePrev}
-          image="/pouvoiragir.png"
-          alt="Image de Pouvoir d'agir"
+          text={<>
+            <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
+            <p className="font-Trocchi text-pouvoiragir1 text-6xl">Pouvoir agir</p>
+            </>}
           position={1}
         />
       )}
@@ -363,6 +401,7 @@ export default function MultiStepForm() {
             "J’apprends de nouvelles choses et je peux faire évoluer mes compétences."
           }
           position={1}
+          pageNumber={<span className="text-pouvoiragir1">17</span>}
         />
       )}
       {step === 31 && (
@@ -372,6 +411,7 @@ export default function MultiStepForm() {
           stepName={"pouvoiragirTwo"}
           titleName={"Je suis autonome et je peux prendre des initiatives."}
           position={1}
+          pageNumber={<span className="text-pouvoiragir1">18</span>}
         />
       )}
       {step === 32 && (
@@ -379,8 +419,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"pouvoiragirThree"}
-          titleName={"Je peux m’exprimer et je suis écouté.e."}
+          titleName={"Je peux m’exprimer et je suis écouté·e."}
           position={1}
+          pageNumber={<span className="text-pouvoiragir1">19</span>}
         />
       )}
       {step === 33 && (
@@ -388,8 +429,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"pouvoiragirFour"}
-          titleName={"Je me sens libre d’être moi-même au travail."}
+          titleName={"Je suis libre d’être moi-même au travail."}
           position={1}
+          pageNumber={<span className="text-pouvoiragir1">20</span>}
         />
       )}
       {step === 34 && (
@@ -399,6 +441,7 @@ export default function MultiStepForm() {
           stepName={"pouvoiragirFive"}
           titleName={"J’ai des responsabilités."}
           position={1}
+          pageNumber={<span className="text-pouvoiragir1">21</span>}
         />
       )}
       {step === 35 && (
@@ -406,18 +449,21 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"pouvoiragirSix"}
-          titleName={"J’ai des perspectives."}
+          titleName={"J’ai des perspectives d’avenir."}
           position={1}
+          pageNumber={<span className="text-pouvoiragir1">22</span>}
         />
       )}
 
       {/* Questionnaire pour la partie de sens */}
       {step === 36 && (
-        <ImagePass
+        <TextPass
           handleNext={handleNextImage}
           handlePrev={handlePrev}
-          image="/sens.png"
-          alt="Image de Sens"
+          text={<>
+            <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
+            <p className="font-Trocchi text-sens1 text-6xl">Sens</p>
+            </>}
           position={1}
         />
       )}
@@ -431,6 +477,7 @@ export default function MultiStepForm() {
             "Mon travail a du sens."
           }
           position={1}
+          pageNumber={<span className="text-sens1">23</span>}
         />
       )}
       {step === 38 && (
@@ -440,6 +487,7 @@ export default function MultiStepForm() {
           stepName={"sensTwo"}
           titleName={"Je peux agir en conformité avec mes valeurs."}
           position={1}
+          pageNumber={<span className="text-sens1">24</span>}
         />
       )}
       {step === 39 && (
@@ -449,6 +497,7 @@ export default function MultiStepForm() {
           stepName={"sensThree"}
           titleName={"Je suis utile."}
           position={1}
+          pageNumber={<span className="text-sens1">25</span>}
         />
       )}
       {step === 40 && (
@@ -456,8 +505,9 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"sensFour"}
-          titleName={"Je suis compétent.e et efficace."}
+          titleName={"Je suis compétent·e et efficace."}
           position={1}
+          pageNumber={<span className="text-sens1">26</span>}
         />
       )}
       {step === 41 && (
@@ -467,6 +517,7 @@ export default function MultiStepForm() {
           stepName={"sensFive"}
           titleName={"Je me réalise, je m’accomplis dans mon travail."}
           position={-1}
+          pageNumber={<span className="text-sens1">27</span>}
         />
       )}
 

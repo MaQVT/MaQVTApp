@@ -45,7 +45,15 @@ function PlaceTravailChart({
         plugins: {
           legend: {
             position: "right",
+            display: false
           },
+          tooltip: {
+            callbacks:{
+              label: function(context) {
+                return context.dataset.data[context.dataIndex] + "%"
+            }
+            }
+          }
         },
         responsive: true,
         maintainAspectRatio: false,

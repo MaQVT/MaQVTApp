@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -42,7 +43,7 @@ button, [type="button"], [type="reset"], [type="submit"]{
 }
 
 button:hover{
-    background-color: bisque;
+    background-color: rgb(17, 105, 12);
 }
 
 label, label[for]{
@@ -53,11 +54,18 @@ div[draggable] span{
     cursor: grab;
 }
 
-/*#physique{
-    //background-image: url(../public/form/dispo.png);
+#physique{
+    background-image: url(../public/form/dispo.png);
     background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
-}  */
+}
+
+#physique label{
+    width: 10px;
+    height: 30px;
+}
+
 #tableMonPlan input{
     width: 100%;
     margin: 0;

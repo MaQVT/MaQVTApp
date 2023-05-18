@@ -6,6 +6,7 @@ function RadarChartComponent({
   formData,
   chartFunction,
   chartDataFunction,
+  chartAsymetriqueFuntion,
   title,
   bgcolor1,
   bgcolor2,
@@ -13,6 +14,7 @@ function RadarChartComponent({
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
   const result = chartDataFunction(formData);
+  const asymetrique = chartAsymetriqueFuntion(formData);
   console.log(result);
 
   useEffect(() => {
@@ -66,12 +68,12 @@ function RadarChartComponent({
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="font-thin text-6xl mt-10 font-MoonTime text-customGray">{title}</h1>
+      <h1 className="font-thin text-6xl mt-14 font-MoonTime text-customGray">{title}</h1>
       <div>
         <div className="w-[600px] mt-6 mb-6">
           <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
         </div>
-        <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>
+        { asymetrique >= 1 && <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>}
       </div>
       <Description
         bgcolor1={bgcolor1}

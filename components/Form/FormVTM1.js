@@ -8,6 +8,7 @@ export default function FormVTM1({
   stepName,
   position,
   titleName,
+  pageNumber
 }) {
   const [values, setValues] = useState({
     placeT: "4",
@@ -24,13 +25,16 @@ export default function FormVTM1({
     handleNext({ [stepName]: values });
   };
   return (
-    <div className="h-full bg-rose_pr flex flex-col">
+    <div className="h-full flex flex-col">
       {/* <h2 className="w-full font-bold text-6xl">La vie au travail et moi</h2> */}
       <form
         onSubmit={handleFormSubmit}
         className="flex flex-col justify-center items-center flex-1"
       >
-        <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">{titleName}</h2>
+        <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+          <span className="text-purple-800 font-Benedict mr-8 text-5xl">{pageNumber}</span>
+          {titleName}
+        </h2>
         <div className="m-4">
           {/* <h3>Le travail a t-il une place importante dans ma vie ?</h3> */}
           <RadioNormal
@@ -49,14 +53,14 @@ export default function FormVTM1({
             handleChange={handleChange}
           />
         </div>
-        <div className="absolute bottom-[30px] flex flex-row justify-center items-center w-full">
+        <div className="absolute bottom-[110px] flex flex-row justify-center items-center w-full">
           {(position > 0 || position == -1) && (
             <button
               type="button"
               onClick={handlePrev}
               className="w-[100px] h-[50px] rounded"
             >
-              Précédant
+              Précédent
             </button>
           )}
           <button

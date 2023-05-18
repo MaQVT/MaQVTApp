@@ -23,7 +23,7 @@ function ResultResumeWithPriority({ formData }) {
       <SelectionPriorityChart
         formData={formData}
         chartFunction={generateSatisfactionRadialChartData}
-        title={"Satisfaction"}
+        title={"Plaisir"}
         bgcolor1={"bg-satisfaction1"}
         bgcolor2={"bg-satisfaction2"}
       />

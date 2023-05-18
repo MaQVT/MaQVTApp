@@ -1,11 +1,15 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "/styles/Home.module.css";
+import Layout from "../layout";
+
 import PlanActionForm from "../../components/PlanAction/PlanActionForm";
+import cookies from "next-cookies";
+import { verifyJwt } from "../../utils/jwt";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function PlanAction() {
+function PlanAction({user}) {
   return (
     <>
       <Head>
@@ -14,11 +18,37 @@ function PlanAction() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <PlanActionForm />
-      </main>
+      <Layout user={user}>
+
+        <main className={styles.main}>
+          <PlanActionForm />
+        </main>
+      </Layout>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const token = cookies(context).token;
+  const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
+
+  const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      token: token,
+    },
+  });
+
+  let userResponseJson = { data: {} };
+
+  if (userResponse.ok) {
+    userResponseJson = await userResponse.json();
+  }
+
+  return {
+    props: { user: userResponseJson.data }, // will be passed to the page component as props
+  };
 }
 
 export default PlanAction;

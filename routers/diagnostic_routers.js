@@ -83,7 +83,7 @@ export const getByIdDiagnosticRoute = async (req, res) => {
   } = req;
   try {
     const diagnostic = await getDiagnosticById(id);
-    if (diagnostic.email != verifyJwt(req.headers.token).email) {
+    if (diagnostic.email != verifyJwt(req.headers.token).email  && verifyJwt(req.headers.token).role != "Admin") {
       throw new Error("Anoter user trying to access anoter user info");
     }
     console.log(diagnostic);

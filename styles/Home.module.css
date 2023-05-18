@@ -2,10 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
-  min-width: 10vw;
-  background-image: url("../public/backgound.png");
+  /* padding: 2rem; */
+  min-height: calc(100vh - 75px);
+  width: 100%;
+  flex-grow: 1;
+  /* background-color: coral; */
 }
 .options{
   width: 80px;

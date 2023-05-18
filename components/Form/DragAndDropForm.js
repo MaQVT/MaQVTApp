@@ -5,9 +5,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 const initialItems = [
   { id: "1", content: "Le travail me permet de gagner de l'argent" },
   { id: "2", content: "Le travail nourrit mes liens humains et ma vie sociale" },
-  { id: "3", content: "Le travail me donne une identité qui a de la valeur en société" },
+  { id: "3", content: "Le travail me donne une identité au sein de la société" },
   { id: "4", content: "Le travail est l'occasion de m’accomplir personnellement" },
-  { id: "5", content: "Le travail est ma façon de contribuer à la Société" },
+  { id: "5", content: "Le travail me permet de contribuer utilement à la société" },
 ];
 
 const reorder = (list, startIndex, endIndex) => {
@@ -86,7 +86,7 @@ const Draggable = ({ item, index, setDraggingId, moveCard }) => {
   );
 };
 
-const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName }) => {
+const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName, pageNumber }) => {
   const [items, setItems] = useState(initialItems);
   const [order, setOrder] = useState([]);
 
@@ -96,27 +96,42 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
     console.log(itemIds);
     handleNext({ [stepName]: itemIds })
   };
-  
+
 
   return (
-    <div className="h-full bg-rose_pr flex flex-col" >
+    <div className="h-full flex flex-col" >
       {/* <h2 className="w-full font-bold text-6xl">La vie au travail et moi</h2> */}
       <div className="flex flex-col justify-center items-center flex-1">
-      <h1 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">Quel est le rôle du travail pour moi de manière générale?</h1>
-      <div className="p-4 rounded-lg">
-      <p className="font-thin text-xs text-center mb-5">CLASSER LES 5 ITEMS PAR ORDRE DE PRIORITÉ (1 = MAXI / 5 = MINI)</p>
-        <DndProvider backend={HTML5Backend}>
-          <ItemList items={items} setItems={setItems} />
-        </DndProvider>
+        <h1 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+          <span className="text-purple-800 font-Benedict mr-8 text-5xl">{pageNumber}</span>
+
+          Quelle est la fonction du travail pour moi, de manière générale ?
+        </h1>
+        <div className="p-4 rounded-lg">
+          <p className="font-thin text-xs text-center mb-5">CLASSER LES 5 FONCTIONS PAR ORDRE DE PRIORITÉ (1 = MAXI / 5 = MINI)</p>
+          <div className="flex flex-row">
+            <div className="flex flex-col justify-start">
+                <span className="mt-2 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200">1</span>
+                <span className="my-[6px] mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200">2</span>
+                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200">3</span>
+                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200">4</span>
+                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200">5</span>
+            </div>
+            <div>
+              <DndProvider backend={HTML5Backend}>
+                <ItemList items={items} setItems={setItems} />
+              </DndProvider>
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
-      <div className='absolute bottom-[30px] flex flex-row justify-center items-center w-full'>
-          {(position > 0 || position == -1) && (
-            <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
-              Précédant
-            </button>
-          )}
-          <button onClick={handleNextClick} className="w-[100px] h-[50px] rounded mx-40" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
+      <div className='absolute bottom-[110px] flex flex-row justify-center items-center w-full'>
+        {(position > 0 || position == -1) && (
+          <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
+            Précédent
+          </button>
+        )}
+        <button onClick={handleNextClick} className="w-[100px] h-[50px] rounded mx-40" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
       </div>
     </div>
   );
