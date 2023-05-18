@@ -33,6 +33,12 @@ let userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  delay_mail:{
+    type:String,
+    enum:["1mois","3mois","6mois","12mois","jamais"],
+    required:false,
+    default:"jamais"
+  },
   expired_date: {
     type: String,
   },

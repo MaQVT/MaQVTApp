@@ -8,7 +8,8 @@ import {
   getUserById,
   updateUserProfile,
   getUsersByParents,
-  getAllUsersByRole
+  getAllUsersByRole,
+  UpdateByIdUser
 } from "../db/handlers/users_handlers";
 import moment from "moment";
 import {
@@ -45,6 +46,17 @@ export const getUserByRole = async (req, res) => {
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });
   }
 };
+export const UpdateByIdUserRoute = async (req,res)=>{
+  try {
+    const {id} = req.query
+    await UpdateByIdUser(id,{...req.body})
+    res.json({data:user,message:"Données envoyées"})
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+}
 export const getUserFilsRoute = async(req,res)=>{
   try {
     const {parent} = req.query
@@ -200,14 +212,13 @@ export const getByIdUserRoute = async (req, res) => {
   } = req;
   try {
     const user = await getUserById(id);
-    if (user.email != verifyJwt(req.headers.token).email) {
+    let accessor = verifyJwt(req.headers.token)
+    if (user.email != accessor.email && accessor.role == "User") {
       throw new Error("Anoter user trying to access anoter user info");
     }
     console.log(user);
     res.json({ data: user, message: "Données envoyées" });
   } catch (error) {
-    console.log("*******************************")
-    console.log(error);
     res
       .status(400)
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });

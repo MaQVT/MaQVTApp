@@ -15,7 +15,14 @@ const getAllUsersByRole = async (role) => {
   return users;
 };
 const getUsersByParents = async (parentId) =>{
-  return await UserModel.find({ parentId: parentId });
+  let parent = await UserModel.findOne({_id:parentId})
+  let fils = {}
+  if(parent.role=="Admin"){
+    fils  = await UserModel.find({$or:[{ role: "Admin" },{ parentId: parentId }]});
+  }else{
+    fils = await UserModel.find({ parentId: parentId });
+  }
+  return fils
 }
 const getAllClients = async () => {
   const users = await UserModel.find({ role: "Client" });
@@ -59,6 +66,13 @@ const deleteUserByEmail = async (email) => {
   return user;
 };
 
+const UpdateByIdUser = async(id,data)=>{
+  const user = await UserModel.findOneAndUpdate({"_id":id},{
+    ...data
+  })
+  return user;
+}
+
 const updateUserProfile = async (data) => {
   const user = await UserModel.findOne({ email: data.email });
   if (user) {
@@ -88,5 +102,6 @@ export {
   updateUserProfile,
   addUser,
   getUsersByParents,
-  getAllUsersByRole
+  getAllUsersByRole,
+  UpdateByIdUser
 };

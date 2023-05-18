@@ -29,7 +29,6 @@ export default function LoginForm() {
     });
     if (res.ok) {
       const json = await res.json();
-      console.log(json.message);
       authenticate(json.token);
       Router.push("/");
     } else {

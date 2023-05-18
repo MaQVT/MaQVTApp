@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState,useEffect } from "react";
 import cookies from "next-cookies";
+var xlsx = require("xlsx");
 
-function AddUser({handleAddUser,roles,parent_id}) {
+function AddUser({handleAddUser,roles,parent_id,parent}) {
     const [sendMail, setSendMail] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("User");
+    const [file,setFile] = useState(null)
     const [superieur,setSuperieur] = useState("")
     const [superieurs,setSuperieurs] = useState([])
 
@@ -41,16 +43,28 @@ function AddUser({handleAddUser,roles,parent_id}) {
     
     const handleSubmit = async (event) => {
       event.preventDefault();
-      const formData = { send_mail: sendMail, username, email, role,parentId:parent_id };
-      handleAddUser(formData);
-      setEmail("")
-      setSendMail(false);
-      setUsername("");
-      setEmail("");
-      setRole("User");
-      setSuperieur("")
-      setSuperieurs([])
-
+      if(file){
+        const workbook = xlsx.readFile(file.path);
+        // Obtenir le nom de la première feuille
+        const firstSheetName = workbook.SheetNames[0];
+        // Obtenir les données de la première feuille sous forme d'objet
+        const worksheet = workbook.Sheets[firstSheetName];
+        // Convertir les données de la feuille en tableau JSON
+        const jsonData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+        log(jsonData)
+        setFile(null)
+      }
+      else{
+        const formData = { send_mail: sendMail, username, email, role,parentId:parent_id };
+        handleAddUser(formData,parent);
+        setEmail("")
+        setSendMail(false);
+        setUsername("");
+        setEmail("");
+        setRole("User");
+        setSuperieur("")
+        setSuperieurs([])
+      }
     };
   
     return (
@@ -106,6 +120,19 @@ function AddUser({handleAddUser,roles,parent_id}) {
         <div>
           <button type="submit" className='rounded-lg w-[100px]'>  Submit  </button>
         </div>
+
+        <div>
+          <label htmlFor="file">Fichier excel:</label>
+          <input
+            name="file"
+            type='file'
+            id="file"
+            className='mb-5 mt-2 h-14 px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px]'
+            value={file}
+            onChange={(e) => setFile(event.target.files[0])}
+          />
+        </div>
+
       </form>
     );
 }

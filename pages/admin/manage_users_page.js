@@ -49,8 +49,7 @@ function ManageUsers({ users, user, scopeId,parent }) {
     }
   }
 
-  async function handleAddUser(formData) {
-    console.log("hip hip")
+  async function handleAddUser(formData,scope) {
     const token = localStorage.getItem("token");
     const response = await fetch("/api/users", {
       method: "POST",
@@ -63,31 +62,24 @@ function ManageUsers({ users, user, scopeId,parent }) {
     console.log(response.ok)
     if (response.ok) {
       // If user is deleted successfully, refresh the user list
-      const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/parent/${user._id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          token: token,
-        },
-      });
-      let usersResponseJson = { data: [] };
-      if (usersResponse.ok) {
-        const lune = await usersResponse.json()
-        if((JSON.stringify(lune.data) != '{}')){
-          usersResponseJson = lune
-        }
-      }
-      setAllUsers(usersResponseJson);
+      router.push({
+        pathname: '/admin/manage_users_page',
+        query: {
+          user:scope._id,
+          username:scope.username,
+         }
+      },'/admin/manage_users_page');
+
     }
   }
 
   function haveRightAdd(role){
     switch (role) {
       case "Admin":
-        return ["Admin","Consultant","Client","Manager","User"]
+        return ["Admin","Consultant"]
         break;
       case "Consultant":
-        return ["Client","Manager","User"]
+        return ["Client","User"]
         break;
       default:
         return false
@@ -120,7 +112,7 @@ function ManageUsers({ users, user, scopeId,parent }) {
               >
                 <BiArrowBack size={30} />
               </button>
-            {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left">Les {users[0].role}(s) sous {roles[roles.indexOf(users[0].role)-1]} : {parent}</h1>}
+            {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left">Les {users[0].role}(s) sous {roles[roles.indexOf(users[0].role)-1]} : {parent.username}</h1>}
             {user.role!="Manager" && user.role!="Client"&& 
                 <div>
                     <button onClick={()=>setShowModal(true)}>Ajouter un Utilisateur</button>
@@ -162,7 +154,7 @@ function ManageUsers({ users, user, scopeId,parent }) {
                             </div>
                             {/*body*/}
                             <div className="relative p-6 flex-auto">
-                                <AddUser handleAddUser={handleAddUser} parent_id={scopeId||""} roles={users[0]?[users[0].role]:haveRightAdd(user.role)} />
+                                <AddUser handleAddUser={handleAddUser} parent_id={parent._id||""} parent={parent} roles={parent.role?haveRightAdd(parent.role):[]} />
                             </div>
                             {/*footer*/}
                             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -207,7 +199,15 @@ export async function getServerSideProps(context) {
   });
   
   
-  const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/parent/${user}`, {
+  const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/fils/${user}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      token: token,
+    },
+  });
+
+  const parentResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/parent/${user}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -222,6 +222,14 @@ export async function getServerSideProps(context) {
     userResponseJson = await userResponse.json();
   }
   
+  let parentResponseJson = { data: {} };
+  if (parentResponse.ok) {
+    parentResponseJson = await parentResponse.json();
+  }
+
+  
+
+
   let usersResponseJson = { data: [] };
   
   if (usersResponse.ok) {
@@ -234,7 +242,7 @@ export async function getServerSideProps(context) {
   
 
   return {
-    props: { users: usersResponseJson.data, user: userResponseJson.data,scopeId :user,parent:username }, // will be passed to the page component as props
+    props: { users: usersResponseJson.data, user: userResponseJson.data,scopeId :user,parent:parentResponseJson.data }, // will be passed to the page component as props
   };
 }
 

@@ -1,4 +1,4 @@
-import { deleteByIdUserRoute, getByIdUserRoute } from "../../../../routers/users_routers";
+import { deleteByIdUserRoute, getByIdUserRoute,UpdateByIdUserRoute } from "../../../../routers/users_routers";
 import { isAuth } from "../../../../utils/auth";
 
 const handler = async (req, res) => {
@@ -13,6 +13,9 @@ const handler = async (req, res) => {
       case "DELETE":
         await deleteByIdUserRoute(req, res);
         break;
+      case "PUT":
+          await UpdateByIdUserRoute(req, res);
+          break;
       default:
         res.status(405).send({ message: "Methode non authorisé" });
         break;
