@@ -6,6 +6,7 @@ import {
   getUserByMail,
   deleteUserByEmail,
   getUserById,
+  getUserByStatus,
   updateUserProfile,
   getUsersByParents,
   getAllUsersByRole,
@@ -21,7 +22,7 @@ import {
 import { getMailTemplate } from "../utils/getMailTemplate";
 import { sendEmail } from "../utils/sendMail";
 import { verifyJwt } from "../utils/jwt";
-import { hashPassword } from "../utils/hash";
+import { hashPassword,verifyPassword } from "../utils/hash";
 
 export const getAllUsersRoute = async (req, res) => {
   try {
@@ -34,6 +35,44 @@ export const getAllUsersRoute = async (req, res) => {
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });
   }
 };
+
+export const getUserByStatusRoute = async (req,res)=>{
+  try {
+    let {status} = req.query
+    const users = await getUserByStatus(status);
+    console.log(users);
+    res.json({ data: users, message: "Données envoyées" });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+}
+export const UpdatePasswordRoute = async(req,res)=>{
+  try {
+    let {oldPassword,newPassword} = req.body
+    let {id} = req.query
+    console.log("###################");
+    console.log(oldPassword,newPassword);
+    //recuperer le user
+    let user = await getUserById(id)
+    console.log(verifyPassword(oldPassword,user.password));
+    if(verifyPassword(oldPassword,user.password)){
+      user = await UpdateByIdUser(user._id,{password:hashPassword(newPassword)})
+      res.json({data:user,message:"Modifications reussie"})
+    }else{
+      res.status(401).send({message:"Ancien mot de passe incorrect"})
+      //throw new Error("Mot de passe incorrect")
+    }
+    //ajouter le nouveau
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+}
+
 export const getUserByRole = async (req, res) => {
   try {
     const {role} = req.query
@@ -49,7 +88,7 @@ export const getUserByRole = async (req, res) => {
 export const UpdateByIdUserRoute = async (req,res)=>{
   try {
     const {id} = req.query
-    await UpdateByIdUser(id,{...req.body})
+    let user = await UpdateByIdUser(id,{...req.body})
     res.json({data:user,message:"Données envoyées"})
   } catch (error) {
     res

@@ -1,16 +1,16 @@
 import React from 'react'
 import { useState,useEffect } from "react";
 import cookies from "next-cookies";
+import { valid } from 'joi';
 var xlsx = require("xlsx");
 
-function AddUser({handleAddUser,roles,parent_id,parent}) {
+function AddUser({handleAddUser,roles,user,parent_id,parent}) {
     const [sendMail, setSendMail] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("User");
     const [file,setFile] = useState(null)
-    const [superieur,setSuperieur] = useState("")
-    const [superieurs,setSuperieurs] = useState([])
+
 
 
     // useEffect(()=> {
@@ -32,9 +32,8 @@ function AddUser({handleAddUser,roles,parent_id,parent}) {
     //       },
     //     });
     //     let result = await response.json()
-    //     setSuperieurs(result.data)
+    //    
     //     let firstsup = result.data[0]?result.data[0]._id:""
-    //     setSuperieur(firstsup)
     //   }
     //   fetchSuperieur()
     // },[role])
@@ -43,27 +42,36 @@ function AddUser({handleAddUser,roles,parent_id,parent}) {
     
     const handleSubmit = async (event) => {
       event.preventDefault();
+      let Status = "valide"
+      if(user.role=="Manager"){
+        Status = "invalide"
+      }
       if(file){
-        const workbook = xlsx.readFile(file.path);
-        // Obtenir le nom de la première feuille
-        const firstSheetName = workbook.SheetNames[0];
-        // Obtenir les données de la première feuille sous forme d'objet
-        const worksheet = workbook.Sheets[firstSheetName];
-        // Convertir les données de la feuille en tableau JSON
-        const jsonData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
-        log(jsonData)
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const data = new Uint8Array(e.target.result);
+          const workbook = xlsx.read(data, { type: 'array' });
+          // Process the workbook data here
+          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+          const jsonData = xlsx.utils.sheet_to_json(worksheet);
+          jsonData.forEach((row) => {
+            // Faites quelque chose avec chaque ligne
+            const formData = { send_mail: sendMail,username:row.username,status:Status, email: row.email,role:row.role,parentId:parent_id };
+            handleAddUser(formData,parent);
+          });
+          };
+        reader.readAsArrayBuffer(file);
         setFile(null)
+        setSendMail(false);
       }
       else{
-        const formData = { send_mail: sendMail, username, email, role,parentId:parent_id };
+        const formData = { send_mail: sendMail,status:Status, username, email, role,parentId:parent_id };
         handleAddUser(formData,parent);
         setEmail("")
         setSendMail(false);
         setUsername("");
         setEmail("");
         setRole("User");
-        setSuperieur("")
-        setSuperieurs([])
       }
     };
   
@@ -127,8 +135,8 @@ function AddUser({handleAddUser,roles,parent_id,parent}) {
             name="file"
             type='file'
             id="file"
+            accept=".xls,.xlsx"
             className='mb-5 mt-2 h-14 px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px]'
-            value={file}
             onChange={(e) => setFile(event.target.files[0])}
           />
         </div>

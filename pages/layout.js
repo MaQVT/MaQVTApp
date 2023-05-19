@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
-import { BiGroup, BiLogOutCircle, BiNote, BiUser } from "react-icons/bi";
+import { BiGroup, BiLogOutCircle, BiNote, BiUser,BiXCircle } from "react-icons/bi";
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 
@@ -29,6 +29,11 @@ function Layout({ user, children }) {
     //router.push("/admin/manage_users_page");
   };
 
+  const getInvalidUsers = async()=>{
+    router.push({
+      pathname: '/admin/invalid_users',
+    },'/admin/invalid_users');
+  }
   const getAccount = () =>{
     router.push("/account_page")
   }
@@ -68,7 +73,15 @@ function Layout({ user, children }) {
                 <BiGroup size={30} />
               </button>
             )}
-            
+            {(user?.role =="Admin" || user?.role =="Consultants")  && (
+              <button
+                title="Ajouter ou Supprimer des Utilisateurs"
+                className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                onClick={getInvalidUsers}
+              >
+                <BiXCircle size={30} />
+              </button>
+            )}
               <button
                 title="Ajouter ou Supprimer des Utilisateurs"
                 className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
