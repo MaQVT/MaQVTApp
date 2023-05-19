@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
-import { BiLogOutCircle, BiNote, BiUser } from "react-icons/bi";
+import { BiGroup, BiLogOutCircle, BiNote, BiUser } from "react-icons/bi";
 import { MdManageSearch } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri"
 import { unauthenticate } from "../utils/auth";
@@ -12,7 +12,6 @@ const inter = Inter({ subsets: ["latin"] });
 function Layout({ user, children }) {
   console.log("Layout : user -- \n" + user)
   const router = useRouter();
-
   const logout = () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
@@ -30,7 +29,7 @@ function Layout({ user, children }) {
   const taketest = () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Êtes-vous sûr de vouloir quitter la page de Test? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
       if (confirmed) {
         router.push("/testqvt/take_diagnostic_test");
       }
@@ -42,7 +41,7 @@ function Layout({ user, children }) {
   const seeresult = () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Êtes-vous sûr de vouloir quitter la page de Test? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
       if (confirmed) {
         router.push("/result/perso");
       }
@@ -54,19 +53,31 @@ function Layout({ user, children }) {
   const getusers = async () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Êtes-vous sûr de vouloir quitter la page de Test? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
       if (confirmed) {
-        router.push("/admin/manage_users");
+        router.push("/admin/manage_users_page");
       }
     } else {
-      router.push("/admin/manage_users");
+      router.push("/admin/manage_users_page");
+    }
+  };
+
+  const accountPage = async () => {
+    const currentUrl = router.asPath;
+    if (currentUrl == "/testqvt/take_diagnostic_test") {
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      if (confirmed) {
+        router.push("/account_page");
+      }
+    } else {
+      router.push("/account_page");
     }
   };
 
   const mainPage = () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Êtes-vous sûr de vouloir quitter la page de Test? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
       if (confirmed) {
         router.push("/");
       }
@@ -121,7 +132,7 @@ function Layout({ user, children }) {
               <MdManageSearch size={30} />
             </button>
           )}
-          {user?.role == "Admin" && (
+          {user?.role != "User" && user?.role != undefined && (
             <button
               title="Ajouter ou Supprimer des Utilisateurs"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
@@ -134,7 +145,7 @@ function Layout({ user, children }) {
             <button
               title="Modifier mon profil"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
-              onClick={() => { }}
+              onClick={accountPage}
             >
               <BiUser size={30} />
             </button>

@@ -318,14 +318,16 @@ export const positionSituationPsychosociale = (formData) => {
 
   let sensation = Number(formData["enGeneral"]["sensation"]);
   let motivation = Number(formData["enGeneral"]["motivation"]);
+  let souhait = Number(formData["enGeneral"]["souhait"]);
   let vecuS = Number(formData["cesTemps"]["vecuS"]);
   let vecuP = Number(formData["cesTemps"]["vecuP"]);
   return (
     (matchObjPos[sensation] +
       matchObjPos[motivation] +
+      matchObjPos[souhait] +
       matchObjNeg[vecuS] +
       matchObjNeg[vecuP]) *
-    4.16
+    3.33
   );
 };
 

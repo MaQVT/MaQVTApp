@@ -55,7 +55,7 @@ const QvtForm = ({ handleNext, handlePrev, position }) => {
                 Réalisez un nouvel auto-diagnostic dès que vous en ressentez le besoin, et notamment lorsqu&apos;un élément significatif bouge dans votre contexte personnel / professionnel.
             </p>
             <p className='text-lg font-Trocchi mt-5'>
-                Choisissez la fréquence à laquelle être notifié.e :
+                Choisissez la fréquence à laquelle être notifié·e :
             </p>
             <div className='flex justify-center'>
                 <div>

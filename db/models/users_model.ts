@@ -19,6 +19,10 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  parentId:{
+    type:String,
+    required:true,
+  },
   role: {
     type: String,
     enum: ["Admin", "Consultant", "Client", "Manager", "User"],
@@ -29,10 +33,15 @@ let userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  delay_mail:{
+    type:String,
+    enum:["1mois","3mois","6mois","12mois","jamais"],
+    required:false,
+    default:"jamais"
+  },
   expired_date: {
     type: String,
   },
 });
 
-export const UserModel =
-  mongoose.models.User || mongoose.model("User", userSchema);
+export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

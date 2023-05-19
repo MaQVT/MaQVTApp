@@ -181,8 +181,8 @@ export default function MultiStepForm() {
           handleNext={handleNextImage}
           handlePrev={handlePrev}
           text={<>
-          <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
-          <p className="font-Trocchi text-securite1 text-6xl">Sécurité</p>
+            <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
+            <p className="font-Trocchi text-securite1 text-6xl">Sécurité</p>
           </>}
           position={1}
         />
@@ -204,8 +204,8 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"securiteTwo"}
-          titleName={"Je suis en sécurité dans mon travail."}
+          stepName={"securiteThree"}
+          titleName={"Je suis traité·e équitablement."}
           position={1}
           pageNumber={<span className="text-securite1">02</span>}
         />
@@ -214,8 +214,8 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"securiteThree"}
-          titleName={"Je suis traité·e équitablement."}
+          stepName={"securiteFour"}
+          titleName={"Mes objectifs et mes tâches sont clairs."}
           position={1}
           pageNumber={<span className="text-securite1">03</span>}
         />
@@ -224,8 +224,8 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"securiteFour"}
-          titleName={"Mes objectifs et mes tâches sont clairs."}
+          stepName={"securiteFive"}
+          titleName={"Je suis soutenu·e et j'ai confiance en mes collègues."}
           position={1}
           pageNumber={<span className="text-securite1">04</span>}
         />
@@ -234,8 +234,8 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"securiteFive"}
-          titleName={"Je suis soutenu·e et j'ai confiance en mes collègues."}
+          stepName={"securiteSix"}
+          titleName={"Je suis soutenu·e et j'ai confiance en ma hiérarchie."}
           position={1}
           pageNumber={<span className="text-securite1">05</span>}
         />
@@ -244,8 +244,8 @@ export default function MultiStepForm() {
         <Step
           handleNext={handleNext}
           handlePrev={handlePrev}
-          stepName={"securiteSix"}
-          titleName={"Je suis soutenu·e et j'ai confiance en ma hiérarchie."}
+          stepName={"securiteTwo"}
+          titleName={"Je suis en sécurité dans mon travail."}
           position={1}
           pageNumber={<span className="text-securite1">06</span>}
         />
@@ -259,7 +259,7 @@ export default function MultiStepForm() {
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
             <p className="font-Trocchi text-satisfaction1 text-6xl">Plaisir</p>
-            </>}
+          </>}
           position={1}
         />
       )}
@@ -323,7 +323,7 @@ export default function MultiStepForm() {
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin d&apos; ...</p><br />
             <p className="font-Trocchi text-inclusion1 text-6xl">Inclusion</p>
-            </>}
+          </>}
           position={1}
         />
       )}
@@ -387,7 +387,7 @@ export default function MultiStepForm() {
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
             <p className="font-Trocchi text-pouvoiragir1 text-6xl">Pouvoir agir</p>
-            </>}
+          </>}
           position={1}
         />
       )}
@@ -463,7 +463,7 @@ export default function MultiStepForm() {
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
             <p className="font-Trocchi text-sens1 text-6xl">Sens</p>
-            </>}
+          </>}
           position={1}
         />
       )}

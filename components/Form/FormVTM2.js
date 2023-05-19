@@ -5,6 +5,7 @@ export default function FormVTM2({ handlePrev, handleNext, stepName, position, t
   const [values, setValues] = useState({
     sensation: '4',
     motivation: '4',
+    souhait: '4',
   })
 
   const handleChange = (event) => {
@@ -33,6 +34,10 @@ export default function FormVTM2({ handlePrev, handleNext, stepName, position, t
         <div className="m-4">
           <h3 className="font-thin text-xl my-6 mt-0 font-AnticDidone text-customGray">b{")"} Je suis satisfait·e des résultats de mon travail</h3>
           <RadioNormal name={"motivation"} handleChange={handleChange} color={"#7E5240"} />
+        </div>
+        <div className="m-4">
+          <h3 className="font-thin text-xl my-6 mt-0 font-AnticDidone text-customGray">c{")"} Je souhaite à quiconque d’occuper mon poste</h3>
+          <RadioNormal name={"souhait"} handleChange={handleChange} color={"#7E5240"} />
         </div>
         <div className='absolute bottom-[110px]'>
           {(position > 0 || position == -1) && (

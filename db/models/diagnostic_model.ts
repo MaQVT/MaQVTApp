@@ -24,6 +24,10 @@ let diagnosticSchema = new mongoose.Schema({
     enGeneral: {
       sensation: String,
       motivation: String,
+      souhait: {
+        type: String,
+        default: "4",
+      }
     },
     cesTemps: {
       vecuS: String,

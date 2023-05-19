@@ -6,6 +6,8 @@ config.autoAddCss = false;
 
 import { withAuth } from "../components/Auth/withAuth";
 
+import { useRouter } from 'next/router'
+
 import MoonTime from '@next/font/local'
 import Benedict from '@next/font/local'
 
@@ -24,7 +26,8 @@ const moonTime = MoonTime({
 })
 
 function App({ Component, pageProps }) {
-  return (<main className={`${benedict.variable} ${moonTime.variable}`}>
+  const router = useRouter()
+  return (<main  className={`${benedict.variable} ${moonTime.variable}`} key={router.asPath}>
     <Component {...pageProps} />
   </main>)
 }

@@ -7,6 +7,9 @@ import {
   deleteUserByEmail,
   getUserById,
   updateUserProfile,
+  getUsersByParents,
+  getAllUsersByRole,
+  UpdateByIdUser
 } from "../db/handlers/users_handlers";
 import moment from "moment";
 import {
@@ -31,6 +34,40 @@ export const getAllUsersRoute = async (req, res) => {
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });
   }
 };
+export const getUserByRole = async (req, res) => {
+  try {
+    const {role} = req.query
+    const users = await getAllUsersByRole(role);
+    console.log(users);
+    res.json({ data: users, message: "Données envoyées" });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+};
+export const UpdateByIdUserRoute = async (req,res)=>{
+  try {
+    const {id} = req.query
+    await UpdateByIdUser(id,{...req.body})
+    res.json({data:user,message:"Données envoyées"})
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+}
+export const getUserFilsRoute = async(req,res)=>{
+  try {
+    const {parent} = req.query
+    const users = await getUsersByParents(parent);
+    res.json({ data: users, message: "Données envoyées" });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+}
 
 export const getAllManagersRoute = async (req, res) => {
   try {
@@ -86,8 +123,10 @@ export const addUserRoute = async (req, res) => {
     req.body.date = moment(moment.now()).format("MM/DD/YYYY HH:mm:ss");
     if (!req.body.password) { req.body.password = hashPassword("2023"); }
     else { req.body.password = hashPassword(req.body.password) }
-    
-    if (addUserValidator.validate(req.body).error) {
+    let validationError = addUserValidator.validate(req.body).error
+    console.log(req.body);
+    console.log(validationError);
+    if (validationError) {
       throw new Error("Données insuffisantes");
     } else {
       let user = await getUserByMail(req.body.email);
@@ -173,7 +212,8 @@ export const getByIdUserRoute = async (req, res) => {
   } = req;
   try {
     const user = await getUserById(id);
-    if (user.email != verifyJwt(req.headers.token).email) {
+    let accessor = verifyJwt(req.headers.token)
+    if (user.email != accessor.email && accessor.role == "User") {
       throw new Error("Anoter user trying to access anoter user info");
     }
     console.log(user);

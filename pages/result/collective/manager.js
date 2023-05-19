@@ -12,6 +12,8 @@ const ObjectList = ({ user, objects }) => {
 
     const router = useRouter()
     const [selectedObjects, setSelectedObjects] = useState([]);
+    const [sent, setSent] = useState(false);
+    const [error, setError] = useState(false);
 
     const handleObjectSelect = (object) => {
         const isSelected = selectedObjects.includes(object);
@@ -38,9 +40,18 @@ const ObjectList = ({ user, objects }) => {
             });
             if (res.ok) {
                 const json = await res.json();
+                setSelectedObjects([]);
+                setSent(true);
+                    setTimeout(() => {
+                        setSent(false);
+                    }, 3000);
                 console.log(json);
             } else {
                 const json = await res.json();
+                setError(true);
+                setTimeout(() => {
+                    setError(false);
+                }, 3000);
                 console.log(json)
             }
         }, 100);
@@ -53,7 +64,7 @@ const ObjectList = ({ user, objects }) => {
             <main className={styles.main}>
                 <div className='flex flex-col items-center justify-center'>
                     <h1 className='text-center text-2xl my-5'>Listes des QVT anonymes</h1>
-                    <ul className='flex gap-5 flex-wrap py-5 justify-center items-center'>
+                    <ul className='flex gap-5 flex-wrap py-5 justify-center items-center px-12'>
                         {sortedObjects.map((object) => (
                             <li
                                 className='h-28 w-28 flex items-center text-center cursor-pointer hover:scale-[1.1]'
@@ -73,6 +84,8 @@ const ObjectList = ({ user, objects }) => {
                             });
                         }} className='h-auto w-auto py-3 px-5'>Voir les QVT Collective</button>
                     </div>
+                    {sent && <span className='text-base text-green-600 block text-center mt-5'>La QVT collective a été bien crée !!</span>}
+                    {error && <span className='text-base text-red-600 block text-center mt-5'>Erreur lors de la création, veuiller réessayer ultérieurement !!</span>}
                 </div>
             </main>
         </Layout>

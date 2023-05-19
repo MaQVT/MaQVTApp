@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "/styles/Home.module.css";
+import Layout from "../layout";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -49,7 +50,8 @@ export default function ResetPassword() {
       <Head>
         <title>Réinitialisation du mot de passe</title>
       </Head>
-      <main className={styles.main}>
+      <Layout>
+        <main className={styles.main}>
         <div className="font-PlayfairDisplay">
           <h1 className="font-semibold text-5xl font-Benedict mb-5" >Réinitialiser votre mot de passe</h1>
           <form onSubmit={handleSubmit}>
@@ -82,6 +84,7 @@ export default function ResetPassword() {
           </form>
         </div>
       </main>
+    </Layout>
     </div>
   );
 }

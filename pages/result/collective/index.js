@@ -7,8 +7,10 @@ import styles from "/styles/Home.module.css";
 import moment from 'moment';
 import 'moment/locale/fr';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 function History({ user, allDiagnostics }) {
+    const router = useRouter()
     const sortedDiagnostics = allDiagnostics.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -30,7 +32,14 @@ function History({ user, allDiagnostics }) {
         <Layout user={user}>
             <main className={styles.main}>
                 <div className='w-full'>
-                    <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT Collective</h1>
+                    <div className='flex items-center justify-center gap-10'>
+                        <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT Collective</h1>
+                        {(user.role == "Manager" || user.role == "Admin") && <button onClick={() => {
+                            router.push({
+                                pathname: "/result/collective/manager",
+                            });
+                        }} className='h-auto w-auto py-3 px-5'>Créer une QVT Collective</button>}
+                    </div>
                     <hr />
                     <table className='w-[80%] m-auto my-6'>
                         <thead>

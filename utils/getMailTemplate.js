@@ -1,4 +1,4 @@
-export const getMailTemplate = (title, message, link, linkText) => {
+export const getMailTemplate = (title, message, link, linkText, messageAfter) => {
     const template = `<!DOCTYPE html>
     <html>
       <head>
@@ -11,10 +11,10 @@ export const getMailTemplate = (title, message, link, linkText) => {
           <tr>
             <td align="center" style="padding: 20px 0 30px 0">
               <img
-                src="https://uploads-ssl.webflow.com/61a614d52bcb6a6e07cceb22/61c1c0daad35eb29ff90e436_612373fba0ed04e56d856a9e_MAIN-Interview---Emmanuelle-Bessez---Wunjo---Cabinet-RH---QVT---2021---Permis-de-bouger.jpeg"
+                src="https://www.wunjo.life/wp-content/uploads/2020/12/Logo-Twitter-200x200-1.png"
                 alt="Your Logo"
                 width="200"
-                style="display: block"
+                style="display: block; border-radius: 100%;"
               />
             </td>
           </tr>
@@ -61,6 +61,9 @@ export const getMailTemplate = (title, message, link, linkText) => {
                   </td>
                 </tr>
               </table>
+              <p style="color: #666666; font-size: 16px; line-height: 1.5em; width: 500px; text-align: center;margin: auto; margin-bottom: 15px;">
+                {messageAfter}
+              </p>
             </td>
           </tr>
         </table>
@@ -74,7 +77,7 @@ export const getMailTemplate = (title, message, link, linkText) => {
           <tr>
             <td align="center" style="padding: 20px">
               <p style="color: #666666; font-size: 14px; margin: 0">
-              Vous avez reçu cet e-mail car vous vous êtes inscrit à notre service.
+              En cas de difficulté, merci d’écrire à admin@maqvt.com
               </p>
             </td>
           </tr>
@@ -82,7 +85,7 @@ export const getMailTemplate = (title, message, link, linkText) => {
       </body>
     </html>
     `;
-    const text = template.replace('{title}', title).replace('{link}', link).replace('{message}', message).replace('{linkText}', linkText);
+    const text = template.replace('{title}', title).replace('{link}', link).replace('{message}', message).replace('{linkText}', linkText).replace('{messageAfter}', messageAfter);
 
     return text;
 };

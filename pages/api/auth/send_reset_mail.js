@@ -27,16 +27,17 @@ export default async function handler(req, res) {
       // Send a password reset email to the user's email address
       const text = getMailTemplate(
         "Lien de réinitialisation de votre mot de passe",
-        "Cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe !",
+        "Bonjour, <br /><br />Vous avez demandé à ré-initialiser votre mot de passe afin d’accéder à votre compte sur l’Application “Ma QVT”. <br /><br />Veuillez cliquer sur le lien ci-dessous :",
         resetLink,
-        "Réinitialiser mon mot de passe"
+        "Ré-initialiser mon mot de passe",
+        ""
       );
 
       console.log(resetLink);
 
       sendEmail({
         to: email,
-        subject: "Lien de réinitialisation du mot de passe",
+        subject: "MA QVT : Demande de ré-initialisation du mot de passe",
         text: text,
       })
         .then(() => {
