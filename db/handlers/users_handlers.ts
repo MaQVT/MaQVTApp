@@ -57,6 +57,14 @@ const deleteUserById = async (id) => {
   return user;
 };
 
+const getUserByStatus = async(status)=>{
+  const user = await UserModel.find({ status: status });
+  if (user) {
+    await user.remove();
+  }
+  return user;
+}
+
 const deleteUserByEmail = async (email) => {
   const user = await UserModel.findOne({ email: email });
   console.log(user)
@@ -67,6 +75,8 @@ const deleteUserByEmail = async (email) => {
 };
 
 const UpdateByIdUser = async(id,data)=>{
+  console.log(data);
+  
   const user = await UserModel.findOneAndUpdate({"_id":id},{
     ...data
   })
@@ -103,5 +113,6 @@ export {
   addUser,
   getUsersByParents,
   getAllUsersByRole,
-  UpdateByIdUser
+  UpdateByIdUser,
+  getUserByStatus
 };

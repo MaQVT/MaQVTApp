@@ -81,6 +81,9 @@ function ManageUsers({ users, user, scopeId,parent }) {
       case "Consultant":
         return ["Client","User"]
         break;
+      case "Manager":
+        return ["User"]
+        break;
       default:
         return false
         break;
@@ -154,7 +157,7 @@ function ManageUsers({ users, user, scopeId,parent }) {
                             </div>
                             {/*body*/}
                             <div className="relative p-6 flex-auto">
-                                <AddUser handleAddUser={handleAddUser} parent_id={parent._id||""} parent={parent} roles={parent.role?haveRightAdd(parent.role):[]} />
+                                <AddUser handleAddUser={handleAddUser} parent_id={parent._id||""} user={user} parent={parent} roles={parent.role?haveRightAdd(parent.role):[]} />
                             </div>
                             {/*footer*/}
                             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -186,7 +189,7 @@ function ManageUsers({ users, user, scopeId,parent }) {
 }
 
 export async function getServerSideProps(context) {
-    const {user,username} = context.query
+  const {user,username} = context.query
   const token = cookies(context).token;
   const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
 

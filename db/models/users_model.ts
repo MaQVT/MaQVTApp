@@ -42,6 +42,12 @@ let userSchema = new mongoose.Schema({
   expired_date: {
     type: String,
   },
+  status:{
+    type: String,
+    enum:["valide","invalide"],
+    default: true,
+    required: true
+  }
 });
 
 export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

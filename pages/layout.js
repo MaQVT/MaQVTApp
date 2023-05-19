@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
-import { BiGroup, BiLogOutCircle, BiNote, BiUser } from "react-icons/bi";
-import { MdManageSearch } from "react-icons/md";
-import { RiUserSettingsLine } from "react-icons/ri"
+import { BiGroup, BiLogOutCircle, BiNote, BiUser,BiXCircle } from "react-icons/bi";
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 import Footer from "../components/Layout/Footer";
@@ -62,28 +60,24 @@ function Layout({ user, children }) {
     }
   };
 
-  const accountPage = async () => {
-    const currentUrl = router.asPath;
-    if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
-      if (confirmed) {
-        router.push("/account_page");
-      }
-    } else {
-      router.push("/account_page");
-    }
+  const getInvalidUsers = async()=>{
+    router.push({
+      pathname: '/admin/manage_users_page',
+      query: {
+        user:user._id,
+        username:user.username,
+       }
+    },'/admin/manage_users_page');
+    //router.push("/admin/manage_users_page");
   };
 
-  const mainPage = () => {
-    const currentUrl = router.asPath;
-    if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
-      if (confirmed) {
-        router.push("/");
-      }
-    } else {
-      router.push("/");
-    }
+  const getInvalidUsers = async()=>{
+    router.push({
+      pathname: '/admin/invalid_users',
+    },'/admin/invalid_users');
+  }
+  const getAccount = () =>{
+    router.push("/account_page")
   }
 
   //bg-[url('/backgound.png')]
@@ -122,38 +116,31 @@ function Layout({ user, children }) {
             >
               <BiNote size={30} />
             </button>
-          )}
-          {user?.email && (
-            <button
-              title="Voir mes résultats QVT personnelle"
-              className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
-              onClick={seeresult}
-            >
-              <MdManageSearch size={30} />
-            </button>
-          )}
-          {user?.role != "User" && user?.role != undefined && (
-            <button
-              title="Ajouter ou Supprimer des Utilisateurs"
-              className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
-              onClick={getusers}
-            >
-              <RiUserSettingsLine size={30} />
-            </button>
-          )}
-          {user?.email && (
-            <button
-              title="Modifier mon profil"
-              className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
-              onClick={accountPage}
-            >
-              <BiUser size={30} />
-            </button>
-          )}
-        </div>
-        <div className="flex-1 w-full h-full">
-          <div className="min-h-[calc(100vh-75px)] w-screen">
-            {children}
+            {user?.role =="Admin"  && (
+              <button
+                title="Ajouter ou Supprimer des Utilisateurs"
+                className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                onClick={getusers}
+              >
+                <BiGroup size={30} />
+              </button>
+            )}
+            {(user?.role =="Admin" || user?.role =="Consultants")  && (
+              <button
+                title="Ajouter ou Supprimer des Utilisateurs"
+                className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                onClick={getInvalidUsers}
+              >
+                <BiXCircle size={30} />
+              </button>
+            )}
+              <button
+                title="Ajouter ou Supprimer des Utilisateurs"
+                className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                onClick={getAccount}
+              >
+                <BiUser size={30} />
+              </button>
           </div>
         </div>
         <Footer />
