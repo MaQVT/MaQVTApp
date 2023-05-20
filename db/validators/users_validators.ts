@@ -23,6 +23,7 @@ const updateUserValidator = Joi.object({
   expired_date: Joi.string(),
   status: Joi.string(),
   nb_access: Joi.number(),
+  nb_connexion: Joi.number(),
 });
 
 const getUserByIdValidator = Joi.object({

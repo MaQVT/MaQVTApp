@@ -6,22 +6,33 @@ import { useRouter } from "next/router";
 import cookies from "next-cookies";
 import Layout from "./layout";
 import { verifyJwt } from "../utils/jwt";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
 function Home({ user }) {
   const router = useRouter();
-  const logout = () => {
-    unauthenticate();
-    router.push("/auth/login");
-  };
 
-  const taketest = () => {
-    router.push("/testqvt/take_diagnostic_test", query = { user });
+  const accederTest = () => {
+    router.push("/testqvt/take_diagnostic_test");
   };
-
-  const getusers = async () => {
-    router.push("/admin/manage_users");
+  const accederResultat = () => {
+    router.push("/result/perso");
+  };
+  const accederFAQ = () => {
+    router.push("/faq");
+  };
+  const accederProfil = () => {
+    router.push("/account_page");
+  };
+  const accederSuperviser = () => {
+    router.push("/admin/manage_users_page");
+  };
+  const accederStats = () => {
+    router.push("/stat");
+  };
+  const accederInvalide = () => {
+    router.push("/admin/invalid_users");
   };
 
   console.log(user)
@@ -36,12 +47,31 @@ function Home({ user }) {
       {user.email && (
         <Layout user={user}>
           <main className={styles.main}>
-            <div className="w-full h-full flex justify-center items-center py-5">
+            <div className="w-full h-full flex justify-center items-center py-5 flex-col">
               <p className="text-4xl text-center font-thin font-Benedict">Bonjour {user.username}, <br /><br />
                 Bienvenue dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br />
                 L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
                 L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br />
               </p>
+              <div className="flex w-full justify-center flex-wrap mt-10 gap-5">
+                {(user.role == "User" || user.role == "Manager" || user.role == "Admin") &&
+                  <button onClick={() => { accederTest() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Faire le Test QVT</button>
+                }
+                {(user.role == "User" || user.role == "Manager" || user.role == "Admin") &&
+                  <button onClick={() => { accederResultat() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à mes résultats</button>
+                }
+                <button onClick={() => { accederFAQ() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à la FAQ</button>
+                <button onClick={() => { accederProfil() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Modifier mon Profil</button>
+                {user.role != "User" &&
+                  <button onClick={() => { accederSuperviser() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Superviser les Utilisateurs</button>
+                }
+                {(user.role == "Consultant" || user.role == "Client" || user.role == "Admin") &&
+                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques</button>
+                }
+                {user.role == "Admin" &&
+                  <button onClick={() => { accederInvalide() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Utilisateurs non validés</button>
+                }
+              </div>
             </div>
           </main>
         </Layout>

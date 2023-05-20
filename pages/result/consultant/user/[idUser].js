@@ -166,6 +166,6 @@ export async function getServerSideProps(context) {
     // ----------------------------------------
 
     return {
-        props: { user: userResponseJson.data, allDiagnostics: diagnosticResponseJson.data }, // will be passed to the page component as props
+        props: { user: userResponseJson.data, allDiagnostics: diagnosticResponseJson.data.filter((value, index) => value.status == "consultant") }, // will be passed to the page component as props
     };
 }

@@ -1,4 +1,4 @@
-import { getUserByMail } from "../../../db/handlers/users_handlers";
+import { UpdateByIdUser, getUserByMail } from "../../../db/handlers/users_handlers";
 import { verifyPassword } from "../../../utils/hash";
 import { signJwt } from "../../../utils/jwt";
 import { serialize } from 'cookie';
@@ -26,6 +26,8 @@ export default async function handler(req, res) {
         process.env.NEXT_PUBLIC_JWT_SECRET_KEY,
         3600*12
       ); // Expires in 1 hour
+
+      await UpdateByIdUser(user._id, {nb_connexion: user.nb_connexion + 1})
 
       // res.setHeader("Set-Cookie", `token=${token}; HttpOnly`);
 

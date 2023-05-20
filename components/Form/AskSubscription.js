@@ -49,7 +49,7 @@ const AskSubForm = () => {
     return (
         <div className='flex flex-col gap-2 w-[80%] mx-10 my-8'>
             <hr />
-            <h2>Demander votre renouvellement à l&apos;admin</h2>
+            <h2>Envoyez une demande de renouvellement à l&apos;admin</h2>
             <form className='flex flex-col gap-2'>
                 <div>
                     <label htmlFor="question">Precisez la nouvelle date souhaité et de même si le renouvellement tient compte des équipes.</label>

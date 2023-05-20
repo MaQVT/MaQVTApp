@@ -18,7 +18,14 @@ export default function MultiStepForm() {
 
   const handleNext = (data) => {
     setFormData({ ...formData, ...data });
-    setStep(step + 1);
+    if(step == 41){
+      const ok = window.confirm("Vous confirmez la soumission du formulaire ? Aucune modification ne sera possible après confirmation.")
+      if(ok){
+        setStep(step + 1);
+      }
+    }else{
+      setStep(step + 1);
+    }
   };
 
   const handleNextImage = (data) => {

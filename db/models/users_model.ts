@@ -51,6 +51,10 @@ let userSchema = new mongoose.Schema({
   nb_access:{
     type: Number,  
     default: -1,
+  },
+  nb_connexion:{
+    type: Number,  
+    default: 0,
   }
 });
 
