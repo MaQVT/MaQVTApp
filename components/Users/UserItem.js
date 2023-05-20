@@ -6,7 +6,10 @@ function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
     handleDeleteUser(user._id);
   };
   const editHandler = async () => {
-    window.alert("En cours de dev : Pouvoir Modifier un Utilisateur, changer invalide en valide et modifier nb_access et expired_date")
+    window.alert("En cours de dev : Modal pour pouvoir Modifier un Utilisateur, changer invalide en valide et modifier nb_access et expired_date, les autres champs doivent etre non modifiables")
+  };
+  const validateUser = async () => {
+    window.alert("En cours de dev : Envoyez directement une requete pour valider l'utilisateur")
   };
 
   return (
@@ -21,6 +24,13 @@ function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
             onClick={editHandler}
             title="Editer l'utilisateur"
             className="fa fa-user-pen text-green-500 text-base pr-2 pb-2 cursor-pointer"
+          ></i> : <i></i>
+          }
+          {user.status == "invalide" ? 
+          <i
+            onClick={validateUser}
+            title="Valider l'utilisateur"
+            className="fa fa-check text-green-500 text-base pr-2 pb-2 cursor-pointer"
           ></i> : <i></i>
           }
           <i
