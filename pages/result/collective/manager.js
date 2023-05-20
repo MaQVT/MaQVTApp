@@ -61,7 +61,7 @@ const ObjectList = ({ user, objects }) => {
 
     return (
         <Layout user={user}>
-            <main className={styles.main}>
+            <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
                 <div className='flex flex-col items-center justify-center'>
                     <h1 className='text-center text-2xl my-5'>Listes des QVT anonymes</h1>
                     <ul className='flex gap-5 flex-wrap py-5 justify-center items-center px-12'>

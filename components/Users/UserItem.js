@@ -12,7 +12,7 @@ function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
   return (
     <li
       id={user._id}
-      className="text-right flex flex-col h-max justify-center bg-rose_pr rounded-lg p-3 my-0 border items-center border-orange-50 border-4"
+      className="text-right flex flex-col h-max justify-center bg-rose_pr rounded-lg p-3 my-0 min-w-[200px] max-w-[300px] items-center border-orange-50 border-4"
     >
       {parentRole != "Manager" && parentRole != "Client" && parentRole != "User" &&
         <div className="flex justify-between w-full items-center">

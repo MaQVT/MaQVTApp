@@ -8,7 +8,7 @@ import { verifyJwt } from '../../../utils/jwt';
 function History({ user, allUsers }) {
     return (
         <Layout user={user}>
-            <main className={styles.main}>
+            <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
                 <div className='w-full'>
                     <h1 className='text-center text-2xl my-5'>Historique des Utilisateurs</h1>
                     <hr />

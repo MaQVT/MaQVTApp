@@ -30,7 +30,7 @@ function History({ user, allDiagnostics }) {
 
     return (
         <Layout user={user}>
-            <main className={styles.main}>
+            <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
                 <div className='w-full'>
                     <div className='flex items-center justify-center gap-10'>
                         <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT Collective</h1>

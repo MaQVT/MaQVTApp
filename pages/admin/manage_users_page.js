@@ -111,8 +111,8 @@ function ManageUsers({ users, user, scopeId, parent }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout user={user}>
-        <main className="min-h-full w-full flex flex-col p-20 bg-[url('/backgound.png')] bg-repeat font-PlayfairDisplay" key={scopeId}>
-          <div className="flex flex-row justify-between items-center">
+        <main className={`${styles.main} flex-col pt-5`} key={scopeId} style={{justifyContent: "flex-start"}}>
+          <div className="flex flex-row justify-between items-center w-[90%]">
             <button
               title="Ajouter ou Supprimer des Utilisateurs"
               className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"

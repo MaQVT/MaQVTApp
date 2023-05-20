@@ -21,6 +21,8 @@ const updateUserValidator = Joi.object({
   profile_image: Joi.string(),
   send_mail: Joi.boolean(),
   expired_date: Joi.string(),
+  status: Joi.string(),
+  nb_access: Joi.number(),
 });
 
 const getUserByIdValidator = Joi.object({
