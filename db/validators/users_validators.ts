@@ -10,6 +10,8 @@ const addUserValidator = Joi.object({
   parentId:Joi.string(),
   send_mail: Joi.boolean(),
   expired_date: Joi.string(),
+  status: Joi.string(),
+  nb_access: Joi.string(),
 });
 
 const updateUserValidator = Joi.object({

@@ -177,14 +177,15 @@ export const addUserRoute = async (req, res) => {
       } else {
         user = await addUser(req.body);
         const text = getMailTemplate(
-          "Compte créé chez Wunju QVT",
-          `Voici vos informations de compte pour votre premère connexion ! <br />Email : ${req.body.email}<br />Mot de passe : 2023<br />N'hesitez pas à modifier votre mot de passe ! <br />Cliquez sur le bouton ci-dessous pour vous connecter !`,
+          "Compte créé sur l’Application MAQVT",
+          `Bonjour, <br /><br />Voici les informations relatives à votre compte sur l’Application “Ma QVT”. <br /><br />Votre email : ${req.body.email}<br />Votre mot de passe : 2023<br /><br />(N’hésitez pas à le personnaliser lors de votre 1ère connexion) <br />Veuillez cliquer sur le lien ci-dessous :`,
           process.env.NEXT_PUBLIC_APP_URL,
-          "Acceder à Wunju QVT"
+          "Accéder à l’Application MAQVT",
+          ""
         );
         await sendEmail({
           to: req.body.email,
-          subject: "Compte créé chez Wunju QVT",
+          subject: "MA QVT : Création de compte",
           text: text,
         });
 

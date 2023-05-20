@@ -47,6 +47,10 @@ let userSchema = new mongoose.Schema({
     enum:["valide","invalide"],
     default: true,
     required: true
+  },
+  nb_access:{
+    type: Number,  
+    default: -1,
   }
 });
 

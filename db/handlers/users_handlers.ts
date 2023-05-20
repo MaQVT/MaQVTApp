@@ -60,7 +60,7 @@ const deleteUserById = async (id) => {
 const getUserByStatus = async(status)=>{
   const user = await UserModel.find({ status: status });
   if (user) {
-    await user.remove();
+    // await user.remove();
   }
   return user;
 }

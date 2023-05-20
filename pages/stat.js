@@ -164,6 +164,15 @@ function Home({ user, diagnostics, clients, managers, users }) {
     })
   }
 
+  const getStatsByClient = () => {
+    return allClients.map((value, index) => {
+      const hisManagers = allManagers.filter((mValue, mIndex) => mValue.parentId == value._id).map((mValue, mIndex) => mValue._id);
+      const hisUsers = allUsers.filter((uValue, uIndex) => hisManagers.includes(uValue.parentId)).map((uValue, uIndex) => uValue.email);
+      const hisDiagnostics = allDiagnostics.filter((dValue, dIndex) => hisUsers.includes(dValue.email)).map((dValue, dIndex) => parseInt(dValue.rating));
+      return { "id": value._id, "username": value.username, "email": value.email, "role": value.role, "rating": hisDiagnostics }
+    })
+  }
+
 
 
   console.log(user)
@@ -178,9 +187,6 @@ function Home({ user, diagnostics, clients, managers, users }) {
                   <>
                     <h1 className='text-center text-2xl my-5'>Statistiques</h1>
                     {getRatingGraphics(getRatingByUsers())}
-                    {showAllStats()}
-                    {showAllStats()}
-                    {showAllStats()}
                     {showAllStats()}
                     <AskSubForm />
                   </>
