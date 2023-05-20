@@ -174,7 +174,7 @@ function Layout({ user, children }) {
           )}
           {(user?.role == "Admin" || user?.role == "Consultants") && (
             <button
-              title="Ajouter ou Supprimer des Utilisateurs"
+              title="Voir les Utilisateurs non validés"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
               onClick={getInvalidUsers}
             >

@@ -16,11 +16,13 @@ function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
     >
       {parentRole != "Manager" && parentRole != "Client" && parentRole != "User" &&
         <div className="flex justify-between w-full items-center">
+          {user.role != "Admin" ? 
           <i
             onClick={editHandler}
             title="Editer l'utilisateur"
             className="fa fa-user-pen text-green-500 text-base pr-2 pb-2 cursor-pointer"
-          ></i>
+          ></i> : <i></i>
+          }
           <i
             onClick={removeHandler}
             title="Supprimer l'utilisateur"
