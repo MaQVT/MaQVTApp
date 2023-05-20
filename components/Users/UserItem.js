@@ -35,14 +35,17 @@ function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
         height={120}
         className="rounded-full h-[70px] w-[70px] mb-5"
       />
-      <Link
-        href={{
-          pathname: '/admin/manage_users_page',
-          query: { user: user._id, username: user.username }
-        }}
-        className="font-Trocchi">
-        {user.username}
-      </Link>
+
+      {user.role != "User" ?
+        <Link
+          href={{
+            pathname: '/admin/manage_users_page',
+            query: { user: user._id, username: user.username }
+          }}
+          className={`font-Trocchi bg-slate-300 px-3 py-2 rounded-md mb-2 cursor-pointer hover:bg-slate-400`}>
+          {user.username}
+        </Link> : <span className={`font-Trocchi bg-slate-300 px-3 py-2 rounded-md mb-2 cursor-text`}>{user.username}</span>
+      }
       <span className="text-xs">{user.email}</span>
       <span className="text-orange-800">{user.role}</span>
     </li>

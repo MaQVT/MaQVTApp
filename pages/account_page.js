@@ -77,14 +77,20 @@ function AccountPage({ user }) {
             </div>
             <div className="flex flex-col space-y-2">
                 <div>
+                    <span className="text-orange-800 block">
+                        Statut : {user.role}
+                    </span>
                     <span className="font-Trocchi block">
-                        username : {user.username}
+                        Nom d&apos;utilisateur : {user.username}
                     </span>
                     <span className="text-xs block">
-                        Adresse Email : {user.email}
+                        Adresse email : {user.email}
                     </span>
-                    <span className="text-orange-800 block">
-                        role: {user.role}
+                    <span className="text-xs block">
+                        Date de création du compte : {user.date}
+                    </span>
+                    <span className="text-xs block">
+                        Date de fin de validité : {user.expired_date}
                     </span>
                 </div>
                 <div className="bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200 p-4 rounded-lg">
@@ -114,27 +120,27 @@ function AccountPage({ user }) {
                             </div>
                         </div>
                         {
-                            delayAlert && <button type="submit" className="inline bg-blue self-end">Modifier</button>
+                            delayAlert && <button type="submit" className="inline bg-blue self-end w-28 h-10 flex justify-center items-center">Modifier</button>
                         }
                     </form>
                 </div>
 
                 <div className="bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200 p-4 rounded-lg">
                     {errorPasswod && <div className="text-red">{errorPasswod}</div>}
-                    <p className="text-sm">Changer de mot de passe</p>
+                    <p className="text-sm mb-3">Changer de mot de passe</p>
                     <form className="flex flex-col" onSubmit={handlePasswordSubmit}>
-                        <div className="grid grid-cols-1 space-x-2 rounded-xl bg-gray-200">
+                        <div className="grid grid-cols-1 rounded-xl bg-gray-200">
                             <div>
                                 <label htmlFor="oldPassword" className={`block  select-none p-2`}>Ancien mot de passe</label>
-                                <input type="password" id="oldPassword" className="w-full h-6bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="oldPassword" onChange={event => setOldPassword(event.target.value)} value={oldPassword} />
+                                <input type="password" id="oldPassword" className="w-[200px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="oldPassword" onChange={event => setOldPassword(event.target.value)} value={oldPassword} />
                             </div>
                             <div>
                                 <label htmlFor="newPassword" className={`block  select-none rounded-xl p-2 text-md`}>Nouveau mot de passe</label>
-                                <input type="password" id="newPassword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="newPassword" onChange={event => setNewPassword(event.target.value)} value={newPassword} />
+                                <input type="password" id="newPassword" className="w-[200px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="newPassword" onChange={event => setNewPassword(event.target.value)} value={newPassword} />
                             </div>
                         </div>
                         {
-                            oldPassword && newPassword && <button type="submit" className="inline bg-blue self-end">Modifier</button>
+                            oldPassword && newPassword && <button type="submit" className="bg-blue self-end w-28 h-10 flex justify-center items-center mt-2">Modifier</button>
                         }
                     </form>
                 </div>
