@@ -52,8 +52,8 @@ export const UpdatePasswordRoute = async(req,res)=>{
   try {
     let {oldPassword,newPassword} = req.body
     let {id} = req.query
-    console.log("###################");
-    console.log(oldPassword,newPassword);
+    // console.log("###################");
+    // console.log(oldPassword,newPassword);
     //recuperer le user
     let user = await getUserById(id)
     console.log(verifyPassword(oldPassword,user.password));
@@ -100,6 +100,8 @@ export const getUserFilsRoute = async(req,res)=>{
   try {
     const {parent} = req.query
     const users = await getUsersByParents(parent);
+    console.log("I am the parent")
+    console.log(users)
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res

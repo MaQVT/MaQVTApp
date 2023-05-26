@@ -33,6 +33,13 @@ module.exports = {
       MoonTime: ['Dancing Script', 'Segoe UI', 'serif'],
       AnticDidone: ['Antic Didone', 'Segoe UI', 'serif'],
     },
+    screens: {
+      sm: { max: "800px" },
+      md: { max: "1100px" },
+      lg: "1100.1px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
   },
   plugins: [],
 };

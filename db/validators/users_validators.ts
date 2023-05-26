@@ -11,7 +11,7 @@ const addUserValidator = Joi.object({
   send_mail: Joi.boolean(),
   expired_date: Joi.string(),
   status: Joi.string(),
-  nb_access: Joi.string(),
+  nb_access: Joi.number(),
 });
 
 const updateUserValidator = Joi.object({

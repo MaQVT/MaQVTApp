@@ -7,6 +7,7 @@ import cookies from "next-cookies";
 import { verifyJwt } from "../../utils/jwt";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import moment from "moment";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +15,7 @@ function Diagnostic({ user }) {
   const router = useRouter();
 
   useEffect(() => {
+    localStorage.setItem("nb_access", `${user.nb_access}`)
     const handleBeforeUnload = (e) => {
       e.preventDefault();
       e.returnValue = '';
@@ -36,7 +38,11 @@ function Diagnostic({ user }) {
       </Head>
       <Layout user={user}>
         <main className={styles.main}>
-          <MultiStepForm />
+          {((user.nb_access == -1 && moment(user.expired_date).isAfter(moment(new Date(Date.now())), 'day')) || user.nb_access > 0) ?
+            <MultiStepForm /> :
+            <div>Vous n&apos;avez pas accès au test QVT pour le moment</div>
+          }
+
         </main>
       </Layout>
     </>

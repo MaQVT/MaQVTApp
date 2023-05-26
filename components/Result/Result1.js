@@ -72,7 +72,7 @@ function Result1({ formData }) {
       <div>
         <div className="flex flex-col justify-around">
           <div className="flex justify-center items-center basis-1/2">
-            <h3 className="font-thin text-7xl lg:text-9xl mt-10 font-MoonTime text-customGray">
+            <h3 className="font-thin text-7xl 2xl:text-9xl mt-10 font-MoonTime text-customGray">
               Mon autoscopie
             </h3>
           </div>

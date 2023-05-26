@@ -18,12 +18,12 @@ export default function MultiStepForm() {
 
   const handleNext = (data) => {
     setFormData({ ...formData, ...data });
-    if(step == 41){
+    if (step == 41) {
       const ok = window.confirm("Vous confirmez la soumission du formulaire ? Aucune modification ne sera possible après confirmation.")
-      if(ok){
+      if (ok) {
         setStep(step + 1);
       }
-    }else{
+    } else {
       setStep(step + 1);
     }
   };
@@ -66,6 +66,21 @@ export default function MultiStepForm() {
       } else {
         const json = await res.json();
         console.log(json)
+      }
+    }, 100);
+
+    setTimeout(async () => {
+      const res = await fetch("/api/users", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token")
+        },
+        body: JSON.stringify({ nb_access: parseInt(localStorage.getItem("nb_access")) - 1, email: localStorage.getItem("email") }),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        console.log(json);
       }
     }, 100);
   }

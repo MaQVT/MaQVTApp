@@ -7,8 +7,11 @@ import moment from 'moment';
 import 'moment/locale/fr';
 import { signJwt, verifyJwt } from '../../../../utils/jwt';
 import { useEffect } from 'react';
+import { BiArrowBack } from 'react-icons/bi';
+import { useRouter } from 'next/router';
 
 function History({ user, allDiagnostics }) {
+    const router = useRouter()
     const sortedDiagnostics = allDiagnostics.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
@@ -52,7 +55,6 @@ function History({ user, allDiagnostics }) {
             });
             if (res.ok) {
                 const json = await res.json();
-                console.log("OUIIIIIIIIIIIIII")
                 console.log(json);
             } else {
                 const json = await res.json();
@@ -69,13 +71,23 @@ function History({ user, allDiagnostics }) {
     useEffect(() => {
         moment.locale('fr');
         localStorage.setItem("allDiagnostics", JSON.stringify(allDiagnostics))
-      }, [allDiagnostics])
+    }, [allDiagnostics])
 
     return (
         <Layout user={user}>
-            <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
+            <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
                 <div className='w-full'>
-                    <h1 className='text-center text-2xl my-5'>Historique des rapports QVT personnel</h1>
+                    <div className='flex flex-row justify-between items-center w-[80%] m-auto'>
+                        <button
+                            title="Retourner en arrière"
+                            className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                            onClick={() => router.back()}
+                        >
+                            <BiArrowBack size={30} />
+                        </button>
+                        <h1 className='text-center text-2xl my-5'>Historique des rapports QVT personnel</h1>
+                    </div>
+
                     <hr />
                     <table className='w-[80%] m-auto my-6'>
                         <thead>

@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from 'next/image'
 import Link from "next/link";
-function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
+import { useRouter } from "next/router";
+
+function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toValid }) {
+  const [status, setStatus] = useState(user.status)
+  const router = useRouter()
+
+  async function handleValidateUser(user) {
+    const token = localStorage.getItem("token");
+    const response = await fetch("/api/users", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        token: token
+      },
+      body: JSON.stringify({ email: user.email, status: "valide" }),
+    });
+    console.log(response.ok)
+    if (response.ok) {
+      router.reload()
+      setStatus('valide')
+    }
+  }
+
   const removeHandler = async () => {
     handleDeleteUser(user._id);
   };
   const editHandler = async () => {
-    window.alert("En cours de dev : Modal pour pouvoir Modifier un Utilisateur, changer invalide en valide et modifier nb_access et expired_date, les autres champs doivent etre non modifiables")
+    handleUpdateModal(user)
+    // window.alert("En cours de dev : Modal pour pouvoir Modifier un Utilisateur, changer invalide en valide et modifier nb_access et expired_date, les autres champs doivent etre non modifiables")
   };
   const validateUser = async () => {
-    window.alert("En cours de dev : Envoyez directement une requete pour valider l'utilisateur")
+    handleValidateUser(user)
+    // window.alert("En cours de dev : Envoyez directement une requete pour valider l'utilisateur")
   };
 
   return (
@@ -19,25 +43,27 @@ function UserItem({ user, handleDeleteUser, parent_id, parentRole }) {
     >
       {parentRole != "Manager" && parentRole != "Client" && parentRole != "User" &&
         <div className="flex justify-between w-full items-center">
-          {user.role != "Admin" ? 
-          <i
-            onClick={editHandler}
-            title="Editer l'utilisateur"
-            className="fa fa-user-pen text-green-500 text-base pr-2 pb-2 cursor-pointer"
-          ></i> : <i></i>
+          {(user.role != "Admin" && toValid == false) ?
+            <i
+              onClick={editHandler}
+              title="Editer l'utilisateur"
+              className="fa fa-user-pen text-green-500 text-base pr-2 pb-2 cursor-pointer"
+            ></i> : <i></i>
           }
-          {user.status == "invalide" ? 
-          <i
-            onClick={validateUser}
-            title="Valider l'utilisateur"
-            className="fa fa-check text-green-500 text-base pr-2 pb-2 cursor-pointer"
-          ></i> : <i></i>
+          {status == "invalide" ?
+            <i
+              onClick={validateUser}
+              title="Valider l'utilisateur"
+              className="fa fa-check text-green-500 text-base pr-2 pb-2 cursor-pointer"
+            ></i> : <i></i>
           }
-          <i
-            onClick={removeHandler}
-            title="Supprimer l'utilisateur"
-            className="fa fa-close text-red-500 text-base pr-2 pb-2 cursor-pointer"
-          ></i>
+          {toValid == false ?
+            <i
+              onClick={removeHandler}
+              title="Supprimer l'utilisateur"
+              className="fa fa-close text-red-500 text-base pr-2 pb-2 cursor-pointer"
+            ></i> : <i></i>
+          }
         </div>
       }
       <Image

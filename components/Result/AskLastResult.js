@@ -2,11 +2,47 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-const QvtForm = ({ handleNext, handlePrev, position }) => {
-    const [frequency, setFrequency] = useState('hebdomadaire');
+const QvtForm = ({ handleNext, handlePrev, position, user }) => {
+    const [frequency, setFrequency] = useState('jamais');
     const [collectiveSynthesis, setCollectiveSynthesis] = useState(false);
     const [consultantAccess, setConsultantAccess] = useState(false);
     const [rating, setRating] = useState("3");
+
+    async function handleFrequenceUser() {
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/user/scheduleAutoDiagMail", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: token
+            },
+            body: JSON.stringify({ userId: user._id, role: user.role, email: user.email, scheduleName: frequency }),
+        });
+        console.log(response.ok)
+        if (response.ok) {
+            console.log("Email rescheduled")
+        }
+    }
+
+    const handleFrequence = async () => {
+        const token = localStorage.getItem("token");
+        let data = {
+            "delay_mail": frequency
+        }
+        let response = await fetch(`/api/user/id/${user._id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+            body: JSON.stringify(data)
+        })
+        if (response.ok) {
+            console.log("Fréquence modifiée")
+        } else {
+            console.log("Erreur lors de la modification de la fréquence")
+        }
+    }
 
     const handleFrequencyChange = (e) => {
         setFrequency(e.target.value);
@@ -42,6 +78,8 @@ const QvtForm = ({ handleNext, handlePrev, position }) => {
             status
         };
         // Call API to submit form data
+        await handleFrequence();
+        await handleFrequenceUser()
         console.log(formData);
         handleNext(formData);
     };
@@ -69,6 +107,14 @@ const QvtForm = ({ handleNext, handlePrev, position }) => {
                 <div>
                     <input type="radio" id="trimestrielle" name="frequency" value="trimestrielle" checked={frequency === 'trimestrielle'} onChange={handleFrequencyChange} />
                     <label htmlFor="trimestrielle">Trimestrielle</label>
+                </div>
+                <div>
+                    <input type="radio" id="annuelle" name="frequency" value="annuelle" checked={frequency === 'annuelle'} onChange={handleFrequencyChange} />
+                    <label htmlFor="annuelle">Annuelle</label>
+                </div>
+                <div>
+                    <input type="radio" id="jamais" name="frequency" value="jamais" checked={frequency === 'jamais'} onChange={handleFrequencyChange} />
+                    <label htmlFor="jamais">Jamais</label>
                 </div>
             </div>
             <p className='text-lg font-Trocchi mt-5'>

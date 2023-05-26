@@ -125,7 +125,7 @@ function Result({ user, formDataInitial }) {
             )}
             {step === 3 && (
               <div className="h-full w-full flex flex-col">
-                <Result3 formData={formData} />
+                <Result3 formData={formData} collective={true} />
                 <NavigationButton
                   handlePrev={handlePrev}
                   handleNext={handleNext}
@@ -142,7 +142,7 @@ function Result({ user, formDataInitial }) {
                   chartAsymetriqueFuntion={asymetriqueSecurite}
                   title={
                     <>
-                      QVT Collective selon les besoins de{" "}
+                      Ma QVT Collective selon les besoins de{" "}
                       <span className="text-orange-500">Sécurité</span>
                     </>
                   }
@@ -165,7 +165,7 @@ function Result({ user, formDataInitial }) {
                   chartAsymetriqueFuntion={asymetriqueSatisfaction}
                   title={
                     <>
-                      QVT Collective selon les besoins de{" "}
+                      Ma QVT Collective selon les besoins de{" "}
                       <span className="text-fuchsia-600">Plaisir</span>
                     </>
                   }
@@ -188,7 +188,7 @@ function Result({ user, formDataInitial }) {
                   chartAsymetriqueFuntion={asymetriqueInclusion}
                   title={
                     <>
-                      QVT Collective selon les besoins d&apos;
+                      Ma QVT Collective selon les besoins d&apos;
                       <span className="text-inclusion1">Inclusion</span>
                     </>
                   }
@@ -211,7 +211,7 @@ function Result({ user, formDataInitial }) {
                   chartAsymetriqueFuntion={asymetriquePouvoiragir}
                   title={
                     <>
-                      QVT Collective selon les besoins de{" "}
+                      Ma QVT Collective selon les besoins de{" "}
                       <span className="text-sky-700">Pouvoir d&apos;agir</span>
                     </>
                   }
@@ -234,7 +234,7 @@ function Result({ user, formDataInitial }) {
                   chartAsymetriqueFuntion={asymetriqueSens}
                   title={
                     <>
-                      QVT Collective selon les besoins de{" "}
+                      Ma QVT Collective selon les besoins de{" "}
                       <span className="text-sens1">Sens</span>
                     </>
                   }
@@ -255,7 +255,7 @@ function Result({ user, formDataInitial }) {
                 image={"/fin.png"}
                 alt={"Image de Fin"}
                 position={-1}
-                texteSuivant={"Retourner à la liste des diagnostics collective"}
+                texteSuivant={"Retourner à la liste des diagnostics collectives"}
               />
             )}
             <div className="flex flex-wrap justify-around items-center gap-10"></div>

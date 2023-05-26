@@ -116,9 +116,12 @@ function History({ user, allDiagnostics }) {
                                             <option value="public">Public</option>
                                         </select>
                                     </td>
-                                    <td className='text-center'>
+                                    <td className='text-center flex flex-col items-center'>
                                         <Link href={`/result/perso/${diagnostic._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500'>
-                                            Voir le rapport QVT personnel
+                                            Voir le rapport QVT personnelle
+                                        </Link>
+                                        <Link href={`/result/download/perso/${diagnostic._id}`} target='_blank' className='bg-white rounded-full px-5 py-1 mb-2 hover:bg-neutral-500'>
+                                            Télécharger le rapport QVT personnelle
                                         </Link>
                                     </td>
                                 </tr>

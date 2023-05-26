@@ -289,6 +289,7 @@ function Result({ user }) {
                 handleNext={handleNextData}
                 handlePrev={handlePrev}
                 position={-1}
+                user={user}
               />
             </div>
             )}

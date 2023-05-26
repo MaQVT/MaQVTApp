@@ -16,6 +16,59 @@ function AccountPage({ user }) {
     const [newPassword, setNewPassword] = useState("")
     const [errorPasswod, setErrorPassword] = useState("")
 
+    async function handleFrequenceUserAdmin() {
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/user/scheduleAutoDiagMail", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: token
+            },
+            body: JSON.stringify({ userId: user._id, role: user.role }),
+        });
+        console.log(response.ok)
+        if (response.ok) {
+            console.log("Email rescheduled")
+        }
+    }
+
+    async function handle2MonthFrequenceMailUserAdmin() {
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/user/scheduleAutoUserMail", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: token
+            },
+            body: JSON.stringify({ userId: user._id, role: user.role }),
+        });
+        console.log(response.ok)
+        if (response.ok) {
+            console.log("Email rescheduled")
+        }
+    }
+
+    async function handleAllMaillingServiceRestart() {
+        await handleFrequenceUserAdmin()
+        await handle2MonthFrequenceMailUserAdmin()
+    }
+
+    async function handleFrequenceUser() {
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/user/scheduleAutoDiagMail", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: token
+            },
+            body: JSON.stringify({ userId: user._id, role: user.role, email: user.email, scheduleName: delayAlert }),
+        });
+        console.log(response.ok)
+        if (response.ok) {
+            console.log("Email rescheduled")
+        }
+    }
+
     const [error, setError] = useState("")
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -34,6 +87,7 @@ function AccountPage({ user }) {
         })
         if (response.ok) {
             //recharger la page
+            await handleFrequenceUser()
             router.reload()
         } else {
             //afficher l'erreur avec un toster
@@ -74,6 +128,8 @@ function AccountPage({ user }) {
                     height={200}
                     className="rounded-full h-[200px] w-[200px] mb-5"
                 />
+                {user.role == "Admin" && <button onClick={handleAllMaillingServiceRestart} className="inline bg-red-900 self-end px-5 h-15 flex justify-center items-center">Réinitialiser tous les services de Mails</button>}
+
             </div>
             <div className="flex flex-col space-y-2">
                 <div>
@@ -99,20 +155,20 @@ function AccountPage({ user }) {
                     <form className="flex flex-col" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-5 my-4 space-x-2 rounded-xl bg-gray-200 p-2">
                             <div>
-                                <input type="radio" id="1mois" name="alerte" checked={delayAlert == "1mois"} onChange={event => setDelayAlert(event.target.value)} value="1mois" className="peer hidden" />
-                                <label htmlFor="1mois" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>1 mois</label>
+                                <input type="radio" id="hebdomadaire" name="alerte" checked={delayAlert == "hebdomadaire"} onChange={event => setDelayAlert(event.target.value)} value="hebdomadaire" className="peer hidden" />
+                                <label htmlFor="hebdomadaire" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>Hebdomadaire</label>
                             </div>
                             <div>
-                                <input type="radio" id="3mois" name="alerte" checked={delayAlert == "3mois"} value="3mois" onChange={event => setDelayAlert(event.target.value)} className="peer hidden" />
-                                <label htmlFor="3mois" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>3 mois</label>
+                                <input type="radio" id="mensuelle" name="alerte" checked={delayAlert == "mensuelle"} value="mensuelle" onChange={event => setDelayAlert(event.target.value)} className="peer hidden" />
+                                <label htmlFor="mensuelle" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>Mensuelle</label>
                             </div>
                             <div>
-                                <input type="radio" id="6mois" name="alerte" checked={delayAlert == "6mois"} onChange={event => setDelayAlert(event.target.value)} value="6mois" className="peer hidden" />
-                                <label htmlFor="6mois" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>6 mois</label>
+                                <input type="radio" id="trimestrielle" name="alerte" checked={delayAlert == "trimestrielle"} onChange={event => setDelayAlert(event.target.value)} value="trimestrielle" className="peer hidden" />
+                                <label htmlFor="trimestrielle" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>Trimestrielle</label>
                             </div>
                             <div>
-                                <input type="radio" id="12mois" name="alerte" checked={delayAlert == "12mois"} onChange={event => setDelayAlert(event.target.value)} value="12mois" className="peer hidden" />
-                                <label htmlFor="12mois" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>1 an</label>
+                                <input type="radio" id="annuelle" name="alerte" checked={delayAlert == "annuelle"} onChange={event => setDelayAlert(event.target.value)} value="annuelle" className="peer hidden" />
+                                <label htmlFor="annuelle" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>Annuelle</label>
                             </div>
                             <div>
                                 <input type="radio" id="jamais" name="alerte" checked={delayAlert == "jamais"} onChange={event => setDelayAlert(event.target.value)} value="jamais" className="peer hidden" />
@@ -144,6 +200,7 @@ function AccountPage({ user }) {
                         }
                     </form>
                 </div>
+
             </div>
 
         </div></main>

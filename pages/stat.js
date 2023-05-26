@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import AskSubForm from "../components/Form/AskSubscription";
+import { getCron2MonthsAgoSchedule } from "../utils/otherFunctions";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,11 +31,11 @@ function Home({ user, diagnostics, clients, managers, users }) {
   const [stats, setStats] = useState([])
 
   useEffect(() => {
-    console.log(user)
-    console.log(JSON.parse(diagnostics))
-    console.log(JSON.parse(clients))
-    console.log(JSON.parse(managers))
-    console.log(JSON.parse(users))
+    // console.log(user)
+    // console.log(JSON.parse(diagnostics))
+    // console.log(JSON.parse(clients))
+    // console.log(JSON.parse(managers))
+    // console.log(JSON.parse(users))
     setAllDiagnostics(JSON.parse(diagnostics))
     setAllClients(JSON.parse(clients))
     setAllManagers(JSON.parse(managers))
@@ -138,8 +139,12 @@ function Home({ user, diagnostics, clients, managers, users }) {
   const getRatingByClient = () => {
     return allClients.map((value, index) => {
       const hisManagers = allManagers.filter((mValue, mIndex) => mValue.parentId == value._id).map((mValue, mIndex) => mValue._id);
+      const hisManagersEmail = allManagers.filter((mValue, mIndex) => mValue.parentId == value._id).map((mValue, mIndex) => mValue.email);
       const hisUsers = allUsers.filter((uValue, uIndex) => hisManagers.includes(uValue.parentId)).map((uValue, uIndex) => uValue.email);
       hisUsers.push("marcoperson2000@gmail.com")
+      hisManagersEmail.forEach(element => {
+        hisUsers.push(element)
+      });
       const hisDiagnostics = allDiagnostics.filter((dValue, dIndex) => hisUsers.includes(dValue.email)).map((dValue, dIndex) => parseInt(dValue.rating));
       return { "id": value._id, "username": value.username, "email": value.email, "role": value.role, "rating": hisDiagnostics }
     })
@@ -148,6 +153,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
   const getRatingByManagers = () => {
     return allManagers.map((value, index) => {
       const hisUsers = allUsers.filter((uValue, uIndex) => uValue.parentId == value._id).map((uValue, uIndex) => uValue.email);
+      hisUsers.push(value.email)
       const hisDiagnostics = allDiagnostics.filter((dValue, dIndex) => hisUsers.includes(dValue.email)).map((dValue, dIndex) => parseInt(dValue.rating));
       return { "parent_id": value.parentId, "username": value.username, "email": value.email, "role": value.role, "rating": hisDiagnostics }
     })
@@ -168,9 +174,13 @@ function Home({ user, diagnostics, clients, managers, users }) {
   const getStatsByClient = () => {
     return allClients.map((value, index) => {
       const hisManagers = allManagers.filter((mValue, mIndex) => mValue.parentId == value._id).map((mValue, mIndex) => mValue._id);
+      const hisManagersEmail = allManagers.filter((mValue, mIndex) => mValue.parentId == value._id).map((mValue, mIndex) => mValue.email);
       const hisUsers = allUsers.filter((uValue, uIndex) => hisManagers.includes(uValue.parentId)).map((uValue, uIndex) => uValue.email);
+      hisManagersEmail.forEach(element => {
+        hisUsers.push(element)
+      });
       const nbDiagnostics = allDiagnostics.filter((dValue, dIndex) => hisUsers.includes(dValue.email)).length;
-      const nbCon = allUsers.filter((uValue, uIndex) => hisManagers.includes(uValue.parentId)).map((uvalue, index) => uvalue.nb_connexion).reduce((acc, uvalue) => acc + uvalue, 0);
+      const nbCon = [...allUsers, ...allManagers].filter((uValue, uIndex) => hisManagers.includes(uValue.parentId) || hisManagers.includes(uValue._id)).map((uvalue, index) => uvalue.nb_connexion).reduce((acc, uvalue) => acc + uvalue, 0);
       return { "id": value._id, "username": value.username, "email": value.email, "role": value.role, "nbdiag": nbDiagnostics, "nbCon": nbCon }
     })
   }
@@ -178,8 +188,9 @@ function Home({ user, diagnostics, clients, managers, users }) {
   const getStatsByManagers = () => {
     return allManagers.map((value, index) => {
       const hisUsers = allUsers.filter((uValue, uIndex) => uValue.parentId == value._id).map((uValue, uIndex) => uValue.email);
+      hisUsers.push(value.email)
       const nbDiagnostics = allDiagnostics.filter((dValue, dIndex) => hisUsers.includes(dValue.email)).length;
-      const nbCon = allUsers.filter((uValue, uIndex) => uValue.parentId == value._id).map((uvalue, index) => uvalue.nb_connexion).reduce((acc, uvalue) => acc + uvalue, 0);
+      const nbCon = allUsers.filter((uValue, uIndex) => hisUsers.includes(uValue.email)).map((evalue, index) => evalue.nb_connexion).reduce((acc, fvalue) => acc + fvalue, 0) + value.nb_connexion;
       return { "id": value._id, "parent_id": value.parentId, "username": value.username, "email": value.email, "role": value.role, "nbdiag": nbDiagnostics, "nbCon": nbCon }
     })
   }
@@ -205,7 +216,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
 
 
 
-  console.log(user)
+  // console.log(user)
   return (
     <>
       {user.email && allUsers.length > 0 && (
@@ -234,6 +245,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
                             <th>Nom d&apos;Utilisateur</th>
                             <th>Email</th>
                             <th>Nombre de diagnostics de l&apos;équipe</th>
+                            <th>Rôle</th>
                             <th>Nombre d&apos;accès à l&apos;application de l&apos;équipe</th>
                             <th>Action</th>
                           </tr>
@@ -245,6 +257,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
                               <td className='text-center'>{user.username}</td>
                               <td className='text-center'>{user.email}</td>
                               <td className='text-center'>{user.nbdiag}</td>
+                              <td className='text-center'>{user.role}</td>
                               <td className='text-center px-5 py-3 my-2'>{user.nbCon}</td>
                               {user.role != "User" && <td className='text-center'><button onClick={() => { handleVoirDetails(user.id, user.role) }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white'>Voir les détails</button></td>}
                             </tr>

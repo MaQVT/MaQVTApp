@@ -56,9 +56,12 @@ function History({ user, allDiagnostics }) {
                                     <td className='text-center'>{index + 1}</td>
                                     <td className='text-center'>{moment(diagnostic.date).format('D MMMM YYYY  HH:MM:SS')}</td>
                                     <td className='text-center'>{formatDate(diagnostic.date)}</td>
-                                    <td className='text-center h-[40px]'>
+                                    <td className='text-center flex flex-col items-center'>
                                         <Link href={`/result/collective/${diagnostic._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500'>
                                             Voir le rapport QVT Collective
+                                        </Link>
+                                        <Link href={`/result/download/collective/${diagnostic._id}`} target='_blank' className='bg-white rounded-full px-5 py-1 mb-2 hover:bg-neutral-500'>
+                                            Télécharger le rapport QVT Collective
                                         </Link>
                                     </td>
                                 </tr>

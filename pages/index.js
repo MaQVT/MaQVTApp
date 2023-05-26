@@ -31,6 +31,9 @@ function Home({ user }) {
   const accederStats = () => {
     router.push("/stat");
   };
+  const accederPartages = () => {
+    router.push("/result/consultant");
+  };
   const accederInvalide = () => {
     router.push("/admin/invalid_users");
   };
@@ -67,6 +70,9 @@ function Home({ user }) {
                 }
                 {(user.role == "Consultant" || user.role == "Client" || user.role == "Admin") &&
                   <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques</button>
+                }
+                {(user.role == "Consultant" || user.role == "Admin") &&
+                  <button onClick={() => { accederPartages() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les rapports partagés</button>
                 }
                 {user.role == "Admin" &&
                   <button onClick={() => { accederInvalide() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Utilisateurs non validés</button>

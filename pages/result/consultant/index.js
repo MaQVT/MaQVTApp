@@ -8,36 +8,40 @@ import { verifyJwt } from '../../../utils/jwt';
 function History({ user, allUsers }) {
     return (
         <Layout user={user}>
-            <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
-                <div className='w-full'>
-                    <h1 className='text-center text-2xl my-5'>Historique des Utilisateurs</h1>
-                    <hr />
-                    <table className='w-[80%] m-auto my-6'>
-                        <thead>
-                            <tr>
-                                <th>N°</th>
-                                <th>Nom d&apos;Utilisateur</th>
-                                <th>Email</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {allUsers.map((user, index) => (
-                                <tr key={user._id}>
-                                    <td className='text-center'>{index + 1}</td>
-                                    <td className='text-center'>{user.username}</td>
-                                    <td className='text-center'>{user.email}</td>
-                                    <td className='text-center h-[40px]'>
-                                        <Link href={`/result/consultant/user/${user._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500'>
-                                            View User
-                                        </Link>
-                                    </td>
+            {user.role == "Consultant" &&
+                <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
+                    <div className='w-full'>
+                        <h1 className='text-center text-2xl my-5'>Historique des Utilisateurs</h1>
+                        <hr />
+                        <table className='w-[80%] m-auto my-6'>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nom d&apos;Utilisateur</th>
+                                    <th>Email</th>
+                                    <th>Rôle</th>
+                                    <th>Action</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </main>
+                            </thead>
+                            <tbody>
+                                {allUsers.map((user, index) => (
+                                    <tr key={user._id}>
+                                        <td className='text-center'>{index + 1}</td>
+                                        <td className='text-center'>{user.username}</td>
+                                        <td className='text-center'>{user.email}</td>
+                                        <td className='text-center'>{user.role}</td>
+                                        <td className='text-center h-[40px]'>
+                                            <Link href={`/result/consultant/user/${user._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500'>
+                                                Voir les détails de l&apos;Utilisateur
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            }
         </Layout>
     );
 }
@@ -79,6 +83,6 @@ export async function getServerSideProps(context) {
     console.log(usersResponseJson.data)
 
     return {
-        props: { user: userResponseJson.data, allUsers: usersResponseJson.data }, // will be passed to the page component as props
+        props: { user: userResponseJson.data, allUsers: usersResponseJson.data.filter((value, index) => value.role != "Admin" && value.role != "Consultant" && value.role != "Client") }, // will be passed to the page component as props
     };
 }

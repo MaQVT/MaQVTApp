@@ -1,7 +1,7 @@
 import React from 'react'
 import ChartComponent from '../Chart/ChartComponent'
 
-function Result3({ formData }) {
+function Result3({ formData, collective }) {
   return (
     <div className='flex h-full'>
       <div className='w-[60%] h-[75%] flex justify-center items-center my-10 pl-5'>
@@ -9,7 +9,7 @@ function Result3({ formData }) {
       </div>
       <div className='flex flex-col justify-center items-center gap-5'>
         <div className='flex justify-center items-center text-center text-6xl font-thin font-MoonTime text-customGray'>
-          Vision globale de ma QVT personnelle
+          Vision globale de ma QVT {collective ? "collective" : "personnelle"}
         </div>
         <div className='flex gap-5'>
           <div className='bg-white opacity-60 p-4 rounded-lg w-auto flex flex-col justify-start items-center'>

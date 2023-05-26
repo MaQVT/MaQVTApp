@@ -1,3 +1,4 @@
+import moment from "moment";
 import { mongoose } from "../connexion";
 
 let userSchema = new mongoose.Schema({
@@ -35,17 +36,19 @@ let userSchema = new mongoose.Schema({
   },
   delay_mail:{
     type:String,
-    enum:["1mois","3mois","6mois","12mois","jamais"],
+    enum:["hebdomadaire","mensuelle","trimestrielle","annuelle","jamais"],
     required:false,
     default:"jamais"
   },
   expired_date: {
     type: String,
+    required: true, 
+    default: moment(new Date(Date.now()).setFullYear(new Date().getFullYear() + 1)).format("MM/DD/YYYY HH:mm:ss")
   },
   status:{
     type: String,
     enum:["valide","invalide"],
-    default: true,
+    default: "invalide",
     required: true
   },
   nb_access:{

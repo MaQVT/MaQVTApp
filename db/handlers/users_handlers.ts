@@ -15,10 +15,13 @@ const getAllUsersByRole = async (role) => {
   return users;
 };
 const getUsersByParents = async (parentId) =>{
+  const sortOrder = ["Admin", "Consultant", "Client", "Manager", "User"];
   let parent = await UserModel.findOne({_id:parentId})
   let fils = {}
-  if(parent.role=="Admin"){
-    fils  = await UserModel.find({$or:[{ role: "Admin" },{ parentId: parentId }]});
+  if(parent.email==process.env.ADMIN_EMAIL){
+    fils  = await UserModel.find({$or:[{ role: "Admin" }, { role: "Consultant" },{ parentId: parentId }]});
+  }else if(parent.role=="Admin"){
+    fils  = await UserModel.find({$or:[{ role: "Consultant" },{ parentId: parentId }]});
   }else{
     fils = await UserModel.find({ parentId: parentId });
   }

@@ -1,3 +1,26 @@
+export function getCron2MonthsAgoSchedule(date) {
+  const earlierDate = new Date(date);
+  earlierDate.setMonth(earlierDate.getMonth() - 2);
+
+  let year = earlierDate.getFullYear();
+  let month = earlierDate.getMonth() + 1; // Months in JavaScript are zero-based
+
+  // Adjust year and month if necessary
+  if (month < 1) {
+    month += 12;
+    year--;
+  }
+
+  const day = earlierDate.getDate();
+  const hour = earlierDate.getHours();
+  const minute = earlierDate.getMinutes();
+
+  // Format the cron schedule string
+  const cronSchedule = `${minute} ${hour} ${day} ${month} *`;
+
+  return cronSchedule;
+}
+
 const harmonieAndQVT = (data) => {
   let result = [];
 

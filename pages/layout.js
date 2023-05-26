@@ -6,6 +6,7 @@ import { RiUserSettingsLine } from "react-icons/ri"
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 import Footer from "../components/Layout/Footer";
+import { verifyJwt } from "../utils/jwt";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -106,14 +107,20 @@ function Layout({ user, children }) {
   };
 
   const mainPage = () => {
-    const currentUrl = router.asPath;
-    if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
-      if (confirmed) {
+    const token = localStorage.getItem("token");
+    const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
+    if(email == "nomail"){
+      window.open("/auth/login", "_parent")
+    }else{
+      const currentUrl = router.asPath;
+      if (currentUrl == "/testqvt/take_diagnostic_test") {
+        const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+        if (confirmed) {
+          router.push("/");
+        }
+      } else {
         router.push("/");
       }
-    } else {
-      router.push("/");
     }
   }
 
