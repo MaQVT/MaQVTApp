@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 const initialItems = [
   { id: "1", content: "Le travail me permet de gagner de l'argent" },
@@ -90,6 +91,12 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
   const [items, setItems] = useState(initialItems);
   const [order, setOrder] = useState([]);
 
+  const getBackend = () => {
+    const isTouchDevice = ("ontouchstart" in window || navigator.maxTouchPoints) && !window.matchMedia("(hover: hover)").matches;
+    return isTouchDevice ? TouchBackend : HTML5Backend;
+  };
+  
+
   const handleNextClick = () => {
     const itemIds = items.map((item) => item.id);
     setOrder(itemIds);
@@ -100,7 +107,7 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
 
 
   return (
-    <div className="h-full flex flex-col" >
+    <div className="h-full flex flex-col select-none" >
       {/* <h2 className="w-full font-bold text-6xl">La vie au travail et moi</h2> */}
       <div className="flex flex-col justify-center items-center flex-1">
         <h1 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray md:text-2xl md:mt-10 md:px-6 md:text-center">
@@ -119,7 +126,7 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
                 <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200 sm:my-4">5</span>
             </div>
             <div>
-              <DndProvider backend={HTML5Backend}>
+              <DndProvider backend={getBackend()}>
                 <ItemList items={items} setItems={setItems} />
               </DndProvider>
             </div>
