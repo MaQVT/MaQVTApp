@@ -71,7 +71,7 @@ function RadarChartComponent({
   return (
     <div className="flex flex-col items-center">
       <h1 className="font-thin text-6xl mt-14 font-MoonTime text-customGray md:text-center sm:text-3xl">{title}</h1>
-      <div>
+      <div className="flex flex-col items-center">
         <div className="w-[600px] mt-6 mb-6 sm:w-[100vw]">
           <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
         </div>
