@@ -39,12 +39,12 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="pb-5 w-[500px]">
+    <form onSubmit={handleSubmit} className="pb-5 w-[500px] sm:w-[80%]">
       {errorMessage && <p className={`py-5 text-${color}-600`}>{errorMessage}</p>}
       <label>
         Email:
         <input
-          className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none"
+          className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none sm:w-[100%]"
           type="email"
           value={email}
           placeholder="utilisateur@example.com"
@@ -54,7 +54,7 @@ export default function LoginForm() {
       <label>
         Mot de passe:
         <input
-          className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none"
+          className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none sm:w-[100%]"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -63,7 +63,7 @@ export default function LoginForm() {
       <Link href={"/auth/ask_reset_password"}>
         <p className="px-5 text-right font-thin text-red-600">Mot de passe oublié ?</p>
       </Link>
-      <button type="submit" className=" font-semibold">Se Connecter</button>
+      <button type="submit" className="sm:mt-5 font-semibold">Se Connecter</button>
     </form>
   );
 }

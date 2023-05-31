@@ -52,13 +52,13 @@ export default function ResetPassword() {
       </Head>
       <Layout>
         <main className={styles.main}>
-        <div className="font-PlayfairDisplay">
-          <h1 className="font-semibold text-5xl font-Benedict mb-5" >Réinitialiser votre mot de passe</h1>
+        <div className="font-PlayfairDisplay mx-5">
+          <h1 className="font-semibold text-5xl font-Benedict mb-5 sm:text-3xl" >Réinitialiser votre mot de passe</h1>
           <form onSubmit={handleSubmit}>
             <label>
               Nouveau mot de passe:
               <input
-              className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] bg-white focus:outline-none"
+              className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] bg-white focus:outline-none sm:w-[80%]"
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -67,7 +67,7 @@ export default function ResetPassword() {
             <label>
               Confirmer le nouveau mot de passe:
               <input
-              className="mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none"
+              className="mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none sm:w-[80%]"
                 type="password"
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}

@@ -32,7 +32,7 @@ export default function LoginPage() {
         <main className={styles.main}>
           {!loggedIn && (
             <div className="w-full h-full flex flex-col justify-center items-center font-PlayfairDisplay">
-              <h1 className="font-semibold text-6xl font-Benedict">Se Connecter</h1>
+              <h1 className="font-semibold text-6xl font-Benedict mb-4 sm:text-5xl">Se Connecter</h1>
               <LoginForm />
             </div>
           )}

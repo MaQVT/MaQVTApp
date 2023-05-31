@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [color, setColor] = useState("red");
 
   const resetMail = async (event) => {
     event.preventDefault();
@@ -21,9 +22,11 @@ export default function LoginPage() {
     });
     if (res.ok) {
       const json = await res.json();
+      setColor("green")
       setErrorMessage(json.message);
     } else {
       const json = await res.json();
+      setColor("red")
       setErrorMessage(json.message);
     }
   };
@@ -48,19 +51,19 @@ export default function LoginPage() {
       <Layout>
         <main className={styles.main}>
         {!loggedIn && (
-          <div className="font-PlayfairDisplay">
-            <h1 className="font-semibold text-5xl w-[500px] font-Benedict my-4">
+          <div className="font-PlayfairDisplay px-5">
+            <h1 className="font-semibold text-5xl w-[500px] font-Benedict my-4 sm:w-[80%] sm:text-3xl">
                 Demander la reinitialisation de votre mot de passe
             </h1>
             <input
-             className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none"
+             className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none sm:w-[80%]"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button onClick={resetMail} className="w-[100px] mb-3">Envoyer</button>
             <br />
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            {errorMessage && <p style={{ color: color }}>{errorMessage}</p>}
           </div>
         )}
       </main>
