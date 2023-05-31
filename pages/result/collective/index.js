@@ -38,10 +38,10 @@ function History({ user, allDiagnostics }) {
                             router.push({
                                 pathname: "/result/collective/manager",
                             });
-                        }} className='h-auto w-auto py-3 px-5'>Créer une QVT Collective</button>}
+                        }} className='h-auto w-auto py-3 px-5 sm:text-xs'>Créer une QVT Collective</button>}
                     </div>
                     <hr />
-                    <table className='w-[80%] m-auto my-6'>
+                    <table className='w-[80%] m-auto my-6 sm:text-[10px] md:w-[95%]'>
                         <thead>
                             <tr>
                                 <th>N°</th>

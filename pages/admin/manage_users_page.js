@@ -36,7 +36,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
         "Content-Type": "application/json",
         token: token
       },
-      body: JSON.stringify({ userId: userActual._id, role: userActual.role, newExpirationDate: userActual.expired_date }),
+      body: JSON.stringify({ userId: userActual._id, role: userActual.role, newExpirationDate: userActual.expired_date, email: userActual.email, username: userActual.username }),
     });
     console.log(response.ok)
     if (response.ok) {
@@ -179,22 +179,22 @@ function ManageUsers({ users, user, scopeId, parent }) {
           <div className="flex flex-row justify-between items-center w-[90%]">
             <button
               title="Retouner en arrière"
-              className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+              className="border rounded-full w-[80px] h-[80px] flex justify-center items-center sm:h-[40px] sm:w-[40px] sm:text-xs"
               onClick={getBack}
             >
               <BiArrowBack size={30} />
             </button>
-            {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left">Les {users[0].role}(s) sous {roles[roles.indexOf(users[0].role) - 1]} : {parent.username}</h1>}
+            {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {roles[roles.indexOf(users[0].role) - 1]} : {parent.username}</h1>}
             {user.role != "User" && user.role != "Client" &&
               <div>
-                <button onClick={() => setShowModal(true)}>Ajouter un Utilisateur</button>
+                <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un Utilisateur</button>
               </div>
             }
           </div>
 
 
           {haveRightToSee(user.role) &&
-            <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max">
+            <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
               {
                 allUsers.length ? allUsers.map((value, index) => <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />)
                   : <div>Il n&apos;y a rien à afficher</div>
@@ -211,7 +211,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
                   {/*content*/}
                   <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                    <div className="flex items-start justify-between p-2 px-5 border-b border-solid border-slate-200 rounded-t">
                       <h3 className="text-3xl font-semibold">
                         Modifier un Utilisateur
                       </h3>
@@ -225,11 +225,11 @@ function ManageUsers({ users, user, scopeId, parent }) {
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
+                    <div className="relative flex-auto">
                       <UpdateUser user={updatingUser} handleUpdateUser={handleUpdateUser} parent={parent} />
                     </div>
                     {/*footer*/}
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                    <div className="flex items-center justify-end p-2 px-5 border-t border-solid border-slate-200 rounded-b">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
@@ -254,7 +254,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
                   {/*content*/}
                   <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                    <div className="flex items-start justify-between p-2 px-5 border-b border-solid border-slate-200 rounded-t">
                       <h3 className="text-3xl font-semibold">
                         Ajouter un Utilisateur
                       </h3>
@@ -268,11 +268,11 @@ function ManageUsers({ users, user, scopeId, parent }) {
                       </button>
                     </div>
                     {/*body*/}
-                    <div className="relative p-6 flex-auto">
+                    <div className="relative flex-auto">
                       <AddUser handleAddUser={handleAddUser} parent_id={parent._id || ""} user={user} parent={parent} roles={parent.role ? haveRightAdd(parent.role) : []} />
                     </div>
                     {/*footer*/}
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                    <div className="flex items-center justify-end p-2 px-5 border-t border-solid border-slate-200 rounded-b">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"

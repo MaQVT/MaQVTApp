@@ -25,9 +25,13 @@ const FaqPage = ({ user }) => {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json', token: localStorage.getItem("token") },
             });
-            const faqData = await response.json();
-            console.log(faqData)
-            setFaqList(faqData.data);
+            if(response.ok){
+                const faqData = await response.json();
+                console.log(faqData)
+                setFaqList(faqData.data);
+            }else{
+                setFaqList([])
+            }
         } catch (error) {
             console.error('Error fetching FAQ:', error);
         }
@@ -106,7 +110,7 @@ const FaqPage = ({ user }) => {
                                     }}
                                 />
                             ) : (
-                                <input type="text" className='w-full py-2 px-10' value={faq.question} disabled />
+                                <span type="text" className='w-full py-2 px-10 bg-[#e5e7eb]'>{faq.question}</span>
                             )}
 
                             <h3>Réponse:</h3>
@@ -122,13 +126,13 @@ const FaqPage = ({ user }) => {
                                     }}
                                 />
                             ) : (
-                                <input type="text" className='w-full py-2 px-10' value={faq.response} disabled />
+                                <span type="text" className='w-full py-2 px-10 bg-[#e5e7eb]'>{faq.response}</span>
                             )}
 
                             {isAdmin && !faq.isEditing && (
                                 <div className='flex flex-row gap-5'>
                                     <button className='w-max px-5 py-2' onClick={() => handleEdit(index)}>Modifier</button> 
-                                    <button className='w-max px-5 py-2' onClick={() => handleDelete(index)}>Supprimer</button>
+                                    <button className='w-max px-5 py-2' onClick={() => {if(confirm("Confirmez la suppression")) handleDelete(index)}}>Supprimer</button>
                                 </div>
 
                             )}

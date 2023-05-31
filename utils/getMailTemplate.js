@@ -55,6 +55,7 @@ export const getMailTemplate = (title, message, link, linkText, messageAfter) =>
                         padding: 12px 40px;
                         text-decoration: none;
                         border-radius: 4px;
+                        display: inline-block;
                       "
                       >{linkText}</a
                     >

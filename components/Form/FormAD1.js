@@ -19,19 +19,20 @@ export default function FormAD1({
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    window.scrollTo(0, 0)
     handleNext({ [stepName]: values });
   };
   return (
-    <div className="h-full w-full flex flex-col items-center">
-      <h2 className="w-full font-bold text-6xl text-center font-MoonTime mt-5 text-customGray">
+    <div className="h-full w-full flex flex-col items-center md:px-5">
+      <h2 className="w-full font-bold text-6xl text-center font-MoonTime mt-5 text-customGray md:text-5xl md:mt-10">
         {titleName}
       </h2>
       <form
         onSubmit={handleFormSubmit}
-        className="flex flex-row justify-center items-start h-full font-bold text-6xl pt-20"
+        className="flex flex-row justify-center items-start h-full font-bold text-6xl pt-20 sm:flex-col"
       >
         <div className="flex flex-col mb-20 justify-start items-center basis-1/2">
-          <h2 className="font-thin text-2xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+          <h2 className="font-thin text-2xl my-6 mt-0 font-PlayfairDisplay text-customGray sm:text-lg sm:text-center">
           Ma disponibilité à réaliser cet auto-diagnostic
           </h2>
           <div className="flex flex-row justify-center p-4">
@@ -87,7 +88,7 @@ export default function FormAD1({
           </div>
         </div>
         <div className="flex flex-col mb-20 justify-start items-center w-full basis-1/2">
-          <h2 className="font-thin text-2xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+          <h2 className="font-thin text-2xl my-6 mt-0 font-PlayfairDisplay text-customGray sm:text-lg sm:text-center">
           Ma motivation à réaliser cet auto-diagnostic
           </h2>
           <div>
@@ -159,7 +160,7 @@ export default function FormAD1({
           </div>
         </div>
       </form>
-      <div className="absolute bottom-[110px]">
+      <div className="absolute bottom-[110px] md:relative md:bottom-0 md:mb-10">
         {(position > 0 || position == -1) && (
           <button
             type="button"
@@ -171,7 +172,7 @@ export default function FormAD1({
         )}
         <button
           onClick={handleFormSubmit}
-          className="w-[100px] h-[50px] rounded mx-40"
+          className="w-[100px] h-[50px] rounded mx-40 sm:mx-5"
           type="submit"
         >
           {position == -1 ? "Terminer" : "Suivant"}

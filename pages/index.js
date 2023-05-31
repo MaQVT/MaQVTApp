@@ -51,7 +51,7 @@ function Home({ user }) {
         <Layout user={user}>
           <main className={styles.main}>
             <div className="w-full h-full flex justify-center items-center py-5 flex-col">
-              <p className="text-4xl text-center font-thin font-Benedict">Bonjour {user.username}, <br /><br />
+              <p className="text-4xl text-center font-thin font-Benedict md:px-4">Bonjour {user.username}, <br /><br />
                 Bienvenue dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br />
                 L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
                 L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br />

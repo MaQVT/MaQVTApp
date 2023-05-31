@@ -57,7 +57,7 @@ function ChartComponentRole({ formData, step, title }) {
   }, [formData, step]);
 
   return (
-    <div className="flex flex-col p-4 w-[500px] lg:w-[700px] rounded-lg items-center m-2">
+    <div className="flex flex-col p-4 w-[500px] lg:w-max-[700px] lg:w-[80%] rounded-lg items-center m-2 md:w-full">
       <h1 className="text-xl my-4">{title}</h1>
       <canvas ref={canvasRef} />
     </div>

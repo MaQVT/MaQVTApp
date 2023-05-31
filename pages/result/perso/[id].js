@@ -91,7 +91,7 @@ function Result({ user, formDataInitial }) {
 
       {formData && user && (
         <Layout user={user}>
-            {allDiagnostics.length > 0 && <div className="flex flex-row w-full mt-1 absolute justify-around flex-wrap">
+            {allDiagnostics.length > 0 && <div className="flex flex-row w-full mt-1 absolute justify-around flex-wrap gap-1 md:relative">
               {allDiagnostics.map((obj) => (
                 <button
                   className={`text-xs w-[75px] p-1 ${date == obj.date ? "bg-green-800" : ""}`}

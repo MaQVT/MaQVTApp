@@ -6,7 +6,7 @@ import moment from 'moment';
 var xlsx = require("xlsx");
 
 function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
-  const [sendMail, setSendMail] = useState(false);
+  // const [sendMail, setSendMail] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState(roles[0]);
@@ -58,19 +58,18 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
         const jsonData = xlsx.utils.sheet_to_json(worksheet);
         jsonData.forEach((row) => {
           // Faites quelque chose avec chaque ligne
-          const formData = { send_mail: sendMail, username: row.username, status: Status, email: row.email, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), nb_access, role: row.role, parentId: parent_id };
+          const formData = { username: row.username, status: Status, email: row.email, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), nb_access, role: row.role, parentId: parent_id };
           handleAddUser(formData, parent);
         });
       };
       reader.readAsArrayBuffer(file);
       setFile(null)
-      setSendMail(false);
+      // setSendMail(false);
     }
     else {
-      const formData = { send_mail: sendMail, status: Status, username, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), nb_access, email, role, parentId: parent_id };
+      const formData = { status: Status, username, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), nb_access, email, role, parentId: parent_id };
       handleAddUser(formData, parent);
-      setEmail("")
-      setSendMail(false);
+      // setSendMail(false);
       setUsername("");
       setEmail("");
       setRole("User");
@@ -82,7 +81,7 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
       <div>
         <label htmlFor="username">Nom d&apos;utilisateur:</label>
         <input
-          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
+          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px] focus:outline-none'
           type="text"
           name="username"
           id="username"
@@ -94,7 +93,7 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
       <div>
         <label htmlFor="email">Email:</label>
         <input
-          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
+          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px] focus:outline-none'
           type="email"
           name="email"
           id="email"
@@ -109,17 +108,17 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
           disabled={roles.length < 1}
           name="role"
           id="role"
-          className='mb-5 mt-2 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px]'
+          className='mb-5 mt-2 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px]'
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
           {roles.map((role, index) => <option value={role} key={index}>{role}</option>)}
         </select>
       </div>
-      <div>
+      <div className=''>
         <label htmlFor="nb_access">A usage unique:</label>
         <input
-          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
+          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md mx-10 focus:outline-none'
           type="checkbox"
           name="nb_access"
           id="nb_access"
@@ -130,7 +129,7 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
       <div>
         <label htmlFor="expired_date">Date d&apos;expiration:</label>
         <input
-          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
+          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px] focus:outline-none'
           type="date"
           name="expired_date"
           id="expired_date"
@@ -138,7 +137,7 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
           onChange={(e) => setExpiredDate(e.target.value)}
         />
       </div>
-      <div className='my-3'>
+      {/* <div className='my-3'>
         <label htmlFor="send_mail">
           Activer les Emails
         </label>
@@ -151,24 +150,26 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
           checked={sendMail}
           onChange={(e) => setSendMail(e.target.checked)}
         />
-      </div>
-      <div>
-        <button type="submit" className='rounded-lg w-[100px]'>  Submit  </button>
-      </div>
+      </div> */}
+
+      <div className='text-center'>-------------- OU --------------</div>
 
       <div>
-        <label htmlFor="file">Fichier excel:</label>
+        <label htmlFor="file">Fichier Excel:</label>
         <input
           disabled={roles.length < 1}
           name="file"
           type='file'
           id="file"
           accept=".xls,.xlsx"
-          className='mb-5 mt-2 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px]'
+          className='mb-5 mt-2 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px]'
           onChange={(e) => setFile(event.target.files[0])}
         />
       </div>
 
+      <div>
+        <button type="submit" className='rounded-lg w-[100px]'>  Ajouter  </button>
+      </div>
     </form>
   );
 }

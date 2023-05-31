@@ -21,7 +21,7 @@ function InvalidUsers({ user, users }) {
       <Layout user={user}>
         <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
           <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center w-full">Liste des Utilisateurs non validés</h1>
-          <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max">
+          <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
             {
               allUsers.length ? allUsers.map((value, index) => <UserItem user={value} key={index} parentRole={user.role} toValid={true} />)
                 : <div>Il n&apos;y a rien à afficher</div>

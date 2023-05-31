@@ -24,6 +24,7 @@ const updateUserValidator = Joi.object({
   status: Joi.string(),
   nb_access: Joi.number(),
   nb_connexion: Joi.number(),
+  authorization: Joi.boolean(),
 });
 
 const getUserByIdValidator = Joi.object({

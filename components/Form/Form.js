@@ -9,26 +9,26 @@ export default function Form({ handlePrev, handleChange, handleFormSubmit, posit
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <div>
-          <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray'>Dans l&apos;idéal, est-ce important pour moi ?</h3>
+        <div className='sm:flex sm:flex-col sm:items-center'>
+          <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray sm:mx-5 sm:text-center'>Dans l&apos;idéal, est-ce important pour moi ?</h3>
           <RadioNormal name={"ideal"} handleChange={handleChange} color={"#7E5240"} />
         </div>
-        <div>
-          <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray'>Dans mon travail actuel, est-ce le cas ?</h3>
+        <div className='sm:flex sm:flex-col sm:items-center'>
+          <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray sm:mx-5 sm:text-center'>Dans mon travail actuel, est-ce le cas ?</h3>
           <RadioNormalBis name={"actu"} handleChange={handleChange} color={"#7E5240"} />
         </div>
-        <div>
-          <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray'>Comment est-ce que je le vis ?</h3>
+        <div className='sm:flex sm:flex-col sm:items-center'>
+          <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray sm:mx-5 sm:text-center'>Comment est-ce que je le vis ?</h3>
           <RadioVie name={"vecu"} handleChange={handleChange} color={"#FE06FF"} />
         </div>
       </form>
-      <div className='absolute bottom-[110px] '>
+      <div className='absolute bottom-[110px] md:relative md:bottom-0 md:mb-10 md:mt-5'>
           {(position > 0 || position == -1) && (
             <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
               Précédent
             </button>
           )}
-          <button onClick={handleFormSubmit} className="w-[100px] h-[50px] rounded mx-40" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
+          <button onClick={handleFormSubmit} className="w-[100px] h-[50px] rounded mx-40 sm:mx-5" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
       </div>
     </>
   )

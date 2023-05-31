@@ -62,7 +62,7 @@ const ObjectList = ({ user, objects }) => {
     return (
         <Layout user={user}>
             <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
-                <div className='flex flex-col items-center justify-center'>
+                <div className='flex flex-col items-center justify-center mb-3'>
                     <h1 className='text-center text-2xl my-5'>Listes des QVT anonymes</h1>
                     <ul className='flex gap-5 flex-wrap py-5 justify-center items-center px-12'>
                         {sortedObjects.map((object) => (
@@ -76,7 +76,7 @@ const ObjectList = ({ user, objects }) => {
                             </li>
                         ))}
                     </ul>
-                    <div>
+                    <div className='flex mx-2 gap-2'>
                         <button onClick={handleSubmit} className='h-auto w-auto py-3 px-5'>Créer une QVT Collective</button>
                         <button onClick={() => {
                             router.push({

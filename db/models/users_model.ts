@@ -58,7 +58,12 @@ let userSchema = new mongoose.Schema({
   nb_connexion:{
     type: Number,  
     default: 0,
-  }
+  },
+  authorization:{
+    type: Boolean,  
+    default: true,
+  },
+
 });
 
 export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

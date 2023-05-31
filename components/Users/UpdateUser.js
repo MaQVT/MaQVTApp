@@ -4,6 +4,7 @@ import moment from 'moment';
 
 function UpdateUser({ handleUpdateUser, user, parent }) {
     const [nb_access, setNbAccess] = useState(user.nb_access == 1 ? 1 : -1);
+    const [authorization, setAuthorization] = useState(user.authorization);
     const [expired_date, setExpiredDate] = useState(moment(user.expired_date).format("YYYY-MM-DD"));
 
     // useEffect(()=> {
@@ -44,7 +45,7 @@ function UpdateUser({ handleUpdateUser, user, parent }) {
         // Récupération de la nouvelle date
         expire_date = expire_date.toISOString().split('T')[0];*/
 
-        const formData = { nb_access, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), email: user.email };
+        const formData = { nb_access, authorization, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), email: user.email };
         console.log(formData);
         handleUpdateUser(formData, parent);
 
@@ -53,9 +54,20 @@ function UpdateUser({ handleUpdateUser, user, parent }) {
     return (
         <form onSubmit={handleSubmit} className="p-4">
             <div>
+                <label htmlFor="authorization">Autorisation Test QVT:</label>
+                <input
+                    className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md mx-20 focus:outline-none'
+                    type="checkbox"
+                    name="authorization"
+                    id="authorization"
+                    checked={authorization}
+                    onChange={(e) => setAuthorization(e.target.checked)}
+                />
+            </div>
+            <div>
                 <label htmlFor="nb_access">A usage unique:</label>
                 <input
-                    className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
+                    className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md mx-20 focus:outline-none'
                     type="checkbox"
                     name="nb_access"
                     id="nb_access"
@@ -66,7 +78,7 @@ function UpdateUser({ handleUpdateUser, user, parent }) {
             <div>
                 <label htmlFor="expired_date">Date d&apos;expiration:</label>
                 <input
-                    className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] focus:outline-none'
+                    className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px] focus:outline-none'
                     type="date"
                     name="expired_date"
                     id="expired_date"
@@ -76,7 +88,7 @@ function UpdateUser({ handleUpdateUser, user, parent }) {
             </div>
 
             <div>
-                <button type="submit" className='rounded-lg w-[100px]'>  Submit  </button>
+                <button type="submit" className='rounded-lg w-[100px]'>  Modifier  </button>
             </div>
         </form>
     );

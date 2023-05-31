@@ -2,7 +2,7 @@ import React from "react";
 
 function RadioVie({name, handleChange, color}) {
   return (
-    <div className="grid w-[50rem] my-4 grid-cols-7 space-x-2 rounded-xl bg-gray-200 p-2">
+    <div className="grid w-[50rem] my-4 grid-cols-7 space-x-2 rounded-xl bg-gray-200 p-2 sm:grid-cols-1 sm:w-[20rem]">
       
       <div>
       <input type="radio" name={name} value="1" id={`${name}1`} onChange={handleChange} className="peer hidden"/>

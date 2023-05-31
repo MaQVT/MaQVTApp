@@ -4,7 +4,7 @@ function RadioNormalBis({name, handleChange, color}) {
   return (
     <>
       <div
-        className="grid w-[50rem] grid-cols-7 my-4 space-x-2 rounded-xl bg-gray-200 p-2"
+        className="grid w-[50rem] grid-cols-7 my-4 space-x-2 rounded-xl bg-gray-200 p-2 sm:grid-cols-1 sm:w-[20rem]"
         x-data="app"
       >
           <div>

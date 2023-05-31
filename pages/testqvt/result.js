@@ -169,7 +169,7 @@ function Result({ user }) {
               </div>
             )}
             {step === 4 && (
-              <div className="w-full h-[calc(100vh-75px)]">
+              <div className="w-full min-h-[calc(100vh-75px)]">
                 <RadarChartComponent
                   formData={formData}
                   chartFunction={generateSecuRadialChartData}
@@ -192,7 +192,7 @@ function Result({ user }) {
               </div>
             )}
             {step === 5 && (
-              <div className="w-full h-[calc(100vh-75px)]">
+              <div className="w-full min-h-[calc(100vh-75px)]">
                 <RadarChartComponent
                   formData={formData}
                   chartFunction={generateSatisfactionRadialChartData}
@@ -215,7 +215,7 @@ function Result({ user }) {
               </div>
             )}
             {step === 6 && (
-              <div className="w-full h-[calc(100vh-75px)]">
+              <div className="w-full min-h-[calc(100vh-75px)]">
                 <RadarChartComponent
                   formData={formData}
                   chartFunction={generateInclusionRadialChartData}
@@ -238,7 +238,7 @@ function Result({ user }) {
               </div>
             )}
             {step === 7 && (
-              <div className="w-full h-[calc(100vh-75px)]">
+              <div className="w-full min-h-[calc(100vh-75px)]">
                 <RadarChartComponent
                   formData={formData}
                   chartFunction={generatePouvoiragirRadialChartData}
@@ -261,7 +261,7 @@ function Result({ user }) {
               </div>
             )}
             {step === 8 && (
-              <div className="w-full h-[calc(100vh-75px)]">
+              <div className="w-full min-h-[calc(100vh-75px)]">
                 <RadarChartComponent
                   formData={formData}
                   chartFunction={generateSensRadialChartData}
@@ -284,7 +284,7 @@ function Result({ user }) {
               </div>
             )}
             {step === 9 && (
-              <div className="w-full h-[calc(100vh-75px)]">
+              <div className="w-full min-h-[calc(100vh-75px)]">
               <QvtForm
                 handleNext={handleNextData}
                 handlePrev={handlePrev}

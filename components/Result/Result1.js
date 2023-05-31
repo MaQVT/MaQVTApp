@@ -12,11 +12,16 @@ import PsychosocialeChart from "./PsychosocialeChart";
 
 function Result1({ formData }) {
   return (
-    <div className=" w-full h-full flex flex-row justify-around gap-3 font-PlayfairDisplay">
+    <div className=" w-full h-full flex flex-row justify-around gap-3 font-PlayfairDisplay md:flex-col">
       {/* <h1 className="font-bold text-4xl">Mes resultats</h1> */}
+      <div className="md:flex md:justify-center md:items-center md:basis-1/2 lg:hidden">
+        <h3 className="font-thin text-7xl 2xl:text-9xl mt-10 font-MoonTime text-customGray sm:text-4xl sm:text-center">
+          Mon autoscopie
+        </h3>
+      </div>
       <div className="flex flex-col justify-around">
         <div className="basis-1/2">
-          <h2 className="font-thin text-3xl pt-12 text-red-800 text-center">
+          <h2 className="font-thin text-3xl pt-12 text-red-800 text-center sm:mx-5 sm:text-center">
             Avant la passation
           </h2>
           <div className="flex flex-row flex-1 justify-evenly my-10 gap-10">
@@ -43,7 +48,7 @@ function Result1({ formData }) {
             />
           </div>
         </div>
-        <div className="flex">
+        <div className="flex sm:flex-col">
           <PsychosocialeChart
             title={
               <span className="text-[#FFAF81]">Ma situation <br /> psychosociale</span>
@@ -69,16 +74,16 @@ function Result1({ formData }) {
           />
         </div>
       </div>
-      <div>
+      <div className="w-full">
         <div className="flex flex-col justify-around">
-          <div className="flex justify-center items-center basis-1/2">
+          <div className="flex justify-center items-center basis-1/2 md:hidden">
             <h3 className="font-thin text-7xl 2xl:text-9xl mt-10 font-MoonTime text-customGray">
               Mon autoscopie
             </h3>
           </div>
 
-          <div className="">
-            <div>
+          <div className="w-full">
+            <div className="w-full">
               <ChartComponentRole
                 formData={formData}
                 title={

@@ -3,15 +3,15 @@ import ChartComponent from '../Chart/ChartComponent'
 
 function Result3({ formData, collective }) {
   return (
-    <div className='flex h-full'>
-      <div className='w-[60%] h-[75%] flex justify-center items-center my-10 pl-5'>
+    <div className='flex h-full md:flex-col-reverse'>
+      <div className='w-[60%] h-[75%] flex justify-center items-center my-10 pl-5 md:w-full'>
         <ChartComponent formData={formData} step="" />
       </div>
       <div className='flex flex-col justify-center items-center gap-5'>
-        <div className='flex justify-center items-center text-center text-6xl font-thin font-MoonTime text-customGray'>
+        <div className='flex justify-center items-center text-center text-6xl font-thin font-MoonTime text-customGray md:mt-10'>
           Vision globale de ma QVT {collective ? "collective" : "personnelle"}
         </div>
-        <div className='flex gap-5'>
+        <div className='flex gap-5 sm:flex-col'>
           <div className='bg-white opacity-60 p-4 rounded-lg w-auto flex flex-col justify-start items-center'>
             <div className="flex flex-col justify-center items-center gap-1">
               <p className='font-bold text-xl mt-5 text-center text-[#325ba8]'>Harmonie</p>

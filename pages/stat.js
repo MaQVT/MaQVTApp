@@ -75,56 +75,58 @@ function Home({ user, diagnostics, clients, managers, users }) {
     const name = data["username"]
     const role = data["role"]
 
-    return <div className='flex justify-center'>
+    return <div className='flex justify-center sm:flex-col'>
       <div className='flex flex-col-reverse items-center justify-center m-5 w-80'>
         {role == "Client" && <span>Client <span className="font-bold text-2xl ml-5">{name}</span></span>}
         {role == "Manager" && <span className="ml-5">Equipe <span className="font-bold text-2xl ml-5">{name}</span></span>}
         {role == "" && <span className="ml-5"><span className="font-bold text-2xl ml-5">{name}</span></span>}
       </div>
-      <div className='flex flex-col-reverse items-center justify-center'>
-        <span>{ratings["1"]}</span>
-        <label htmlFor="rating-1">
-          <FontAwesomeIcon
-            icon={faStar}
-            style={{ fontSize: 40, color: "#C81F2A" }}
-          />
-        </label>
-      </div>
-      <div className='flex flex-col-reverse items-center justify-center'>
-        <span>{ratings["2"]}</span>
-        <label htmlFor="rating-2">
-          <FontAwesomeIcon
-            icon={faStar}
-            style={{ fontSize: 40, color: "#F4912E" }}
-          />
-        </label>
-      </div>
-      <div className='flex flex-col-reverse items-center justify-center'>
-        <span>{ratings["3"]}</span>
-        <label htmlFor="rating-3">
-          <FontAwesomeIcon
-            icon={faStar}
-            style={{ fontSize: 40, color: "#F4C741" }}
-          />
-        </label>
-      </div>
-      <div className='flex flex-col-reverse items-center justify-center'>
-        <span>{ratings["4"]}</span>
-        <label htmlFor="rating-4">
-          <FontAwesomeIcon
-            icon={faStar}
-            style={{ fontSize: 40, color: "#B5D930" }}
-          />
-        </label>
-      </div>
-      <div className='flex flex-col-reverse items-center justify-center'>
-        <span>{ratings["5"]}</span>
-        <label htmlFor="rating-5">
-          <FontAwesomeIcon
-            icon={faStar}
-            style={{ fontSize: 40, color: "#84CE2F" }}
-          />
-        </label>
+      <div className="flex justify-center items-center sm:w-full">
+        <div className='flex flex-col-reverse items-center justify-center'>
+          <span>{ratings["1"]}</span>
+          <label htmlFor="rating-1">
+            <FontAwesomeIcon
+              icon={faStar}
+              style={{ fontSize: 40, color: "#C81F2A" }}
+            />
+          </label>
+        </div>
+        <div className='flex flex-col-reverse items-center justify-center'>
+          <span>{ratings["2"]}</span>
+          <label htmlFor="rating-2">
+            <FontAwesomeIcon
+              icon={faStar}
+              style={{ fontSize: 40, color: "#F4912E" }}
+            />
+          </label>
+        </div>
+        <div className='flex flex-col-reverse items-center justify-center'>
+          <span>{ratings["3"]}</span>
+          <label htmlFor="rating-3">
+            <FontAwesomeIcon
+              icon={faStar}
+              style={{ fontSize: 40, color: "#F4C741" }}
+            />
+          </label>
+        </div>
+        <div className='flex flex-col-reverse items-center justify-center'>
+          <span>{ratings["4"]}</span>
+          <label htmlFor="rating-4">
+            <FontAwesomeIcon
+              icon={faStar}
+              style={{ fontSize: 40, color: "#B5D930" }}
+            />
+          </label>
+        </div>
+        <div className='flex flex-col-reverse items-center justify-center'>
+          <span>{ratings["5"]}</span>
+          <label htmlFor="rating-5">
+            <FontAwesomeIcon
+              icon={faStar}
+              style={{ fontSize: 40, color: "#84CE2F" }}
+            />
+          </label>
+        </div>
       </div>
       <div className='flex flex-col-reverse items-center justify-center m-5'>
         <span className="font-bold text-lg">{ratings["mean"].toFixed(2)}</span>
@@ -233,29 +235,29 @@ function Home({ user, diagnostics, clients, managers, users }) {
                     <hr />
                     <div className='w-full my-4'>
                       <div className="w-[90%] flex justify-around m-auto">
-                        <button onClick={() => { handleRetour() }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white'>Afficher les Statistiques</button>
-                        <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full'>Statistiques des Clients et Équipes</h1>
-                        <button onClick={() => { handleRetour() }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white'>Retourner à la liste des clients</button>
+                        <button onClick={() => { handleRetour() }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white sm:text-xs sm:px-2 sm:py-1'>Afficher les Statistiques</button>
+                        <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full  sm:text-lg sm:p-1 sm:py-1'>Statistiques des Clients et Équipes</h1>
+                        <button onClick={() => { handleRetour() }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white sm:text-xs sm:px-2 sm:py-1'>Retourner à la liste des clients</button>
                       </div>
                       <hr />
-                      <table className='w-[80%] m-auto my-6'>
-                        <thead>
+                      <table className='w-[80%] m-auto my-6 sm:w-full'>
+                        <thead className="sm:text-[10px]">
                           <tr>
                             <th>N°</th>
                             <th>Nom d&apos;Utilisateur</th>
-                            <th>Email</th>
+                            <th className="sm:hidden">Email</th>
                             <th>Nombre de diagnostics de l&apos;équipe</th>
                             <th>Rôle</th>
                             <th>Nombre d&apos;accès à l&apos;application de l&apos;équipe</th>
                             <th>Action</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="sm:text-[10px]">
                           {stats.map((user, index) => (
                             <tr key={user._id}>
                               <td className='text-center'>{index + 1}</td>
                               <td className='text-center'>{user.username}</td>
-                              <td className='text-center'>{user.email}</td>
+                              <td className='text-center sm:hidden'>{user.email}</td>
                               <td className='text-center'>{user.nbdiag}</td>
                               <td className='text-center'>{user.role}</td>
                               <td className='text-center px-5 py-3 my-2'>{user.nbCon}</td>
@@ -271,24 +273,24 @@ function Home({ user, diagnostics, clients, managers, users }) {
                   <>
                     {/* {showAllStats()} */}
                     <div className='w-full'>
-                      <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full'>Statistiques des Équipes</h1>
+                      <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full sm:text-lg sm:p-1 sm:py-1'>Statistiques des Équipes</h1>
                       <hr />
-                      <table className='w-[80%] m-auto my-6'>
-                        <thead>
+                      <table className='w-[80%] m-auto my-6 sm:w-full'>
+                        <thead className="sm:text-[10px]">
                           <tr>
                             <th>N°</th>
                             <th>Nom d&apos;Utilisateur</th>
-                            <th>Email</th>
+                            <th className="sm:hidden">Email</th>
                             <th>Nombre de diagnostics de l&apos;équipe</th>
                             <th>Nombre d&apos;accès à l&apos;application de l&apos;équipe</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="sm:text-[10px]">
                           {getStatsByManagers().filter((value, index) => value.parent_id == user._id).map((user, index) => (
                             <tr key={user._id}>
                               <td className='text-center'>{index + 1}</td>
                               <td className='text-center'>{user.username}</td>
-                              <td className='text-center'>{user.email}</td>
+                              <td className='text-center sm:hidden'>{user.email}</td>
                               <td className='text-center'>{user.nbdiag}</td>
                               <td className='text-center px-5 py-3 my-2'>{user.nbCon}</td>
                             </tr>

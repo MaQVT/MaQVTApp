@@ -25,7 +25,9 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
   }
 
   const removeHandler = async () => {
-    handleDeleteUser(user._id);
+    if(confirm("Confirmez la suppression de ce utilisateur")){
+      handleDeleteUser(user._id);
+    }
   };
   const editHandler = async () => {
     handleUpdateModal(user)
@@ -85,7 +87,7 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
         </Link> : <span className={`font-Trocchi bg-slate-300 px-3 py-2 rounded-md mb-2 cursor-text`}>{user.username}</span>
       }
       <span className="text-xs">{user.email}</span>
-      <span className="text-orange-800">{user.role}</span>
+      <span className="text-orange-800">{user.role == "User" ? "Utilisateur" : user.role}</span>
     </li>
   );
 }

@@ -80,7 +80,7 @@ function History({ user, allDiagnostics }) {
                     <div className='flex flex-row justify-between items-center w-[80%] m-auto'>
                         <button
                             title="Retourner en arrière"
-                            className="border rounded-full w-[80px] h-[80px] flex justify-center items-center"
+                            className="border rounded-full w-[80px] h-[80px] flex justify-center items-center sm:w-[40px] sm:h-[40px]"
                             onClick={() => router.back()}
                         >
                             <BiArrowBack size={30} />
@@ -89,7 +89,7 @@ function History({ user, allDiagnostics }) {
                     </div>
 
                     <hr />
-                    <table className='w-[80%] m-auto my-6'>
+                    <table className='w-[80%] m-auto my-6 sm:text-[10px] md:w-[95%]'>
                         <thead>
                             <tr>
                                 <th>N°</th>
@@ -105,7 +105,7 @@ function History({ user, allDiagnostics }) {
                                     <td className='text-center'>{moment(diagnostic.date).format('D MMMM YYYY  HH:MM:SS')}</td>
                                     <td className='text-center'>{formatDate(diagnostic.date)}</td>
                                     <td className='text-center h-[40px]'>
-                                        <Link href={`/result/consultant/${diagnostic._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500'>
+                                        <Link href={`/result/consultant/${diagnostic._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500 sm:inline-block'>
                                             Voir le rapport QVT personnel
                                         </Link>
                                     </td>

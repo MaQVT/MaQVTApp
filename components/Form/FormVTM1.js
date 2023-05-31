@@ -22,16 +22,17 @@ export default function FormVTM1({
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    window.scrollTo(0, 0)
     handleNext({ [stepName]: values });
   };
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col md:px-5">
       {/* <h2 className="w-full font-bold text-6xl">La vie au travail et moi</h2> */}
       <form
         onSubmit={handleFormSubmit}
         className="flex flex-col justify-center items-center flex-1"
       >
-        <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+        <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray md:text-2xl md:mt-10 md:px-6 md:text-center">
           <span className="text-purple-800 font-Benedict mr-8 text-5xl">{pageNumber}</span>
           {titleName}
         </h2>
@@ -53,7 +54,7 @@ export default function FormVTM1({
             handleChange={handleChange}
           />
         </div>
-        <div className="absolute bottom-[110px] flex flex-row justify-center items-center w-full">
+        <div className="absolute bottom-[110px] flex flex-row justify-center items-center w-full md:relative md:bottom-0 md:mb-10">
           {(position > 0 || position == -1) && (
             <button
               type="button"

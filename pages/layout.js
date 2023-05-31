@@ -135,7 +135,7 @@ function Layout({ user, children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex flex-col min-w-screen min-h-screen items-center relative bg-[url('/backgound.png')] font-PlayfairDisplay">
-        <div className="h-[75px] drop-shadow-lg border bg-white w-screen flex flex-row justify-around items-center">
+        <div className="h-[75px] drop-shadow-lg border bg-white w-full flex flex-row justify-around items-center">
           <div onClick={() => mainPage()}>
             <img
               src="https://www.wunjo.life/wp-content/uploads/2020/12/Logo-Twitter-200x200-1.png"
@@ -143,15 +143,6 @@ function Layout({ user, children }) {
               className="h-14 w-14 rounded-full cursor-pointer"
             />
           </div>
-          {user?.email && (
-            <button
-              title="Se deconnecter"
-              className="border rounded-full w-[50px] h-[50px] block mx-2 flex justify-center items-center"
-              onClick={logout}
-            >
-              <BiLogOutCircle size={30} />
-            </button>
-          )}
           {user?.email && (
             <button
               title="Réaliser un auto-diagnostic QVT personnelle"
@@ -179,7 +170,7 @@ function Layout({ user, children }) {
               <RiUserSettingsLine size={30} />
             </button>
           )}
-          {(user?.role == "Admin" || user?.role == "Consultants") && (
+          {(user?.role == "Never") && (
             <button
               title="Voir les Utilisateurs non validés"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
@@ -197,9 +188,18 @@ function Layout({ user, children }) {
               <BiUser size={30} />
             </button>
           )}
+          {user?.email && (
+            <button
+              title="Se deconnecter"
+              className="border rounded-full w-[50px] h-[50px] block mx-2 flex justify-center items-center"
+              onClick={logout}
+            >
+              <BiLogOutCircle size={30} />
+            </button>
+          )}
         </div>
         <div className="flex-1 w-full h-full">
-          <div className="min-h-[calc(100vh-75px)] w-screen">
+          <div className="min-h-[calc(100vh-75px)] w-full">
             {children}
           </div>
         </div>

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
         res.status(200).json({ userSchedules });
     } else if (req.method === 'POST') {
-        const { userId, role, newExpirationDate } = req.body;
+        const { userId, role, newExpirationDate, email, username } = req.body;
         if (role != "Admin") {
             let schedule = getCron2MonthsAgoSchedule(newExpirationDate) //'0 0 * * 0';
 
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
                 to: process.env.EMAIL_FROM,
                 from: process.env.EMAIL_FROM,
                 subject: "MA QVT : Rappel expiration d'un utilisateur",
-                html: "Le délai d'expiration de ce compte est dans 2 mois",
+                html: getMailAdminTemplate(`${username} : ${email}`, `La date d'expiration de l'utilisateur est à 2 mois de l'expiration`, "", ""),
             };
             // Update the schedule for the specified user
             userSchedules[userId] = schedule;
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
                     to: process.env.EMAIL_FROM,
                     from: process.env.EMAIL_FROM,
                     subject: "MA QVT : Rappel expiration d'un utilisateur",
-                    html: "Le délai d'expiration de ce compte est dans 2 mois",
+                    html: getMailAdminTemplate(`${value.username} : ${value.email}`, `La date d'expiration de l'utilisateur est à 2 mois de l'expiration`, "", ""),
                 };
                 // Update the schedule for the specified user
                 userSchedules[value._id] = schedule;

@@ -78,15 +78,15 @@ function History({ user, allDiagnostics }) {
             <main className={`${styles.main} flex-col pt-5`} style={{justifyContent: "flex-start"}}>
                 <div className='w-full'>
                     <div className='flex items-center justify-center gap-10'>
-                    <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT personnel</h1>
+                    <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT personnelle</h1>
                     <button onClick={() => {
                             router.push({
                                 pathname: "/result/collective",
                             });
-                        }} className='h-auto w-auto py-3 px-5'>Voir les QVT Collective</button>
+                        }} className='h-auto w-auto py-3 px-5 sm:text-xs'>Voir les QVT Collective</button>
                     </div>
                     <hr />
-                    <table className='w-[80%] m-auto my-6'>
+                    <table className='w-[80%] m-auto my-6 sm:text-[10px] md:w-[95%]'>
                         <thead>
                             <tr>
                                 <th>N°</th>

@@ -1,9 +1,13 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const AddFaqForm = () => {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
-
+  const [color, setColor] = useState("red");
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter()
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,24 +23,33 @@ const AddFaqForm = () => {
         // Clear the form inputs
         setQuestion('');
         setResponse('');
+        setColor("green");
+        setErrorMessage("Ajoût réussi");
+        setTimeout(() => {
+          setErrorMessage("");
+          router.reload()
+        }, 2000);
       } else {
         // Handle error case if the FAQ was not added successfully
         console.error('Failed to add FAQ');
       }
     } catch (error) {
+      setColor("red");
+      setErrorMessage("Un problème est survenu lors de l'ajout de la FAQ");
       console.error('Error adding FAQ:', error);
     }
   };
 
   return (
     <div className='flex flex-col gap-2 w-[80%] mx-10 my-8'>
-        <hr />
+      <hr />
+      {errorMessage && <><p className={`py-5 text-${color}-600`}>{errorMessage}</p><br /></>}
       <h2>Ajouter un nouveau FAQ</h2>
       <form className='flex flex-col gap-2'>
         <div>
           <label htmlFor="question">Question:</label>
           <input
-          className='w-full py-2 px-10'
+            className='w-full py-2 px-10'
             type="text"
             id="question"
             value={question}
@@ -47,7 +60,7 @@ const AddFaqForm = () => {
         <div>
           <label htmlFor="response">Réponse:</label>
           <input
-          className='w-full py-2 px-10'
+            className='w-full py-2 px-10'
             type="text"
             id="response"
             value={response}

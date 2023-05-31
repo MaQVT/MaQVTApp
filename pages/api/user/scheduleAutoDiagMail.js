@@ -1,6 +1,7 @@
 import sgMail from '@sendgrid/mail';
 import cron from 'node-cron';
 import { getAllClients, getAllConsultants, getAllManagers, getAllUsersByRole } from '../../../db/handlers/users_handlers';
+import { getMailTemplate } from '../../../utils/getMailTemplate';
 
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -14,10 +15,17 @@ export default async function handler(req, res) {
         res.status(200).json({ userSchedules });
     } else if (req.method === 'POST') {
         const { userId, role, email, scheduleName } = req.body;
+        const text = getMailTemplate(
+            "Notification pour passer le questionnaire",
+            `Bonjour, <br /><br />Vous êtes invité.e à effectuer un nouveau Diagnostic de QVT Personnelle sur l’Application “Ma QVT”. <br /><br />(N’hésitez pas personnaliser la fréquence de vos notifications dans votre espace personnel) <br /><br />Veuillez cliquer sur le lien ci-dessous :`,
+            process.env.NEXT_PUBLIC_APP_URL,
+            "Réaliser un nouvel auto-diagnostic de QVT personnelle",
+            ""
+          );
         if (role != "Admin") {
             let schedule;
             if (scheduleName === 'hebdomadaire') {
-                schedule = '0 0 * * 0';
+                schedule = '* * * * *';
             } else if (scheduleName === 'mensuelle') {
                 schedule = '*/2 * * * *'; //'0 0 1 * *' First day of every month at 12:00 AM
             } else if (scheduleName === 'trimestrielle') {
@@ -32,7 +40,7 @@ export default async function handler(req, res) {
                 to: email,
                 from: process.env.EMAIL_FROM,
                 subject: "MA QVT : Notification pour passer le questionnaire",
-                html: "Tu dois refaire ton Auto-Diagnostics QVT",
+                html: text,
             };
             // Update the schedule for the specified user
             userSchedules[userId] = schedule;
@@ -76,7 +84,7 @@ export default async function handler(req, res) {
                     to: value.email,
                     from: process.env.EMAIL_FROM,
                     subject: "MA QVT : Notification pour passer le questionnaire",
-                    html: "Tu dois refaire ton Auto-Diagnostics QVT",
+                    html: text,
                 };
                 // Update the schedule for the specified user
                 userSchedules[value._id] = schedule;

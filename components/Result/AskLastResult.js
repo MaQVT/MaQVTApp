@@ -85,7 +85,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className='flex flex-col text-center justify-center items-center h-full'>
+        <form onSubmit={handleSubmit} className='flex flex-col text-center justify-center items-center h-full mt-5 md:mx-5'>
             <p className='font-MoonTime text-2xl'>
                 Votre auto-diagnostic de QVT personnelle est fini. Retrouvez votre Rapport dans l’onglet “Consulter mes rapports QVT personnelle”.
             </p>
@@ -95,7 +95,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
             <p className='text-lg font-Trocchi mt-5'>
                 Choisissez la fréquence à laquelle être notifié·e :
             </p>
-            <div className='flex justify-center'>
+            <div className='flex justify-center sm:flex-wrap'>
                 <div>
                     <input type="radio" id="hebdomadaire" name="frequency" value="hebdomadaire" checked={frequency === 'hebdomadaire'} onChange={handleFrequencyChange} />
                     <label htmlFor="hebdomadaire">Hebdomadaire</label>
@@ -193,13 +193,13 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                     </label>
                 </div>
             </div>
-            <div className='absolute bottom-[110px] w-full'>
+            <div className='absolute bottom-[110px] w-full md:relative md:bottom-0 md:mb-10 md:mt-10'>
                 {(position > 0 || position == -1) && (
                     <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
                         Précédent
                     </button>
                 )}
-                <button type="submit" className="w-[100px] h-[50px] rounded mx-40">
+                <button type="submit" className="w-[100px] h-[50px] rounded mx-40 sm:mx-5">
                     {position == -1 ? "Terminer" : "Suivant"}
                 </button>
             </div>

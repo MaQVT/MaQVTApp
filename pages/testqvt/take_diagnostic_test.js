@@ -38,7 +38,7 @@ function Diagnostic({ user }) {
       </Head>
       <Layout user={user}>
         <main className={styles.main}>
-          {((user.nb_access == -1 && moment(user.expired_date).isAfter(moment(new Date(Date.now())), 'day')) || user.nb_access > 0) ?
+          {((user.nb_access == -1 && moment(user.expired_date).isAfter(moment(new Date(Date.now())), 'day')) || user.nb_access > 0) && user.authorization ?
             <MultiStepForm /> :
             <div>Vous n&apos;avez pas accès au test QVT pour le moment</div>
           }

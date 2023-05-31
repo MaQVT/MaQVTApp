@@ -40,7 +40,7 @@ function RadarChartComponent({
             },
             pointLabels: {
               font: {
-                size: 12,
+                size: 11,
               },
             },
           },
@@ -68,9 +68,9 @@ function RadarChartComponent({
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="font-thin text-6xl mt-14 font-MoonTime text-customGray">{title}</h1>
+      <h1 className="font-thin text-6xl mt-14 font-MoonTime text-customGray md:text-center sm:text-3xl">{title}</h1>
       <div>
-        <div className="w-[600px] mt-6 mb-6">
+        <div className="w-[600px] mt-6 mb-6 sm:w-[100vw]">
           <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
         </div>
         { asymetrique >= 1 && <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>}

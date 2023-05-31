@@ -19,19 +19,20 @@ export default function FormAD2({
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    window.scrollTo(0, 0)
     handleNext({ [stepName]: values });
   };
   return (
-    <div className="h-full flex flex-col items-center">
-      <h2 className="w-full font-bold text-6xl text-center font-MoonTime mt-5 text-customGray">
+    <div className="h-full flex flex-col items-center md:px-5">
+      <h2 className="w-full font-bold text-6xl text-center font-MoonTime mt-5 text-customGray md:text-5xl md:mt-10">
         {titleName}
       </h2>
       <form
         onSubmit={handleFormSubmit}
-        className="flex flex-row h-full w-full justify-around font-bold text-6xl pt-20"
+        className="flex flex-row h-full w-full justify-around font-bold text-6xl pt-20 sm:flex-col"
       >
         <div className="flex flex-col mb-20 justify-start items-center">
-          <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+          <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray sm:text-lg sm:text-center">
             Mon état physique
           </h2>
           <div className="flex p-10 text-base items-center gap-6 justify-center" id="physique">
@@ -171,10 +172,23 @@ export default function FormAD2({
           </div>
         </div>
         <div className="flex flex-col mb-20 justify-start">
-          <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray">
+          <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray sm:text-lg text-center">
             Mon état émotionnel
           </h2>
-          <div className="flex gap-10">
+          <div className="flex gap-10 justify-center sm:flex-wrap">
+            <div className="flex flex-col justify-center">
+              <input
+                type="radio"
+                id="emotionnel0"
+                name="emotionnel"
+                value="0"
+                onChange={handleChange}
+                defaultChecked
+              />
+              <label htmlFor="emotionnel0">
+                <img className="h-16 bg-white rounded-full" src="/form/starte0.png" alt="4" />
+              </label>
+            </div>
             <div className="flex flex-col justify-center">
               <input
                 type="radio"
@@ -185,7 +199,7 @@ export default function FormAD2({
                 defaultChecked
               />
               <label htmlFor="emotionnel1">
-                <img className="h-12" src="/form/star0.png" alt="4" />
+                <img className="h-16 bg-white rounded-full" src="/form/starte1.png" alt="4" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -197,7 +211,7 @@ export default function FormAD2({
                 value="2"
               />
               <label htmlFor="emotionnel2">
-                <img className="h-12" src="/form/star1.png" alt="3" />
+                <img className="h-16 bg-white rounded-full" src="/form/starte2.png" alt="3" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -209,7 +223,7 @@ export default function FormAD2({
                 value="3"
               />
               <label htmlFor="emotionnel3">
-                <img className="h-12" src="/form/star1.png" alt="2" />
+                <img className="h-16 bg-white rounded-full" src="/form/starte3.png" alt="2" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -221,13 +235,25 @@ export default function FormAD2({
                 value="4"
               />
               <label htmlFor="emotionnel4">
-                <img className="h-12" src="/form/star2.png" alt="1" />
+                <img className="h-16 bg-white rounded-full" src="/form/starte4.png" alt="1" />
+              </label>
+            </div>
+            <div className="flex flex-col justify-center">
+              <input
+                type="radio"
+                id="emotionnel5"
+                name="emotionnel"
+                onChange={handleChange}
+                value="1"
+              />
+              <label htmlFor="emotionnel5">
+                <img className="h-16 rounded-full" src="/form/starteq.png" alt="1" />
               </label>
             </div>
           </div>
         </div>
       </form>
-      <div className="absolute bottom-[110px]">
+      <div className="absolute bottom-[110px] md:relative md:bottom-0 md:mb-10">
         {(position > 0 || position == -1) && (
           <button
             type="button"
@@ -239,7 +265,7 @@ export default function FormAD2({
         )}
         <button
           onClick={handleFormSubmit}
-          className="w-[100px] h-[50px] rounded mx-40"
+          className="w-[100px] h-[50px] rounded mx-40 sm:mx-5"
           type="submit"
         >
           {position == -1 ? "Terminer" : "Suivant"}

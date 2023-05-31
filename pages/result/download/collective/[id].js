@@ -36,7 +36,7 @@ function ResultDownload({ user, formDataInitial }) {
         if(formData) {
             setTimeout(() => {
             window.print()
-            }, 500);
+            }, 1000);
         }
     }, [formData]);
 

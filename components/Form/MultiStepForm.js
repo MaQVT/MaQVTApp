@@ -33,6 +33,7 @@ export default function MultiStepForm() {
   };
 
   const handlePrev = () => {
+    window.scrollTo(0, 0)
     setStep(step - 1);
   };
 
@@ -69,20 +70,22 @@ export default function MultiStepForm() {
       }
     }, 100);
 
-    setTimeout(async () => {
-      const res = await fetch("/api/users", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          token: localStorage.getItem("token")
-        },
-        body: JSON.stringify({ nb_access: parseInt(localStorage.getItem("nb_access")) - 1, email: localStorage.getItem("email") }),
-      });
-      if (res.ok) {
-        const json = await res.json();
-        console.log(json);
-      }
-    }, 100);
+    if(localStorage.getItem("nb_access") != "-1"){
+      setTimeout(async () => {
+        const res = await fetch("/api/users", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("token")
+          },
+          body: JSON.stringify({ nb_access: parseInt(localStorage.getItem("nb_access")) - 1, email: localStorage.getItem("email") }),
+        });
+        if (res.ok) {
+          const json = await res.json();
+          console.log(json);
+        }
+      }, 100);
+    }
   }
 
   useEffect(() => {
@@ -96,15 +99,17 @@ export default function MultiStepForm() {
           handleNext={handleNextImage}
           handlePrev={handlePrev}
           text={<>
-            Bienvenue ! <br />
-            Vous vous apprêtez à vous offrir un temps précieux d’écoute de vous-même, de votre vécu du travail. Et pour cela, déjà, bravo. <br />
-            Vous allez être guidé par une trentaine de questions permettant d’évaluer votre Qualité de Vie au Travail, actuellement. <br />
-            Pour que cette expérience vous soit utile : <br />
-            1&gt; Répondez avec un maximum d’authenticité <br />
-            Vous êtes une personne unique, et personne mieux que vous ne peut savoir ce que vous vivez, ni ce dont vous avez besoin. <br />
-            2&gt; Répondez avec un maximum de spontanéité <br />
-            Ne cherchez pas à imaginer ce qu’il y a “derrière” chaque question, car il n’y a pas de bonne ou mauvaise réponse, vous avez le droit de penser et ressentir tout ce que vous voulez ! <br />
-            C’est à vous… Lancer l’auto-diagnostic <br />
+            <div class="max-w-2xl text-center">
+              <h1 class="text-3xl font-bold mb-4">Bienvenue !</h1>
+              <p class="text-lg mb-6">Vous vous apprêtez à vous offrir un temps précieux d’écoute de vous-même, de votre vécu du travail. Et pour cela, déjà, bravo.</p>
+              <p class="text-lg mb-6">Vous allez être guidé par une trentaine de questions permettant d’évaluer votre Qualité de Vie au Travail, actuellement.</p>
+              <p class="text-lg mb-4">Pour que cette expérience vous soit utile :</p>
+              <ol class="list-decimal pl-8 mb-6">
+                <li class="mb-2"><span className="font-semibold">Répondez avec un maximum d’authenticité.</span> Vous êtes une personne unique, et personne mieux que vous ne peut savoir ce que vous vivez, ni ce dont vous avez besoin.</li>
+                <li class="mb-2"><span className="font-semibold">Répondez avec un maximum de spontanéité.</span> Ne cherchez pas à imaginer ce qu’il y a “derrière” chaque question, car il n’y a pas de bonne ou mauvaise réponse, vous avez le droit de penser et ressentir tout ce que vous voulez !</li>
+              </ol>
+              <p class="text-lg">C’est à vous… Lancer l’auto-diagnostic</p>
+            </div>
           </>}
           position={0}
         />
