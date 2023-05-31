@@ -26,6 +26,8 @@ function RadarChartComponent({
       chartRef.current.destroy();
     }
 
+    const isMobile = window.innerWidth <= 768;
+
     chartRef.current = new Chart(ctx, {
       type: "radar",
       data: chartData,
@@ -40,7 +42,7 @@ function RadarChartComponent({
             },
             pointLabels: {
               font: {
-                size: 11,
+                size: isMobile ? 8 : 11,
               },
             },
           },
@@ -52,7 +54,7 @@ function RadarChartComponent({
         },
         plugins: {
           legend: {
-            position: "right",
+            position: isMobile ? "bottom" : "right",
           },
         },
         responsive: true,
