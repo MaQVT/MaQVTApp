@@ -85,7 +85,7 @@ export async function getServerSideProps(context) {
     const allUsersResponse = await getAllUsers()
     const clientsResponse = await getUsersByParents(userResponseJson.data._id)
     const clientsId = clientsResponse.map((value, index) => value._id.toString())
-    const consultantDirectUser = clientsResponse.filter((value, index) => value.role == "User")
+    const consultantDirectUser = clientsResponse.filter((value, index) => value.role == "User").map((value, index) => value._id.toString())
     const managersResponse = allUsersResponse.filter((value, index) => clientsId.includes(value.parentId)).map((value, index) => value._id.toString())
     const usersResponse = allUsersResponse.filter((value, index) => managersResponse.includes(value.parentId)).map((value, index) => value._id.toString())
     const mesId = [...usersResponse, ...managersResponse, ...consultantDirectUser]

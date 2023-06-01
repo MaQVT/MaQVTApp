@@ -2,6 +2,7 @@ import sgMail from '@sendgrid/mail';
 import cron from 'node-cron';
 import { getAllClients, getAllConsultants, getAllManagers, getAllUsersByRole } from '../../../db/handlers/users_handlers';
 import { getCron2MonthsAgoSchedule } from '../../../utils/otherFunctions';
+import { getMailAdminTemplate } from '../../../utils/getMailTemplate';
 
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
