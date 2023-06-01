@@ -142,7 +142,7 @@ function Layout({ user, children }) {
               className="h-14 w-14 rounded-full cursor-pointer"
             />
           </div>
-          {user?.email && (
+          {user?.email && (user?.role == "User" || user?.role == "Manager") && (
             <button
               title="Réaliser un auto-diagnostic QVT personnelle"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
@@ -151,7 +151,7 @@ function Layout({ user, children }) {
               <BiNote size={30} />
             </button>
           )}
-          {user?.email && (
+          {user?.email && (user?.role == "User" || user?.role == "Manager") && (
             <button
               title="Voir mes résultats QVT personnelle"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"

@@ -57,10 +57,10 @@ function Home({ user }) {
                 L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br />
               </p>
               <div className="flex w-full justify-center flex-wrap mt-10 gap-5">
-                {(user.role == "User" || user.role == "Manager" || user.role == "Admin") &&
+                {(user.role == "User" || user.role == "Manager" || user.role == "") &&
                   <button onClick={() => { accederTest() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Faire le Test QVT</button>
                 }
-                {(user.role == "User" || user.role == "Manager" || user.role == "Admin") &&
+                {(user.role == "User" || user.role == "Manager" || user.role == "") &&
                   <button onClick={() => { accederResultat() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à mes résultats</button>
                 }
                 <button onClick={() => { accederFAQ() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à la FAQ</button>
@@ -71,7 +71,7 @@ function Home({ user }) {
                 {(user.role == "Consultant" || user.role == "Client" || user.role == "Admin") &&
                   <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques</button>
                 }
-                {(user.role == "Consultant" || user.role == "Admin") &&
+                {(user.role == "Consultant" || user.role == "") &&
                   <button onClick={() => { accederPartages() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les rapports partagés</button>
                 }
                 {user.role == "Admin" &&
