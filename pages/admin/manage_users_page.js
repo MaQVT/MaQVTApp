@@ -175,120 +175,126 @@ function ManageUsers({ users, user, scopeId, parent }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout user={user}>
-        <main className={`${styles.main} flex-col pt-5`} key={scopeId} style={{ justifyContent: "flex-start" }}>
-          <div className="flex flex-row justify-between items-center w-[90%]">
-            <button
-              title="Retouner en arrière"
-              className="border rounded-full w-[80px] h-[80px] flex justify-center items-center sm:h-[40px] sm:w-[40px] sm:text-xs"
-              onClick={getBack}
-            >
-              <BiArrowBack size={30} />
-            </button>
-            {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {roles[roles.indexOf(users[0].role) - 1]} : {parent.username}</h1>}
-            {user.role != "User" && user.role != "Client" &&
-              <div>
-                <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un Utilisateur</button>
+        {
+          user.role != "User" ?
+
+            <main className={`${styles.main} flex-col pt-5`} key={scopeId} style={{ justifyContent: "flex-start" }}>
+              <div className="flex flex-row justify-between items-center w-[90%]">
+                <button
+                  title="Retouner en arrière"
+                  className="border rounded-full w-[80px] h-[80px] flex justify-center items-center sm:h-[40px] sm:w-[40px] sm:text-xs"
+                  onClick={getBack}
+                >
+                  <BiArrowBack size={30} />
+                </button>
+                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {roles[roles.indexOf(users[0].role) - 1]} : {parent.username}</h1>}
+                {user.role != "User" && user.role != "Client" &&
+                  <div>
+                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un Utilisateur</button>
+                  </div>
+                }
               </div>
-            }
-          </div>
 
 
-          {haveRightToSee(user.role) &&
-            <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
-              {
-                allUsers.length ? allUsers.map((value, index) => <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />)
-                  : <div>Il n&apos;y a rien à afficher</div>
+              {haveRightToSee(user.role) &&
+                <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
+                  {
+                    allUsers.length ? allUsers.map((value, index) => <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />)
+                      : <div>Il n&apos;y a rien à afficher</div>
+                  }
+                </ul>
               }
-            </ul>
-          }
 
-          {showUpdateModal ? (
-            <>
-              <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-              >
-                <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                  {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    {/*header*/}
-                    <div className="flex items-start justify-between p-2 px-5 border-b border-solid border-slate-200 rounded-t">
-                      <h3 className="text-3xl font-semibold">
-                        Modifier un Utilisateur
-                      </h3>
-                      <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                        onClick={() => setShowUpdateModal(false)}
-                      >
-                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                          ×
-                        </span>
-                      </button>
-                    </div>
-                    {/*body*/}
-                    <div className="relative flex-auto">
-                      <UpdateUser user={updatingUser} handleUpdateUser={handleUpdateUser} parent={parent} />
-                    </div>
-                    {/*footer*/}
-                    <div className="flex items-center justify-end p-2 px-5 border-t border-solid border-slate-200 rounded-b">
-                      <button
-                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={() => setShowUpdateModal(false)}
-                      >
-                        Fermer
-                      </button>
+              {showUpdateModal ? (
+                <>
+                  <div
+                    className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                  >
+                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                      {/*content*/}
+                      <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
+                        <div className="flex items-start justify-between p-2 px-5 border-b border-solid border-slate-200 rounded-t">
+                          <h3 className="text-3xl font-semibold">
+                            Modifier un Utilisateur
+                          </h3>
+                          <button
+                            className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                            onClick={() => setShowUpdateModal(false)}
+                          >
+                            <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                              ×
+                            </span>
+                          </button>
+                        </div>
+                        {/*body*/}
+                        <div className="relative flex-auto">
+                          <UpdateUser user={updatingUser} handleUpdateUser={handleUpdateUser} parent={parent} />
+                        </div>
+                        {/*footer*/}
+                        <div className="flex items-center justify-end p-2 px-5 border-t border-solid border-slate-200 rounded-b">
+                          <button
+                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            onClick={() => setShowUpdateModal(false)}
+                          >
+                            Fermer
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-            </>
-          ) : null}
+                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+              ) : null}
 
-          {showModal ? (
-            <>
-              <div
-                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-              >
-                <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                  {/*content*/}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    {/*header*/}
-                    <div className="flex items-start justify-between p-2 px-5 border-b border-solid border-slate-200 rounded-t">
-                      <h3 className="text-3xl font-semibold">
-                        Ajouter un Utilisateur
-                      </h3>
-                      <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                        onClick={() => setShowModal(false)}
-                      >
-                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                          ×
-                        </span>
-                      </button>
-                    </div>
-                    {/*body*/}
-                    <div className="relative flex-auto">
-                      <AddUser handleAddUser={handleAddUser} parent_id={parent._id || ""} user={user} parent={parent} roles={parent.role ? haveRightAdd(parent.role) : []} />
-                    </div>
-                    {/*footer*/}
-                    <div className="flex items-center justify-end p-2 px-5 border-t border-solid border-slate-200 rounded-b">
-                      <button
-                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={() => setShowModal(false)}
-                      >
-                        Fermer
-                      </button>
+              {showModal ? (
+                <>
+                  <div
+                    className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                  >
+                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                      {/*content*/}
+                      <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
+                        <div className="flex items-start justify-between p-2 px-5 border-b border-solid border-slate-200 rounded-t">
+                          <h3 className="text-3xl font-semibold">
+                            Ajouter un Utilisateur
+                          </h3>
+                          <button
+                            className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                            onClick={() => setShowModal(false)}
+                          >
+                            <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                              ×
+                            </span>
+                          </button>
+                        </div>
+                        {/*body*/}
+                        <div className="relative flex-auto">
+                          <AddUser handleAddUser={handleAddUser} parent_id={parent._id || ""} user={user} parent={parent} roles={parent.role ? haveRightAdd(parent.role) : []} />
+                        </div>
+                        {/*footer*/}
+                        <div className="flex items-center justify-end p-2 px-5 border-t border-solid border-slate-200 rounded-b">
+                          <button
+                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            onClick={() => setShowModal(false)}
+                          >
+                            Fermer
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-            </>
-          ) : null}
+                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+              ) : null}
 
-        </main>
+            </main>
+            :
+            <div className={styles.main}>Page innaccessible à votre statut</div>
+        }
       </Layout>
     </>
   );

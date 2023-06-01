@@ -45,7 +45,7 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let Status = "valide"
-    if (user.role == "Manager") {
+    if (user.role == "Manager" || user.role == "Client") {
       Status = "invalide"
     }
     if (file) {
@@ -115,28 +115,32 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
           {roles.map((role, index) => <option value={role} key={index}>{role}</option>)}
         </select>
       </div>
-      <div className=''>
-        <label htmlFor="nb_access">A usage unique:</label>
-        <input
-          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md mx-10 focus:outline-none'
-          type="checkbox"
-          name="nb_access"
-          id="nb_access"
-          value={nb_access == 1}
-          onChange={(e) => setNbAccess(e.target.checked ? 1 : -1)}
-        />
-      </div>
-      <div>
-        <label htmlFor="expired_date">Date d&apos;expiration:</label>
-        <input
-          className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px] focus:outline-none'
-          type="date"
-          name="expired_date"
-          id="expired_date"
-          value={expired_date}
-          onChange={(e) => setExpiredDate(e.target.value)}
-        />
-      </div>
+      {(user.role != "Manager" && user.role != "Client") &&
+        <>
+          <div className=''>
+            <label htmlFor="nb_access">A usage unique:</label>
+            <input
+              className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md mx-10 focus:outline-none'
+              type="checkbox"
+              name="nb_access"
+              id="nb_access"
+              value={nb_access == 1}
+              onChange={(e) => setNbAccess(e.target.checked ? 1 : -1)}
+            />
+          </div>
+          <div>
+            <label htmlFor="expired_date">Date d&apos;expiration:</label>
+            <input
+              className='mb-5 mt-1 h-auto px-5 py-1 border-2 border-black rounded-md block mx-0 w-[500px] md:max-w-[300px] focus:outline-none'
+              type="date"
+              name="expired_date"
+              id="expired_date"
+              value={expired_date}
+              onChange={(e) => setExpiredDate(e.target.value)}
+            />
+          </div>
+        </>
+      }
       {/* <div className='my-3'>
         <label htmlFor="send_mail">
           Activer les Emails

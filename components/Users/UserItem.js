@@ -59,7 +59,7 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
               className="fa fa-check text-green-500 text-base pr-2 pb-2 cursor-pointer"
             ></i> : <i></i>
           }
-          {toValid == false ?
+          {toValid == false && parentRole == "Admin" ?
             <i
               onClick={removeHandler}
               title="Supprimer l'utilisateur"
