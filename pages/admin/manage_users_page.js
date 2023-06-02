@@ -26,6 +26,8 @@ function ManageUsers({ users, user, scopeId, parent }) {
 
   useEffect(() => {
     setRien(scopeId)
+    console.log("parent")
+    console.log(parent)
   }, [scopeId])
 
   async function handle2MonthFrequenceMailUser(userActual) {
@@ -187,7 +189,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
                 >
                   <BiArrowBack size={30} />
                 </button>
-                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {roles[roles.indexOf(users[0].role) - 1]} : {parent.username}</h1>}
+                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {parent.role} : {parent.username}</h1>}
                 {user.role != "User" && user.role != "Client" &&
                   <div>
                     <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un Utilisateur</button>
@@ -200,7 +202,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
                 <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
                   {
                     allUsers.length ? allUsers.map((value, index) => <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />)
-                      : <div>Il n&apos;y a rien à afficher</div>
+                      : <div className="text-center w-[95vw]">Il n&apos;y a rien à afficher</div>
                   }
                 </ul>
               }

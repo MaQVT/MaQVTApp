@@ -26,7 +26,7 @@ function InvalidUsers({ user, users }) {
               <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
                 {
                   allUsers.length ? allUsers.map((value, index) => <UserItem user={value} key={index} parentRole={user.role} toValid={true} />)
-                    : <div>Il n&apos;y a rien à afficher</div>
+                    : <div className="text-center w-[95vw]">Il n&apos;y a rien à afficher</div>
                 }
               </ul>
             </main>
