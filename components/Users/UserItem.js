@@ -45,7 +45,7 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
     >
       {parentRole != "Manager" && parentRole != "Client" && parentRole != "User" &&
         <div className="flex justify-between w-full items-center">
-          {(user.role != "Admin" && toValid == false) ?
+          {((user.role == "Manager" || user.role == "User") && toValid == false) ?
             <i
               onClick={editHandler}
               title="Editer l'utilisateur"
