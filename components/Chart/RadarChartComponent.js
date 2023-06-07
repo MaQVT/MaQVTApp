@@ -75,14 +75,16 @@ function RadarChartComponent({
         <div className="w-[600px] mt-6 mb-6 sm:w-[100vw]">
           <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
         </div>
-        { asymetrique >= 1 && <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>}
       </div>
-      <Description
-        bgcolor1={bgcolor1}
-        bgcolor2={bgcolor2}
-        harmonie={result.Harmonie}
-        qvt={result.QVT}
-      />
+      <div className="flex gap-10 sm:flex-col-reverse items-center justify-center">
+        <Description
+          bgcolor1={bgcolor1}
+          bgcolor2={bgcolor2}
+          harmonie={result.Harmonie}
+          qvt={result.QVT}
+        />
+        {asymetrique >= 1 && <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>}
+      </div>
     </div>
   );
 }
