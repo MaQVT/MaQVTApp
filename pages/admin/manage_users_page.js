@@ -192,7 +192,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
                 {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {parent.role} : {parent.username}</h1>}
                 {user.role != "User" && user.role != "Client" &&
                   <div>
-                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un Utilisateur</button>
+                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter de Nouveaux Comptes</button>
                   </div>
                 }
               </div>

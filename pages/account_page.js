@@ -164,10 +164,10 @@ function AccountPage({ user }) {
                                 Adresse email : {user.email}
                             </span>
                             <span className="text-xs block">
-                                Date de création du compte : {moment(user.date).format('D MMMM YYYY  HH:MM:SS')}
+                                Date de création du compte : {moment(user.date).format('D MMMM YYYY  HH:mm:ss')}
                             </span>
                             <span className="text-xs font-bold block">
-                                Date de fin de validité : {moment(user.expired_date).format('D MMMM YYYY  HH:MM:SS')}
+                                Date de fin de validité : {moment(user.expired_date).format('D MMMM YYYY  HH:mm:ss')}
                             </span>
                         </div>
                         <div className="bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200 p-4 rounded-lg">

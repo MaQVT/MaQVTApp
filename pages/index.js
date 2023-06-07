@@ -31,6 +31,9 @@ function Home({ user }) {
   const accederStats = () => {
     router.push("/stat");
   };
+  const accederCollective = () => {
+    router.push("/result/consultant/manager");
+  };
   const accederPartages = () => {
     router.push("/result/consultant");
   };
@@ -69,10 +72,13 @@ function Home({ user }) {
                   <button onClick={() => { accederSuperviser() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Superviser les Utilisateurs</button>
                 }
                 {(user.role == "Consultant" || user.role == "Client" || user.role == "Admin") &&
-                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques</button>
+                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques et Taux de Satisfaction</button>
                 }
                 {(user.role == "Consultant" || user.role == "") &&
-                  <button onClick={() => { accederPartages() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les rapports partagés</button>
+                  <button onClick={() => { accederCollective() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir ou créer des rapports collectifs</button>
+                }
+                {(user.role == "Consultant" || user.role == "") &&
+                  <button onClick={() => { accederPartages() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les rapports individuels partagés</button>
                 }
                 {user.role == "Admin" &&
                   <button onClick={() => { accederInvalide() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Utilisateurs non validés</button>

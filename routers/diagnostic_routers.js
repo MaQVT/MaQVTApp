@@ -17,7 +17,7 @@ export const getAllDiagnosticRoute = async (req, res) => {
 
 export const addDiagnosticRoute = async (req, res) => {
   try {
-    req.body.date = moment(moment.now()).format("MM/DD/YYYY HH:mm:ss");
+    req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
     console.log(req.body);
     let diagnostic = await getDiagnosticById(req.body._id);
     console.log("OUI");

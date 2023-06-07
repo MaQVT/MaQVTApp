@@ -233,7 +233,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
               <div className='flex flex-col items-center justify-center gap-5'>
                 {(user.role == "Admin" || user.role == "Consultant") &&
                   <>
-                    <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full'>Statistiques des Utilisateurs</h1>
+                    <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full'>Taux de Satisfaction des Utilisateurs</h1>
                     {getRatingGraphics(getRatingByUsers())}
                     {showAllStats()}
                     <br />

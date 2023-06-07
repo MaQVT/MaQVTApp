@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-function History({ user, allDiagnostics }) {
+function History({ user, thisUser, allDiagnostics }) {
     const router = useRouter()
     const sortedDiagnostics = allDiagnostics.sort((a, b) => {
         const dateA = new Date(a.date);
@@ -42,10 +42,11 @@ function History({ user, allDiagnostics }) {
                 <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
                     <div className='w-full'>
                         <div className='flex items-center justify-center gap-10'>
-                            <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT Collective</h1>
-                            {(user.role == "Manager" || user.role == "Admin") && <button onClick={() => {
+                            <h1 className='text-center text-2xl my-5'>Historique des rapports QVT Collective</h1>
+                            {(user.role == "Manager" || user.role == "Consultant") && <button onClick={() => {
                                 router.push({
-                                    pathname: "/result/collective/manager",
+                                    pathname: `/result/collective/manager`,
+                                    query: { id_m: thisUser._id}
                                 });
                             }} className='h-auto w-auto py-3 px-5 sm:text-xs'>Créer une QVT Collective</button>}
                         </div>
@@ -63,7 +64,7 @@ function History({ user, allDiagnostics }) {
                                 {diagnostics.map((diagnostic, index) => (
                                     <tr key={diagnostic._id}>
                                         <td className='text-center'>{index + 1}</td>
-                                        <td className='text-center'>{moment(diagnostic.date).format('D MMMM YYYY  HH:MM:SS')}</td>
+                                        <td className='text-center'>{moment(diagnostic.date).format('D MMMM YYYY  HH:mm:ss')}</td>
                                         <td className='text-center'>{formatDate(diagnostic.date)}</td>
                                         <td className='text-center flex flex-col items-center'>
                                             <Link href={`/result/collective/${diagnostic._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500'>
@@ -90,13 +91,27 @@ export async function getServerSideProps(context) {
     const token = cookies(context).token;
     const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
 
-    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            token: token,
-        },
-    });
+    let { id_m } = context.query
+
+    let userResponse;
+
+    if (id_m) {
+        userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/id/${id_m}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        });
+    } else {
+        userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        });
+    }
 
     let userResponseJson = { data: {} };
 
@@ -104,7 +119,7 @@ export async function getServerSideProps(context) {
         userResponseJson = await userResponse.json();
     }
 
-    const id = userResponseJson.data.role == "User" ? userResponseJson.data.parentId : userResponseJson.data._id;
+    let id = userResponseJson.data.role == "User" ? userResponseJson.data.parentId : userResponseJson.data._id;
 
     const diagnosticResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/coldiagnostic/userid/${id}`, {
         method: "GET",
@@ -120,7 +135,21 @@ export async function getServerSideProps(context) {
         diagnosticResponseJson = await diagnosticResponse.json();
     }
 
+    const thisUserResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            token: token,
+        },
+    });
+
+    let thisUserResponseJson = { data: {} };
+
+    if (thisUserResponse.ok) {
+        thisUserResponseJson = await thisUserResponse.json();
+    }
+
     return {
-        props: { user: userResponseJson.data, allDiagnostics: diagnosticResponseJson.data }, // will be passed to the page component as props
+        props: { thisUser: userResponseJson.data, user: thisUserResponseJson.data, allDiagnostics: diagnosticResponseJson.data }, // will be passed to the page component as props
     };
 }

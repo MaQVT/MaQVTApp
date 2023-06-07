@@ -7,7 +7,7 @@ const Footer = () => {
             <div className='flex flex-row justify-around items-center md:grid md:grid-cols-2 md:gap-3'>
                 <div>
                     <a href='https://www.wunjo.life/mentions-legales/' className='block'>Mentions légales</a>
-                    <a href='tel:' className='block'>Nous appelez</a>
+                    <a href='tel:' className='block'>Nous appeler</a>
                 </div>
                 <div>
                     <p>Coordonnées postales :</p>

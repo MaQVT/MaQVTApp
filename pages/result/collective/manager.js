@@ -11,7 +11,7 @@ import { getUsersByParents } from '../../../db/handlers/users_handlers';
 import { getAllDiagnostics } from '../../../db/handlers/diagnostic_handlers';
 import Head from 'next/head';
 
-const ObjectList = ({ user, diagnostics }) => {
+const ObjectList = ({ user, thisUser, diagnostics }) => {
     const [objects, setAllObjects] = useState([])
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const ObjectList = ({ user, diagnostics }) => {
                     "Content-Type": "application/json",
                     token: localStorage.getItem("token"),
                 },
-                body: JSON.stringify({ form_data: calculateMeanFormData(selectedFormData), email: localStorage.getItem("email"), id_user: user._id }),
+                body: JSON.stringify({ form_data: calculateMeanFormData(selectedFormData), email: localStorage.getItem("email"), id_user: thisUser._id }),
             });
             if (res.ok) {
                 const json = await res.json();
@@ -77,7 +77,7 @@ const ObjectList = ({ user, diagnostics }) => {
             </Head>
             <Layout user={user}>
                 {
-                    user.role == "Manager" ?
+                    (user.role == "Manager" || user.role == "Consultant" ) ?
                         <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
                             <div className='flex flex-col items-center justify-center mb-3'>
                                 <h1 className='text-center text-2xl my-5'>Listes des QVT anonymes</h1>
@@ -89,7 +89,7 @@ const ObjectList = ({ user, diagnostics }) => {
                                             onClick={() => handleObjectSelect(object)}
                                             style={{ backgroundColor: selectedObjects.includes(object) ? 'lightblue' : 'white' }}
                                         >
-                                            {moment(object.date).format('D MMMM YYYY  HH:MM:SS')}
+                                            {moment(object.date).format('D MMMM YYYY  HH:mm:ss')}
                                         </li>
                                     ))}
                                 </ul>
@@ -98,6 +98,7 @@ const ObjectList = ({ user, diagnostics }) => {
                                     <button onClick={() => {
                                         router.push({
                                             pathname: "/result/collective",
+                                            query: { id_m: thisUser._id}
                                         });
                                     }} className='h-auto w-auto py-3 px-5'>Voir les QVT Collective</button>
                                 </div>
@@ -118,14 +119,25 @@ export default ObjectList;
 export async function getServerSideProps(context) {
     const token = cookies(context).token;
     const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
-
-    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            token: token,
-        },
-    });
+    let { id_m } = context.query
+    let userResponse;
+    if(id_m){
+        userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/id/${id_m}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        });
+    }else {
+        userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        });
+    }
 
     let userResponseJson = { data: {} };
 
@@ -133,14 +145,30 @@ export async function getServerSideProps(context) {
         userResponseJson = await userResponse.json();
     }
 
+    const thisUserResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            token: token,
+        },
+    });
+
+    let thisUserResponseJson = { data: {} };
+
+    if (thisUserResponse.ok) {
+        thisUserResponseJson = await thisUserResponse.json();
+    }
+
     const filsResponse = await getUsersByParents(userResponseJson.data._id)
     const filsMail = filsResponse.map((value, index) => value.email)
-    console.log(filsMail)
     const allDiagnostics = await getAllDiagnostics();
-
-    const toSend = allDiagnostics.filter((value, index) => value.email == email || filsMail.includes(value.email))
+    console.log(allDiagnostics.length)
+    
+    
+    const toSend = allDiagnostics.filter((value, index) => value.email == userResponseJson.data.email || filsMail.includes(value.email))
+    console.log(toSend.length)
 
     return {
-        props: { user: userResponseJson.data, diagnostics: JSON.stringify(toSend) }, // will be passed to the page component as props
+        props: { thisUser: userResponseJson.data, user: thisUserResponseJson.data, diagnostics: JSON.stringify(toSend) }, // will be passed to the page component as props
     };
 }

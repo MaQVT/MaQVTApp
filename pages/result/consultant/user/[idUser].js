@@ -110,7 +110,7 @@ function History({ user, allDiagnostics }) {
                                 {diagnostics.map((diagnostic, index) => (
                                     <tr key={diagnostic._id}>
                                         <td className='text-center'>{index + 1}</td>
-                                        <td className='text-center'>{moment(diagnostic.date).format('D MMMM YYYY  HH:MM:SS')}</td>
+                                        <td className='text-center'>{moment(diagnostic.date).format('D MMMM YYYY  HH:mm:ss')}</td>
                                         <td className='text-center'>{formatDate(diagnostic.date)}</td>
                                         <td className='text-center h-[40px]'>
                                             <Link href={`/result/consultant/${diagnostic._id}`} className='bg-white rounded-full px-5 py-1 my-2 hover:bg-neutral-500 sm:inline-block'>
