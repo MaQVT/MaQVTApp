@@ -170,6 +170,7 @@ function AccountPage({ user }) {
                                 Date de fin de validité : {moment(user.expired_date).format('D MMMM YYYY  HH:mm:ss')}
                             </span>
                         </div>
+                        {(user.role == "Manager" || user.role == "User") && 
                         <div className="bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200 p-4 rounded-lg">
                             {error && <div className="text-red-600">{error}</div>}
                             <p className="text-sm">A quelle frequence souhaitez-vous être notifié.e par l&apos;Application afin de réaliser un nouvel auto-diagnostic QVT personnelle ?</p>
@@ -201,6 +202,7 @@ function AccountPage({ user }) {
                                 }
                             </form>
                         </div>
+                        }
 
                         <div className="bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-gray-200 p-4 rounded-lg">
                             {errorPasswod && <div className="text-red-600">{errorPasswod}</div>}
