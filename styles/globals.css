@@ -55,7 +55,7 @@ div[draggable] span{
 }
 
 #physique{
-    background-image: url(../public/form/dispo.png);
+    background-image: url("/form/dispo.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

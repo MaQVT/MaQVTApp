@@ -23,7 +23,7 @@ export default function LoginPage() {
     if (res.ok) {
       const json = await res.json();
       setColor("green")
-      setErrorMessage(json.message);
+      setErrorMessage("Merci de consulter votre messagerie, vous y trouverez un email de notre part vous permettant de ré-initialiser votre mot de passe.");
     } else {
       const json = await res.json();
       setColor("red")
@@ -52,8 +52,8 @@ export default function LoginPage() {
         <main className={styles.main}>
         {!loggedIn && (
           <div className="font-PlayfairDisplay px-5">
-            <h1 className="font-semibold text-5xl w-[500px] font-Benedict my-4 sm:w-[80%] sm:text-3xl">
-                Demander la reinitialisation de votre mot de passe
+            <h1 className="font-semibold text-4xl w-[500px] font-Benedict my-4 sm:w-[80%] sm:text-3xl">
+            Merci de saisir l’email de votre compte utilisateur afin de ré-initialiser votre mot de passe.
             </h1>
             <input
              className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none sm:w-[80%]"

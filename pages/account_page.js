@@ -143,11 +143,11 @@ function AccountPage({ user }) {
                 <div className="w-screen min-h-screen flex flex-row py-20 px-32 md:flex-col md:items-center md:px-5">
                     <div className="basis-1/3 md:flex md:flex-col md:items-center">
                         <Image
-                            src={user.avatar || "/debut.png"}
+                            src={user.avatar || "/pp.png"}
                             alt="avatar"
                             width={200}
                             height={200}
-                            className="rounded-full h-[200px] w-[200px] mb-5"
+                            className="rounded-full h-[200px] w-[200px] mb-5 bg-white"
                         />
                         {user.role == "Admin" && <button onClick={handleAllMaillingServiceRestart} className="inline bg-red-900 self-end px-5 h-15 flex justify-center items-center mb-5">Réinitialiser tous les services de Mails</button>}
 

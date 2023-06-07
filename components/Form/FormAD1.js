@@ -49,7 +49,7 @@ export default function FormAD1({
                 htmlFor="dispo1"
                 className="block mt-[119px] mr-6 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img className="" src="/form/moins.png" alt="Pas du tout disponible" />
+                <img className="" src="/form/moins.png" alt="Pas du tout disponible" title="Pas du tout disponible" />
               </label>
             </div>
             <div className="flex flex-col">
@@ -66,7 +66,7 @@ export default function FormAD1({
                 htmlFor="dispo2"
                 className="block cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img className="" src="/form/egal.png" alt="Moyennement disponible" />
+                <img className="" src="/form/egal.png" alt="Moyennement disponible" title="Moyennement disponible" />
               </label>
             </div>
             <div className="flex">
@@ -82,7 +82,7 @@ export default function FormAD1({
                 htmlFor="dispo3"
                 className="block mt-[119px] ml-6 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img className="" src="/form/plus.png" alt="Tout à fait disponible" />
+                <img className="" src="/form/plus.png" alt="Tout à fait disponible" title="Tout à fait disponible" />
               </label>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function FormAD1({
                 htmlFor="motivation1"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img src="/form/motivation4.png" alt="Très motivé·e" />
+                <img src="/form/motivation4.png" alt="Très motivé·e" title="Très motivé·e" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -122,7 +122,7 @@ export default function FormAD1({
                 htmlFor="motivation2"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img src="/form/motivation3.png" alt="Plutôt motivé·e" />
+                <img src="/form/motivation3.png" alt="Plutôt motivé·e" title="Plutôt motivé·e" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -138,7 +138,7 @@ export default function FormAD1({
                 htmlFor="motivation3"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img src="/form/motivation2.png" alt="Moyennement motivé·e" />
+                <img src="/form/motivation2.png" alt="Moyennement motivé·e" title="Moyennement motivé·e" />
               </label>
             </div>
             <div className="flex flex-col justify-center">
@@ -154,7 +154,7 @@ export default function FormAD1({
                 htmlFor="motivation4"
                 className="block my-4 cursor-pointer border-2 border-white select-none rounded-xl p-2 text-center peer-checked:border-green-500"
               >
-                <img src="/form/motivation1.png" alt="Pas du tout motivé·e" />
+                <img src="/form/motivation1.png" alt="Pas du tout motivé·e" title="Pas du tout motivé·e" />
               </label>
             </div>
           </div>

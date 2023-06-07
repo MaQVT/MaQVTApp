@@ -37,7 +37,7 @@ export default function FormAD2({
           </h2>
           <div className="flex p-10 text-base items-center gap-6 justify-center" id="physique">
             <div className="">
-              <div className="flex">
+              <div className="flex" title="Excellente forme">
                 <label
                   htmlFor="physique8"
                   className=""
@@ -54,7 +54,7 @@ export default function FormAD2({
                   className=""
                 />
               </div>
-              <div className="flex">
+              <div className="flex" title="Vitalité maximale">
                 <label
                   htmlFor="physique7"
                   className=""
@@ -70,7 +70,7 @@ export default function FormAD2({
                   className=""
                 />
               </div>
-              <div className="flex">
+              <div className="flex" title="Énergie élevée">
                 <label
                   htmlFor="physique6"
                   className=""
@@ -86,7 +86,7 @@ export default function FormAD2({
                   className=""
                 />
               </div>
-              <div className="flex">
+              <div className="flex" title="Énergie moyenne">
                 <label
                   htmlFor="physique5"
                   className=""
@@ -103,7 +103,7 @@ export default function FormAD2({
                 />
               </div>
             </div>
-            <div className="">
+            <div className="" title="Épuisement léger">
               <div className="flex">
                 <input
                   type="radio"
@@ -120,7 +120,7 @@ export default function FormAD2({
                   4
                 </label>
               </div>
-              <div className="flex">
+              <div className="flex" title="Fatigue légère">
                 <input
                   type="radio"
                   id="physique3"
@@ -136,7 +136,7 @@ export default function FormAD2({
                   3
                 </label>
               </div>
-              <div className="flex">
+              <div className="flex" title="Fatigue modérée">
                 <input
                   type="radio"
                   id="physique2"
@@ -152,7 +152,7 @@ export default function FormAD2({
                   2
                 </label>
               </div>
-              <div className="flex">
+              <div className="flex" title="Extrême fatigue">
                 <input
                   type="radio"
                   id="physique1"

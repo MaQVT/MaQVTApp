@@ -56,7 +56,7 @@ export default function ResetPassword() {
           <h1 className="font-semibold text-5xl font-Benedict mb-5 sm:text-3xl" >Réinitialiser votre mot de passe</h1>
           <form onSubmit={handleSubmit}>
             <label>
-              Nouveau mot de passe:
+            Merci de renseigner ici votre nouveau mot de passe:
               <input
               className="mb-5 mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] bg-white focus:outline-none sm:w-[80%]"
                 type="password"
@@ -65,7 +65,7 @@ export default function ResetPassword() {
               />
             </label>
             <label>
-              Confirmer le nouveau mot de passe:
+            Merci de confirmer votre nouveau mot de passe en le saisissant à nouveau ici:
               <input
               className="mt-2 h-14 px-5 py-2 rounded block mx-0 w-[500px] focus:outline-none sm:w-[80%]"
                 type="password"

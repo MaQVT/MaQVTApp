@@ -69,7 +69,7 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
         </div>
       }
       <Image
-        src={user.avatar || "/debut.png"}
+        src={user.avatar || "/profil.png"}
         alt="avatar"
         width={120}
         height={120}
