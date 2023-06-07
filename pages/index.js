@@ -72,7 +72,7 @@ function Home({ user }) {
                   <button onClick={() => { accederSuperviser() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Superviser les Utilisateurs</button>
                 }
                 {(user.role == "Consultant" || user.role == "Client" || user.role == "Admin") &&
-                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques et Taux de Satisfaction</button>
+                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques {user.role != "Client" && " et Taux de Satisfaction"}</button>
                 }
                 {(user.role == "Consultant" || user.role == "") &&
                   <button onClick={() => { accederCollective() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir ou créer des rapports collectifs</button>

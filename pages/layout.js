@@ -109,9 +109,9 @@ function Layout({ user, children }) {
   const mainPage = () => {
     const token = localStorage.getItem("token");
     const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
-    if(email == "nomail"){
+    if (email == "nomail") {
       window.open("/auth/login", "_parent")
-    }else{
+    } else {
       const currentUrl = router.asPath;
       if (currentUrl == "/testqvt/take_diagnostic_test") {
         const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
