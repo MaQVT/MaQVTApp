@@ -7,6 +7,8 @@ import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 import Footer from "../components/Layout/Footer";
 import { verifyJwt } from "../utils/jwt";
+import { useEffect, useState } from "react";
+import Loading from "../components/Layout/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -124,6 +126,28 @@ function Layout({ user, children }) {
     }
   }
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => {
+      setIsLoading(true);
+    };
+
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, []);
+
   //bg-[url('/backgound.png')]
 
   return (
@@ -199,6 +223,7 @@ function Layout({ user, children }) {
         </div>
         <div className="flex-1 w-full h-full">
           <div className="min-h-[calc(100vh-75px)] w-full">
+          {isLoading && <Loading />} {/* Render the loading component when isLoading is true */}
             {children}
           </div>
         </div>

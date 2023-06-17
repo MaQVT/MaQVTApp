@@ -181,7 +181,7 @@ export const addUserRoute = async (req, res) => {
         const text = getMailTemplate(
           "Compte créé sur l’Application MAQVT",
           `Bonjour, <br /><br />Voici les informations relatives à votre compte sur l’Application “Ma QVT”. <br /><br />Votre email : ${req.body.email}<br />Votre mot de passe : 2023<br /><br />(N’hésitez pas à le personnaliser lors de votre 1ère connexion) <br />Veuillez cliquer sur le lien ci-dessous :`,
-          process.env.NEXT_PUBLIC_APP_URL,
+          `${process.env.NEXT_PUBLIC_APP_URL}/auth/login`,
           "Accéder à l’Application MAQVT",
           ""
         );

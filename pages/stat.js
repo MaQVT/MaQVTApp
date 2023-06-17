@@ -29,6 +29,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
   const [allManagers, setAllManagers] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [stats, setStats] = useState([])
+  const [begin, setBegin] = useState(false)
 
   useEffect(() => {
     // console.log(user)
@@ -40,6 +41,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
     setAllClients(JSON.parse(clients))
     setAllManagers(JSON.parse(managers))
     setAllUsers(JSON.parse(users))
+    setBegin(true)
   }, [])
 
   function analyzeRatings(ratings) {
@@ -226,7 +228,7 @@ function Home({ user, diagnostics, clients, managers, users }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {user.email && allUsers.length > 0 && (
+      {user.email && begin && (
         <Layout user={user}>
           <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
             <div className='w-full'>

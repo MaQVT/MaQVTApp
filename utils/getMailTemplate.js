@@ -11,7 +11,7 @@ export const getMailTemplate = (title, message, link, linkText, messageAfter) =>
           <tr>
             <td align="center" style="padding: 20px 0 30px 0">
               <img
-                src="https://www.wunjo.life/wp-content/uploads/2020/12/Logo-Twitter-200x200-1.png"
+                src="https://www.maqvt.com/logo.png"
                 alt="Your Logo"
                 width="200"
                 style="display: block; border-radius: 100%;"
