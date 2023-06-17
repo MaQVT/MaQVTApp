@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         if (role != "Admin") {
             let schedule;
             if (scheduleName === 'hebdomadaire') {
-                schedule = '* * * * *';
+                schedule = '0 0 * * 0';
             } else if (scheduleName === 'mensuelle') {
                 schedule = '*/2 * * * *'; //'0 0 1 * *' First day of every month at 12:00 AM
             } else if (scheduleName === 'trimestrielle') {

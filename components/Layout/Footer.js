@@ -7,11 +7,10 @@ const Footer = () => {
             <div className='flex flex-row justify-around items-center md:grid md:grid-cols-2 md:gap-3'>
                 <div>
                     <a href='https://www.wunjo.life/mentions-legales/' className='block'>Mentions légales</a>
-                    <a href='tel:' className='block'>Nous appeler</a>
                 </div>
                 <div>
                     <p>Coordonnées postales :</p>
-                    <a href="" className='block'>123 rue de la Victoire, 75001 Paris, France</a>
+                    <a href="" className='block'>Les Clottes 716 chemin des Sablières 81570 Vielmur sur Agout</a>
                 </div>
                 <div>
                     <p>Contact client :</p>

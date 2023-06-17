@@ -61,9 +61,9 @@ export default function LoginForm() {
         />
       </label>
       <Link href={"/auth/ask_reset_password"}>
-        <p className="px-5 text-right font-thin text-red-600">Mot de passe oublié ?</p>
+        <p className="px-5 text-right font-thin text-[#625240]">Mot de passe oublié ?</p>
       </Link>
-      <button type="submit" className="sm:mt-5 font-semibold">Se Connecter</button>
+      <button type="submit" className="sm:mt-5 font-semibold">Se connecter</button>
     </form>
   );
 }
