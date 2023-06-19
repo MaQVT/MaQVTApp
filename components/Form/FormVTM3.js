@@ -13,9 +13,14 @@ export default function FormVTM3({ handlePrev, handleNext, stepName, position, t
   }
 
   const handleFormSubmit = (event) => {
-    event.preventDefault()
-    window.scrollTo(0, 0)
-    handleNext({ [stepName]: values })
+    event.preventDefault();
+    const selectedOptions = document.querySelectorAll('input[type="radio"]:checked');
+    if (selectedOptions.length < 2) {
+      alert('Veuillez sélectionner une option pour chaque question.'); // Display error message
+    }else{
+      window.scrollTo(0, 0)
+      handleNext({ [stepName]: values });
+    }
   }
 
   return (
@@ -24,7 +29,7 @@ export default function FormVTM3({ handlePrev, handleNext, stepName, position, t
       <form onSubmit={handleFormSubmit}
         className="flex flex-col justify-center items-center flex-1"
       >
-        <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray md:text-2xl md:mt-10 md:px-6 md:text-center">
+        <h2 className="font-thin text-3xl my-6 mt-0 font-PlayfairDisplay text-customGray md:text-2xl md:mt-10 sm:px-6 md:text-center w-[800px] md:w-auto">
           <span className="text-purple-800 font-Benedict mr-8 text-5xl">{pageNumber}</span>
           Actuellement,
         </h2>

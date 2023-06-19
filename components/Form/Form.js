@@ -5,10 +5,18 @@ import RadioNormalBis from './RadioNormalBis'
 
 export default function Form({ handlePrev, handleChange, handleFormSubmit, position }) {
   
+  const handleFormSubmitInit = () => {
+    const selectedOptions = document.querySelectorAll('input[type="radio"]:checked');
+    if (selectedOptions.length < 0) {
+      alert('Veuillez sélectionner une option pour chaque question.'); // Display error message
+    }else{
+      handleFormSubmit()
+    }
+  };
 
   return (
     <>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmitInit}>
         <div className='sm:flex sm:flex-col sm:items-center'>
           <h3 className='font-thin text-3xl mt-5 font-Benedict text-customGray sm:mx-5 sm:text-center'>Dans l&apos;idéal, est-ce important pour moi ?</h3>
           <RadioNormal name={"ideal"} handleChange={handleChange} color={"#7E5240"} />
@@ -28,7 +36,7 @@ export default function Form({ handlePrev, handleChange, handleFormSubmit, posit
               Précédent
             </button>
           )}
-          <button onClick={handleFormSubmit} className="w-[100px] h-[50px] rounded mx-40 sm:mx-5" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
+          <button onClick={handleFormSubmitInit} className="w-[100px] h-[50px] rounded mx-40 sm:mx-5" type="submit">{position == -1 ? "Terminer" : "Suivant"}</button>
       </div>
     </>
   )

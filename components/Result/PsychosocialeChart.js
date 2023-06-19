@@ -25,8 +25,8 @@ const PsychosocialeChart = ({ title, value, description }) => {
                         valueBox: {
                             placement: "center",
                             // text: '%v', //default
-                            text: "", //default
-                            fontSize: 35,
+                            text: '', //default
+                            fontSize: 11,
                             rules: [
                                 // {
                                 //   rule: '%v >= 700',

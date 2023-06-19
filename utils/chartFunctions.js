@@ -169,6 +169,7 @@ export const generateSecuRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(255, 99, 132)",
+        order: 2
       },
       {
         label: "Ce que je vis actuellement",
@@ -187,6 +188,7 @@ export const generateSecuRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 1
       },
       {
         label: "Comment je le vis",
@@ -206,6 +208,7 @@ export const generateSecuRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 0
       },
     ],
   };
@@ -245,6 +248,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(255, 99, 132)",
+        order: 2
       },
       {
         label: "Ce que je vis actuellement",
@@ -262,6 +266,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 1
       },
       {
         label: "Comment je le vis",
@@ -280,6 +285,7 @@ export const generateSatisfactionRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 0
       },
     ],
   };
@@ -319,6 +325,7 @@ export const generateInclusionRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(255, 99, 132)",
+        order: 2
       },
       {
         label: "Ce que je vis actuellement",
@@ -336,6 +343,7 @@ export const generateInclusionRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 1
       },
       {
         label: "Comment je le vis",
@@ -354,6 +362,7 @@ export const generateInclusionRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 0
       },
     ],
   };
@@ -396,6 +405,7 @@ export const generatePouvoiragirRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(255, 99, 132)",
+        order: 2
       },
       {
         label: "Ce que je vis actuellement",
@@ -414,6 +424,7 @@ export const generatePouvoiragirRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 1
       },
       {
         label: "Comment je le vis",
@@ -433,6 +444,7 @@ export const generatePouvoiragirRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 0
       },
     ],
   };
@@ -472,6 +484,7 @@ export const generateSensRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(255, 99, 132)",
+        order: 2
       },
       {
         label: "Ce que je vis actuellement",
@@ -489,6 +502,7 @@ export const generateSensRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 1
       },
       {
         label: "Comment je le vis",
@@ -507,6 +521,7 @@ export const generateSensRadialChartData = (formData) => {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(54, 162, 235)",
+        order: 0
       },
     ],
   };

@@ -23,8 +23,8 @@ const AddFaqForm = () => {
         // Clear the form inputs
         setQuestion('');
         setResponse('');
-        setColor("green");
-        setErrorMessage("Ajoût réussi");
+        setColor("stone");
+        setErrorMessage("Ajout réussi");
         setTimeout(() => {
           setErrorMessage("");
           router.reload()
@@ -44,7 +44,7 @@ const AddFaqForm = () => {
     <div className='flex flex-col gap-2 w-[80%] mx-10 my-8'>
       <hr />
       {errorMessage && <><p className={`py-5 text-${color}-600`}>{errorMessage}</p><br /></>}
-      <h2>Ajouter un nouveau FAQ</h2>
+      <h2>Ajouter une nouvelle question/réponse au sein de la FAQ</h2>
       <form className='flex flex-col gap-2'>
         <div>
           <label htmlFor="question">Question:</label>
@@ -68,7 +68,7 @@ const AddFaqForm = () => {
             required
           />
         </div>
-        <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'>Ajouter FAQ</button>
+        <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'> Ajouter à la FAQ</button>
       </form>
     </div>
   );

@@ -122,27 +122,6 @@ export const getMailAdminTemplate = (title, message, link, linkText) => {
             <p style="color: #666666; font-size: 16px; line-height: 1.5em; width: 500px; text-align: center;margin: auto; margin-bottom: 15px;">
               {message}
             </p>
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-              <tr>
-                <td align="center" style="padding: 20px 0">
-                  <a
-                    href="{link}"
-                    target="_blank"
-                    style="
-                      background-color: #008cff;
-                      border: none;
-                      color: #ffffff;
-                      font-size: 18px;
-                      font-weight: 600;
-                      padding: 12px 40px;
-                      text-decoration: none;
-                      border-radius: 4px;
-                    "
-                    >{linkText}</a
-                  >
-                </td>
-              </tr>
-            </table>
           </td>
         </tr>
       </table>
@@ -155,9 +134,6 @@ export const getMailAdminTemplate = (title, message, link, linkText) => {
       >
         <tr>
           <td align="center" style="padding: 20px">
-            <p style="color: #666666; font-size: 14px; margin: 0">
-            Vous avez reçu cet e-mail car vous vous êtes inscrit à notre service.
-            </p>
           </td>
         </tr>
       </table>

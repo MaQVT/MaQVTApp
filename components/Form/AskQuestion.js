@@ -13,7 +13,7 @@ const AskQuestionForm = () => {
 
         const requestBody = {
             // from: email,
-            subject: `${username} : Demande de question non trouvé en FAQ`,
+            subject: `${username} : Demande de question non trouvée en FAQ`,
             text: getMailAdminTemplate(`De: ${username} : ${email}`, question, "", ""),
         };
 
@@ -31,7 +31,7 @@ const AskQuestionForm = () => {
                     setSent(true);
                     setTimeout(() => {
                         setSent(false);
-                    }, 3000);
+                    }, 10000);
                 } else {
                     throw new Error("Failed to send email");
                 }
@@ -49,10 +49,10 @@ const AskQuestionForm = () => {
     return (
         <div className='flex flex-col gap-2 w-[80%] mx-10 my-8'>
             <hr />
-            <h2>Poser une question à l&apos;admin</h2>
+            <h2>Si vous n’avez pas trouvé la réponse à votre question dans la FAQ, écrivez-nous ici : </h2>
             <form className='flex flex-col gap-2'>
                 <div>
-                    <label htmlFor="question">Question:</label>
+                    <label htmlFor="question"></label>
                     <input
                         className='w-full py-2 px-10'
                         type="text"
@@ -62,8 +62,8 @@ const AskQuestionForm = () => {
                         required
                     />
                 </div>
-                <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'>Envoyez la question</button>
-                {sent && <span className='text-base text-green-600 block text-center'>Votre question a été bien envoyé !!</span>}
+                <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'>Envoyer ma question</button>
+                {sent && <span className='text-base text-stone-600 block text-center'>Votre question a été bien envoyée</span>}
                 {error && <span className='text-base text-red-600 block text-center'>Erreur lors de l&apos;envoie, veuiller réessayer ultérieurement !!</span>}
             </form>
         </div>

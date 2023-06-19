@@ -119,11 +119,11 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
           <p className="font-thin text-xs text-center mb-5">CLASSER LES 5 FONCTIONS PAR ORDRE DE PRIORITÉ (1 = MAXI / 5 = MINI)</p>
           <div className="flex flex-row">
             <div className="flex flex-col justify-start">
-                <span className="mt-2 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200 sm:my-4">1</span>
-                <span className="my-[6px] mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200 sm:my-4">2</span>
-                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200 sm:my-4">3</span>
-                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200 sm:my-4">4</span>
-                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-green-200 sm:my-4">5</span>
+                <span className="mt-2 mr-5 p-4 text-center space-x-2 rounded-xl bg-white sm:my-4">1</span>
+                <span className="my-[6px] mr-5 p-4 text-center space-x-2 rounded-xl bg-white sm:my-4">2</span>
+                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-white sm:my-4">3</span>
+                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-white sm:my-4">4</span>
+                <span className="my-1 mr-5 p-4 text-center space-x-2 rounded-xl bg-white sm:my-4">5</span>
             </div>
             <div>
               <DndProvider backend={getBackend()}>

@@ -49,10 +49,10 @@ const AskSubForm = () => {
     return (
         <div className='flex flex-col gap-2 w-[80%] mx-10 my-8'>
             <hr />
-            <h2>Envoyez une demande de renouvellement à l&apos;admin</h2>
+            <h2>Envoyer une demande de renouvellement à l&apos;admin</h2>
             <form className='flex flex-col gap-2'>
                 <div>
-                    <label htmlFor="question">Precisez la nouvelle date souhaité et de même si le renouvellement tient compte des équipes.</label>
+                    {/* <label htmlFor="question">Precisez la nouvelle date souhaité et de même si le renouvellement tient compte des équipes.</label> */}
                     <textarea
                         className='w-full py-2 px-10'
                         type="text"
@@ -62,8 +62,8 @@ const AskSubForm = () => {
                         required
                     />
                 </div>
-                <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'>Envoyez la demande</button>
-                {sent && <span className='text-base text-green-600 block text-center'>Votre demande a été bien envoyé !!</span>}
+                <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'>Envoyer ma demande</button>
+                {sent && <span className='text-base text-green-600 block text-center'>Votre demande a été bien envoyée !!</span>}
                 {error && <span className='text-base text-red-600 block text-center'>Erreur lors de l&apos;envoie, veuiller réessayer ultérieurement !!</span>}
             </form>
         </div>

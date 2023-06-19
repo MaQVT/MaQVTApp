@@ -55,24 +55,28 @@ function Home({ user }) {
           <main className={styles.main}>
             <div className="w-full h-full flex justify-center items-center py-5 flex-col">
               <p className="text-4xl text-center font-thin font-Benedict md:px-4">Bonjour {user.username}, <br /><br />
-                Bienvenue dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br />
+              {(user.role == "User" || user.role == "Manager") && <>Bienvenue dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br />
+                L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, <br /> dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
+                L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br /></>}
+              {(user.role == "Consultant" || user.role == "Admin") && <>Bienvenue dans votre espace d’administration de la Webapplication MA QVT. <br /></>}
+              {(user.role == "Client") && <>Bienvenue dans votre espace d’administration de la Webapplication MA QVT pour votre équipe. <br />
                 L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
-                L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br />
+                L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br /></>}
               </p>
               <div className="flex w-full justify-center flex-wrap mt-10 gap-5">
-                {(user.role == "User" || user.role == "Manager" || user.role == "") &&
-                  <button onClick={() => { accederTest() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Faire le Test QVT</button>
+                {/* {(user.role == "User" || user.role == "Manager" || user.role == "") &&
+                  <button onClick={() => { accederTest() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Réaliser un auto-diagnostic QVT personnelle</button>
                 }
                 {(user.role == "User" || user.role == "Manager" || user.role == "") &&
-                  <button onClick={() => { accederResultat() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à mes résultats</button>
-                }
-                <button onClick={() => { accederFAQ() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à la FAQ</button>
-                <button onClick={() => { accederProfil() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Modifier mon Profil</button>
-                {user.role != "User" &&
+                  <button onClick={() => { accederResultat() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Consulter mes rapports QVT personnelle</button>
+                } */}
+                { user.role != "User" && <button onClick={() => { accederFAQ() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Accéder à la FAQ</button>}
+                {/* <button onClick={() => { accederProfil() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Modifier mon Profil</button> */}
+                {/* {user.role != "User" &&
                   <button onClick={() => { accederSuperviser() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Superviser les Utilisateurs</button>
-                }
+                } */}
                 {(user.role == "Consultant" || user.role == "Client" || user.role == "Admin") &&
-                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Statistiques {user.role != "Client" && " et Taux de Satisfaction"}</button>
+                  <button onClick={() => { accederStats() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Consulter les statistiques</button>
                 }
                 {(user.role == "Consultant" || user.role == "") &&
                   <button onClick={() => { accederCollective() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir ou créer des rapports collectifs</button>

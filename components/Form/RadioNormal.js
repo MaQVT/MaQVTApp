@@ -8,7 +8,7 @@ function RadioNormal({name, handleChange, color}) {
         x-data="app"
       >
           <div>
-            <input type="radio" name={name} value="1" onChange={handleChange} id={`${name}1`} className="peer hidden"/>
+            <input type="radio" name={name} value="1" onChange={handleChange} id={`${name}1`} className="peer hidden" required/>
             <label
               htmlFor={`${name}1`}
               className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}
@@ -17,7 +17,7 @@ function RadioNormal({name, handleChange, color}) {
             </label>
           </div>
           <div>
-            <input type="radio" name={name} value="2" onChange={handleChange} id={`${name}2`} className="peer hidden"/>
+            <input type="radio" name={name} value="2" onChange={handleChange} id={`${name}2`} className="peer hidden" required/>
             <label
               htmlFor={`${name}2`}
               className={`block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}
@@ -26,7 +26,7 @@ function RadioNormal({name, handleChange, color}) {
             </label>
           </div>
           <div>
-            <input type="radio" name={name} value="3" onChange={handleChange} id={`${name}3`} className="peer hidden"/>
+            <input type="radio" name={name} value="3" onChange={handleChange} id={`${name}3`} className="peer hidden" required/>
             <label
               htmlFor={`${name}3`}
               className={`block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}
@@ -35,7 +35,7 @@ function RadioNormal({name, handleChange, color}) {
             </label>
           </div>
           <div>
-            <input type="radio" name={name} value="4" id={`${name}4`} onChange={handleChange} className="peer hidden" defaultChecked/>
+            <input type="radio" name={name} value="4" id={`${name}4`} onChange={handleChange} className="peer hidden" required/>
             <label
               htmlFor={`${name}4`}
               className={`block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}
@@ -44,7 +44,7 @@ function RadioNormal({name, handleChange, color}) {
             </label>
           </div>
           <div>
-            <input type="radio" name={name} value="5" id={`${name}5`} onChange={handleChange} className="peer hidden"/>
+            <input type="radio" name={name} value="5" id={`${name}5`} onChange={handleChange} className="peer hidden" required/>
             <label
               htmlFor={`${name}5`}
               className={`block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}
@@ -53,7 +53,7 @@ function RadioNormal({name, handleChange, color}) {
             </label>
           </div>
           <div>
-            <input type="radio" name={name} value="6" id={`${name}6`} onChange={handleChange} className="peer hidden"/>
+            <input type="radio" name={name} value="6" id={`${name}6`} onChange={handleChange} className="peer hidden" required/>
             <label
               htmlFor={`${name}6`}
               className={`block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}
@@ -62,7 +62,7 @@ function RadioNormal({name, handleChange, color}) {
             </label>
           </div>
           <div>
-            <input type="radio" name={name} value="7" id={`${name}7`} onChange={handleChange} className="peer hidden"/>
+            <input type="radio" name={name} value="7" id={`${name}7`} onChange={handleChange} className="peer hidden" required/>
             <label
               htmlFor={`${name}7`}
               className={`block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}

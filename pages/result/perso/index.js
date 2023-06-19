@@ -91,7 +91,7 @@ function History({ user, allDiagnostics }) {
                                 router.push({
                                     pathname: "/result/collective",
                                 });
-                            }} className='h-auto w-auto py-3 px-5 sm:text-xs'>Voir les QVT Collective</button>
+                            }} className='h-auto w-auto py-3 px-5 sm:text-xs'> Consulter les rapports QVT collective</button>
                         </div>
                         <hr />
                         <table className='w-[80%] m-auto my-6 sm:text-[10px] md:w-[95%]'>

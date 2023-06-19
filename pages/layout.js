@@ -3,6 +3,7 @@ import { Inter } from "@next/font/google";
 import { BiLogOutCircle, BiNote, BiUser, BiXCircle } from "react-icons/bi";
 import { MdManageSearch } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri"
+import { FaQuestion } from "react-icons/fa"
 import { unauthenticate } from "../utils/auth";
 import { useRouter } from "next/router";
 import Footer from "../components/Layout/Footer";
@@ -19,7 +20,7 @@ function Layout({ user, children }) {
   const logout = async () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
       if (confirmed) {
         const res = await fetch("/api/auth/logout", {
           method: "POST",
@@ -47,7 +48,7 @@ function Layout({ user, children }) {
   const taketest = () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
       if (confirmed) {
         router.push("/testqvt/take_diagnostic_test");
       }
@@ -59,7 +60,7 @@ function Layout({ user, children }) {
   const seeresult = () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
       if (confirmed) {
         router.push("/result/perso");
       }
@@ -71,7 +72,7 @@ function Layout({ user, children }) {
   const getusers = async () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
       if (confirmed) {
         router.push("/admin/manage_users_page");
       }
@@ -83,7 +84,7 @@ function Layout({ user, children }) {
   const getInvalidUsers = async () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
       if (confirmed) {
         router.push({
           pathname: '/admin/invalid_users',
@@ -99,12 +100,24 @@ function Layout({ user, children }) {
   const accountPage = async () => {
     const currentUrl = router.asPath;
     if (currentUrl == "/testqvt/take_diagnostic_test") {
-      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
       if (confirmed) {
         router.push("/account_page");
       }
     } else {
       router.push("/account_page");
+    }
+  };
+
+  const accederFAQ = async () => {
+    const currentUrl = router.asPath;
+    if (currentUrl == "/testqvt/take_diagnostic_test") {
+      const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
+      if (confirmed) {
+        router.push("/faq");
+      }
+    } else {
+      router.push("/faq");
     }
   };
 
@@ -116,7 +129,7 @@ function Layout({ user, children }) {
     } else {
       const currentUrl = router.asPath;
       if (currentUrl == "/testqvt/take_diagnostic_test") {
-        const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées !!");
+        const confirmed = window.confirm("Vous vous apprêtez à sortir de votre auto-diagnostic, confirmez-vous votre choix ? Vos réponses au questionnaire ne seront pas enregistrées.");
         if (confirmed) {
           router.push("/");
         }
@@ -157,7 +170,7 @@ function Layout({ user, children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col min-w-screen min-h-screen items-center relative bg-[url('/backgound.png')] font-PlayfairDisplay">
+      <main className="flex flex-col min-w-screen min-h-screen items-center relative bg-[#F5EBE5] font-PlayfairDisplay">
         <div className="h-[75px] drop-shadow-lg border bg-white w-full flex flex-row justify-around items-center">
           <div onClick={() => mainPage()}>
             <img
@@ -177,7 +190,7 @@ function Layout({ user, children }) {
           )}
           {user?.email && (user?.role == "User" || user?.role == "Manager") && (
             <button
-              title="Voir mes résultats QVT personnelle"
+              title="Consulter mes rapports QVT personnelle"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
               onClick={seeresult}
             >
@@ -202,15 +215,27 @@ function Layout({ user, children }) {
               <BiXCircle size={30} />
             </button>
           )}
+
           {user?.email && (
             <button
-              title="Modifier mon profil"
-              className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
-              onClick={accountPage}
+            title="Modifier mon profil"
+            className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
+            onClick={accountPage}
             >
               <BiUser size={30} />
             </button>
           )}
+
+          {(user?.role == "User") && (
+            <button
+              title="Acceder à la FAQ"
+              className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
+              onClick={accederFAQ}
+            >
+              <FaQuestion size={30} />
+            </button>
+          )}
+          
           {user?.email && (
             <button
               title="Se deconnecter"

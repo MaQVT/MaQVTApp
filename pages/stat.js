@@ -78,11 +78,13 @@ function Home({ user, diagnostics, clients, managers, users }) {
     const role = data["role"]
 
     return <div className='flex justify-center sm:flex-col'>
-      <div className='flex flex-col-reverse items-center justify-center m-5 w-80'>
-        {role == "Client" && <span>Client <span className="font-bold text-2xl ml-5">{name}</span></span>}
-        {role == "Manager" && <span className="ml-5">Equipe <span className="font-bold text-2xl ml-5">{name}</span></span>}
-        {role == "" && <span className="ml-5"><span className="font-bold text-2xl ml-5">{name}</span></span>}
-      </div>
+      {name != "" &&
+        <div className='flex flex-col-reverse items-center justify-center m-5 w-80'>
+          {role == "Client" && <span>Client <span className="font-bold text-2xl ml-5">{name}</span></span>}
+          {role == "Manager" && <span className="ml-5">Equipe <span className="font-bold text-2xl ml-5">{name}</span></span>}
+          {(role == "") && <span className="ml-5"><span className="font-bold text-2xl ml-5">{name}</span></span>}
+        </div>
+      }
       <div className="flex justify-center items-center sm:w-full">
         <div className='flex flex-col-reverse items-center justify-center'>
           <span>{ratings["1"]}</span>
@@ -168,6 +170,12 @@ function Home({ user, diagnostics, clients, managers, users }) {
     return { "username": "Général", "role": "", "rating": hisDiagnostics }
   }
 
+  const getRatingByEmail = (email) => {
+    const username = [...allManagers, ...allUsers].find((value, index) => value.email == email)
+    const hisDiagnostics = allDiagnostics.filter((dValue, dIndex) => dValue.email == email).map((dValue, dIndex) => parseInt(dValue.rating));
+    return { "username": username.username, "role": "", "rating": hisDiagnostics }
+  }
+
   const showAllStats = () => {
     return getRatingByClient().map((value, index) => {
       return [getHr(), getRatingGraphics(value), ...getRatingByManagers().filter((mValue, mIndex) => mValue.parent_id == value.id).map((aValue, aIndex) => getRatingGraphics(aValue))]
@@ -217,9 +225,27 @@ function Home({ user, diagnostics, clients, managers, users }) {
     setStats(getStatsByClient())
   }
 
+  const [show, setShow] = useState(3);
 
 
-  // console.log(user)
+  // Rechercher un utilisateurs
+
+  const [userEmail, setUserEmail] = useState('');
+  const [userData, setUserData] = useState({ "username": "", "role": "", "rating": [] });
+
+  const handleUserEmailSubmit = (e) => {
+    e.preventDefault();
+    if ([...allManagers, ...allUsers].some((value, index) => value.email == userEmail)) {
+      setUserData(getRatingByEmail(userEmail))
+    } else {
+      alert("Ce compte n'existe pas.");
+    }
+  };
+
+  const handleUserEmailChange = (e) => {
+    setUserEmail(e.target.value);
+  };
+
   return (
     <>
       <Head>
@@ -235,14 +261,19 @@ function Home({ user, diagnostics, clients, managers, users }) {
               <div className='flex flex-col items-center justify-center gap-5'>
                 {(user.role == "Admin" || user.role == "Consultant") &&
                   <>
-                    <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full'>Taux de Satisfaction des Utilisateurs</h1>
-                    {getRatingGraphics(getRatingByUsers())}
-                    {showAllStats()}
-                    <br />
-                    <hr />
-                    <div className='w-full my-4'>
+                    <div className="w-full flex gap-2 justify-around">
+                      <button onClick={() => setShow(0)} className={`${show == 0 && "bg-stone-700"} px-4 rounded-sm`}>Afficher le taux de satisfaction des utilisateurs</button>
+                      <button onClick={() => { setShow(1), handleRetour() }} className={`${show == 1 && "bg-stone-700"} px-4 rounded-sm`}>Afficher les statistiques des Clients et Équipes</button>
+                      <button onClick={() => setShow(2)} className={`${show == 2 && "bg-stone-700"} px-4 rounded-sm`}>Rechercher la note de satisfaction d&apos;un compte</button>
+                    </div>
+                    {show == 0 && <>
+                      <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full'>Taux de Satisfaction des Utilisateurs</h1>
+                      {getRatingGraphics(getRatingByUsers())}
+                      {showAllStats()}
+                      <br />
+                    </>}
+                    {show == 1 && <div className='w-full my-4'>
                       <div className="w-[90%] flex justify-around m-auto">
-                        <button onClick={() => { handleRetour() }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white sm:text-xs sm:px-2 sm:py-1'>Afficher les Statistiques</button>
                         <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full  sm:text-lg sm:p-1 sm:py-1'>Statistiques des Clients et Équipes</h1>
                         <button onClick={() => { handleRetour() }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white sm:text-xs sm:px-2 sm:py-1'>Retourner à la liste des clients</button>
                       </div>
@@ -253,9 +284,9 @@ function Home({ user, diagnostics, clients, managers, users }) {
                             <th>N°</th>
                             <th>Nom d&apos;Utilisateur</th>
                             <th className="sm:hidden">Email</th>
-                            <th>Nombre de diagnostics de l&apos;équipe</th>
-                            <th>Rôle</th>
                             <th>Nombre d&apos;accès à l&apos;application de l&apos;équipe</th>
+                            <th>Nombre de diagnostics de l&apos;équipe</th>
+                            <th className="w-20">Rôle</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -265,15 +296,31 @@ function Home({ user, diagnostics, clients, managers, users }) {
                               <td className='text-center'>{index + 1}</td>
                               <td className='text-center'>{user.username}</td>
                               <td className='text-center sm:hidden'>{user.email}</td>
-                              <td className='text-center'>{user.nbdiag}</td>
-                              <td className='text-center'>{user.role}</td>
                               <td className='text-center px-5 py-3 my-2'>{user.nbCon}</td>
+                              <td className='text-center'>{user.nbdiag}</td>
+                              <td className='text-center'>{user.role == "User" ? "Utilisateur" : user.role}</td>
                               {user.role != "User" && <td className='text-center'><button onClick={() => { handleVoirDetails(user.id, user.role) }} className='bg-white text-black rounded-full px-5 py-1 my-2 hover:bg-neutral-500 hover:text-white'>Voir les détails</button></td>}
                             </tr>
                           ))}
                         </tbody>
                       </table>
-                    </div>
+                    </div>}
+                    {show == 2 &&
+                      <div className='w-full my-4'>
+                        <div className="w-[90%] flex justify-around m-auto">
+                          <h1 className='font-semibold font-AnticDidone text-3xl p-2 text-center w-full  sm:text-lg sm:p-1 sm:py-1'>Rechercher un compte</h1>
+                        </div>
+                        <hr />
+                        <form className="flex flex-col items-center" onSubmit={handleUserEmailSubmit}>
+                          <label for="email">Email :</label>
+                          <input className="mb-5 mt-2 h-14 px-5 py-2 rounded-md block mx-0 w-[500px] focus:outline-none sm:w-[100%]" type="email" id="email" name="email" value={userEmail} onChange={handleUserEmailChange} required />
+                          <br />
+                          <button type="submit">Rechercher</button>
+                        </form>
+                        <br />
+                        {getRatingGraphics(userData)}
+                      </div>
+                    }
                   </>
                 }
                 {user.role == "Client" &&
@@ -288,8 +335,8 @@ function Home({ user, diagnostics, clients, managers, users }) {
                             <th>N°</th>
                             <th>Nom d&apos;Utilisateur</th>
                             <th className="sm:hidden">Email</th>
-                            <th>Nombre de diagnostics de l&apos;équipe</th>
                             <th>Nombre d&apos;accès à l&apos;application de l&apos;équipe</th>
+                            <th>Nombre de diagnostics de l&apos;équipe</th>
                           </tr>
                         </thead>
                         <tbody className="sm:text-[10px]">
@@ -298,8 +345,8 @@ function Home({ user, diagnostics, clients, managers, users }) {
                               <td className='text-center'>{index + 1}</td>
                               <td className='text-center'>{user.username}</td>
                               <td className='text-center sm:hidden'>{user.email}</td>
-                              <td className='text-center'>{user.nbdiag}</td>
                               <td className='text-center px-5 py-3 my-2'>{user.nbCon}</td>
+                              <td className='text-center'>{user.nbdiag}</td>
                             </tr>
                           ))}
                         </tbody>

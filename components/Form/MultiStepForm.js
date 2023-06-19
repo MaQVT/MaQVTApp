@@ -19,7 +19,7 @@ export default function MultiStepForm() {
   const handleNext = (data) => {
     setFormData({ ...formData, ...data });
     if (step == 41) {
-      const ok = window.confirm("Vous confirmez la soumission du formulaire ? Aucune modification ne sera possible après confirmation.")
+      const ok = window.confirm("Vous avez finalisé le questionnaire. En cliquant sur « OK », vous validez la soumission de vos réponses et vous ne pourrez plus apporter de modification. Cliquez sur « Annuler » si vous souhaitez revenir en arrière sur vos réponses.")
       if (ok) {
         setStep(step + 1);
       }
@@ -108,7 +108,7 @@ export default function MultiStepForm() {
                 <li class="mb-2"><span className="font-semibold">Répondez avec un maximum d’authenticité.</span> Vous êtes une personne unique, et personne mieux que vous ne peut savoir ce que vous vivez, ni ce dont vous avez besoin.</li>
                 <li class="mb-2"><span className="font-semibold">Répondez avec un maximum de spontanéité.</span> Ne cherchez pas à imaginer ce qu’il y a “derrière” chaque question, car il n’y a pas de bonne ou mauvaise réponse, vous avez le droit de penser et ressentir tout ce que vous voulez !</li>
               </ol>
-              <p class="text-lg">C’est à vous… Lancer l’auto-diagnostic</p>
+              <p class="text-lg">C’est à vous…</p>
             </div>
           </>}
           position={0}
@@ -151,7 +151,7 @@ export default function MultiStepForm() {
           handleNext={handleNext}
           handlePrev={handlePrev}
           stepName={"importanceTravail"}
-          titleName={"Le travail est-il important pour moi ?"}
+          titleName={"Le travail est important pour moi."}
           position={1}
           pageNumber={"01"}
         />
@@ -209,7 +209,7 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
-            <p className="font-Trocchi text-securite1 text-6xl">Sécurité</p>
+            <p className="font-MoonTime text-securite1 text-8xl">Sécurité</p>
           </>}
           position={1}
         />
@@ -285,7 +285,7 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
-            <p className="font-Trocchi text-satisfaction1 text-6xl">Plaisir</p>
+            <p className="font-MoonTime text-satisfaction1 text-8xl">Plaisir</p>
           </>}
           position={1}
         />
@@ -349,7 +349,7 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin d&apos; ...</p><br />
-            <p className="font-Trocchi text-inclusion1 text-6xl">Inclusion</p>
+            <p className="font-MoonTime text-inclusion1 text-8xl">Inclusion</p>
           </>}
           position={1}
         />
@@ -413,7 +413,7 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
-            <p className="font-Trocchi text-pouvoiragir1 text-6xl">Pouvoir agir</p>
+            <p className="font-MoonTime text-pouvoiragir1 text-8xl">Pouvoir agir</p>
           </>}
           position={1}
         />
@@ -489,7 +489,7 @@ export default function MultiStepForm() {
           handlePrev={handlePrev}
           text={<>
             <p className="font-PlayfairDisplay uppercase mb-5">Mon besoin de ...</p><br />
-            <p className="font-Trocchi text-sens1 text-6xl">Sens</p>
+            <p className="font-MoonTime text-sens1 text-8xl">Sens</p>
           </>}
           position={1}
         />
