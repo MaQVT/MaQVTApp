@@ -82,7 +82,7 @@ const FaqPage = ({ user }) => {
                 headers: { 'Content-Type': 'application/json', token: localStorage.getItem("token") },
                 body: JSON.stringify({ _id: faqId }),
             });
-            // Remove the FAQ from the list after successfully deleting
+            // Remove the FAQ from the list after successfully deleting 
             const updatedFaqList = [...faqList];
             updatedFaqList.splice(index, 1);
             setFaqList(updatedFaqList);
