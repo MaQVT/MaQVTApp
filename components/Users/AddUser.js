@@ -112,7 +112,7 @@ function AddUser({ handleAddUser, roles, user, parent_id, parent }) {
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
-          {roles.map((role, index) => <option value={role} key={index}>{role}</option>)}
+          {roles.map((role, index) => <option value={role} key={index}>{role == "User" ? "Utilisateur" : role}</option>)}
         </select>
       </div>
       {(user.role != "Manager" && user.role != "Client") &&
