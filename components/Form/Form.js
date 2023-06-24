@@ -7,7 +7,7 @@ export default function Form({ handlePrev, handleChange, handleFormSubmit, posit
   
   const handleFormSubmitInit = () => {
     const selectedOptions = document.querySelectorAll('input[type="radio"]:checked');
-    if (selectedOptions.length < 0) {
+    if (selectedOptions.length < 3) {
       alert('Veuillez sélectionner une option pour chaque question.'); // Display error message
     }else{
       handleFormSubmit()
