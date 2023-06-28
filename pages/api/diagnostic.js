@@ -1,5 +1,5 @@
 import { isAuth } from "../../utils/auth";
-import { addDiagnosticRoute, getAllDiagnosticRoute, updateDiagnosticRoute } from "../../routers/diagnostic_routers";
+import { addDiagnosticRoute, deleteDiagnosticRoute, getAllDiagnosticRoute, updateDiagnosticRoute } from "../../routers/diagnostic_routers";
 
 const handler = async (req, res) => {
   if (!isAuth(req.headers.token)) {
@@ -15,6 +15,9 @@ const handler = async (req, res) => {
         break;
       case "PUT":
         await updateDiagnosticRoute(req, res);
+        break;
+      case "DELETE":
+        await deleteDiagnosticRoute(req, res);
         break;
       default:
         res.status(405).send({ message: "Methode non authorisé" });

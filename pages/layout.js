@@ -174,9 +174,10 @@ function Layout({ user, children }) {
         <div className="h-[75px] drop-shadow-lg border bg-white w-full flex flex-row justify-around items-center">
           <div onClick={() => mainPage()}>
             <img
-              src="https://www.wunjo.life/wp-content/uploads/2020/12/Logo-Twitter-200x200-1.png"
+              src="/logo.png"
               alt="Logo Wunjo"
               className="h-14 w-14 rounded-full cursor-pointer"
+              title="Retour accueil"
             />
           </div>
           {user?.email && (user?.role == "User" || user?.role == "Manager") && (
@@ -199,7 +200,7 @@ function Layout({ user, children }) {
           )}
           {user?.role != "User" && user?.role != undefined && (
             <button
-              title="Ajouter ou Supprimer des Utilisateurs"
+              title="Superviser les utilisateurs"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
               onClick={getusers}
             >

@@ -189,10 +189,10 @@ function ManageUsers({ users, user, scopeId, parent }) {
                 >
                   <BiArrowBack size={30} />
                 </button>
-                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Les {users[0].role == "User" ? "Utilisateur" : users[0].role}(s) sous {parent.role} : {parent.username}</h1>}
-                {user.role != "User" && user.role != "Client" &&
+                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Superviser les utilisateurs sous {parent.role} : {parent.username}</h1>}                
+                {user.role != "User" &&
                   <div>
-                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter de Nouveaux Comptes</button>
+                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un nouvel utilisateur</button>
                   </div>
                 }
               </div>
@@ -201,7 +201,13 @@ function ManageUsers({ users, user, scopeId, parent }) {
               {haveRightToSee(user.role) &&
                 <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
                   {
-                    allUsers.length ? allUsers.map((value, index) => <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />)
+                    allUsers.length ? allUsers.map((value, index) => {
+                      if(value.ask_delete == true && user.role != "Admin"){
+                        return
+                      }else{
+                       return <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />
+                      }
+                    })
                       : <div className="text-center w-[95vw]">Il n&apos;y a rien à afficher</div>
                   }
                 </ul>

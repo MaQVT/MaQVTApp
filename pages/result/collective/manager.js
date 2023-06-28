@@ -37,6 +37,11 @@ const ObjectList = ({ user, thisUser, diagnostics }) => {
         console.log(selectedFormData);
         // Perform further actions with selectedFormData
 
+        if(selectedFormData.length < 2){
+            alert("Veuiller selectionner au moins deux éléments.")
+            return
+        }
+
         setTimeout(async () => {
             const res = await fetch("/api/coldiagnostic", {
                 method: "POST",

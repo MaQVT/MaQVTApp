@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toValid }) {
+function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toValid, toDelete }) {
   const [status, setStatus] = useState(user.status)
   const router = useRouter()
 
@@ -43,23 +43,23 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
       id={user._id}
       className="text-right flex flex-col h-max justify-center bg-rose_pr rounded-lg p-3 my-0 min-w-[200px] max-w-[300px] items-center border-orange-50 border-4"
     >
-      {parentRole != "Manager" && parentRole != "Client" && parentRole != "User" &&
+      { parentRole != "User" &&
         <div className="flex justify-between w-full items-center">
-          {((user.role == "Manager" || user.role == "User") && toValid == false) ?
+          {((user.role == "Manager" || user.role == "User") && toValid == false && toDelete == false && parentRole != "Manager" && parentRole != "Client") ?
             <i
               onClick={editHandler}
               title="Editer l'utilisateur"
               className="fa fa-user-pen text-green-500 text-base pr-2 pb-2 cursor-pointer"
             ></i> : <i></i>
           }
-          {status == "invalide" ?
+          {status == "invalide" && parentRole != "Manager" && parentRole != "Client" ?
             <i
               onClick={validateUser}
               title="Valider l'utilisateur"
               className="fa fa-check text-green-500 text-base pr-2 pb-2 cursor-pointer"
             ></i> : <i></i>
           }
-          {toValid == false && parentRole == "Admin" ?
+          {toValid == false && (parentRole == "Admin" || parentRole == "Manager" || parentRole == "Client") ?
             <i
               onClick={removeHandler}
               title="Supprimer l'utilisateur"

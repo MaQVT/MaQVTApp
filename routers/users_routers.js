@@ -10,7 +10,8 @@ import {
   updateUserProfile,
   getUsersByParents,
   getAllUsersByRole,
-  UpdateByIdUser
+  UpdateByIdUser,
+  getUserByDelete
 } from "../db/handlers/users_handlers";
 import moment from "moment";
 import {
@@ -22,7 +23,7 @@ import {
 import { getMailTemplate } from "../utils/getMailTemplate";
 import { sendEmail } from "../utils/sendMail";
 import { verifyJwt } from "../utils/jwt";
-import { hashPassword,verifyPassword } from "../utils/hash";
+import { generateRandomPassword, hashPassword, verifyPassword } from "../utils/hash";
 
 export const getAllUsersRoute = async (req, res) => {
   try {
@@ -36,9 +37,9 @@ export const getAllUsersRoute = async (req, res) => {
   }
 };
 
-export const getUserByStatusRoute = async (req,res)=>{
+export const getUserByStatusRoute = async (req, res) => {
   try {
-    let {status} = req.query
+    let { status } = req.query
     const users = await getUserByStatus(status);
     console.log(users);
     res.json({ data: users, message: "Données envoyées" });
@@ -48,20 +49,34 @@ export const getUserByStatusRoute = async (req,res)=>{
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });
   }
 }
-export const UpdatePasswordRoute = async(req,res)=>{
+
+export const getUserByDeleteRoute = async (req, res) => {
   try {
-    let {oldPassword,newPassword} = req.body
-    let {id} = req.query
+    let { askDelete } = req.query
+    const users = await getUserByDelete(askDelete);
+    console.log(users);
+    res.json({ data: users, message: "Données envoyées" });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+}
+
+export const UpdatePasswordRoute = async (req, res) => {
+  try {
+    let { oldPassword, newPassword } = req.body
+    let { id } = req.query
     // console.log("###################");
     // console.log(oldPassword,newPassword);
     //recuperer le user
     let user = await getUserById(id)
-    console.log(verifyPassword(oldPassword,user.password));
-    if(verifyPassword(oldPassword,user.password)){
-      user = await UpdateByIdUser(user._id,{password:hashPassword(newPassword)})
-      res.json({data:user,message:"Modifications reussie"})
-    }else{
-      res.status(401).send({message:"Ancien mot de passe incorrect"})
+    console.log(verifyPassword(oldPassword, user.password));
+    if (verifyPassword(oldPassword, user.password)) {
+      user = await UpdateByIdUser(user._id, { password: hashPassword(newPassword) })
+      res.json({ data: user, message: "Modifications reussie" })
+    } else {
+      res.status(401).send({ message: "Ancien mot de passe incorrect" })
       //throw new Error("Mot de passe incorrect")
     }
     //ajouter le nouveau
@@ -75,7 +90,7 @@ export const UpdatePasswordRoute = async(req,res)=>{
 
 export const getUserByRole = async (req, res) => {
   try {
-    const {role} = req.query
+    const { role } = req.query
     const users = await getAllUsersByRole(role);
     console.log(users);
     res.json({ data: users, message: "Données envoyées" });
@@ -85,20 +100,20 @@ export const getUserByRole = async (req, res) => {
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });
   }
 };
-export const UpdateByIdUserRoute = async (req,res)=>{
+export const UpdateByIdUserRoute = async (req, res) => {
   try {
-    const {id} = req.query
-    let user = await UpdateByIdUser(id,{...req.body})
-    res.json({data:user,message:"Données envoyées"})
+    const { id } = req.query
+    let user = await UpdateByIdUser(id, { ...req.body })
+    res.json({ data: user, message: "Données envoyées" })
   } catch (error) {
     res
       .status(500)
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });
   }
 }
-export const getUserFilsRoute = async(req,res)=>{
+export const getUserFilsRoute = async (req, res) => {
   try {
-    const {parent} = req.query
+    const { parent } = req.query
     const users = await getUsersByParents(parent);
     console.log("I am the parent")
     console.log(users)
@@ -162,7 +177,8 @@ export const deleteUserRoute = async (req, res) => {
 export const addUserRoute = async (req, res) => {
   try {
     req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
-    if (!req.body.password) { req.body.password = hashPassword("2023"); }
+    const newPassword = generateRandomPassword();
+    if (!req.body.password) { req.body.password = hashPassword(newPassword); }
     else { req.body.password = hashPassword(req.body.password) }
     let validationError = addUserValidator.validate(req.body).error
     console.log(req.body);
@@ -180,7 +196,7 @@ export const addUserRoute = async (req, res) => {
         user = await addUser(req.body);
         const text = getMailTemplate(
           "Compte créé sur l’Application MAQVT",
-          `Bonjour, <br /><br />Voici les informations relatives à votre compte sur l’Application “Ma QVT”. <br /><br />Votre email : ${req.body.email}<br />Votre mot de passe : 2023<br /><br />(N’hésitez pas à le personnaliser lors de votre 1ère connexion) <br />Veuillez cliquer sur le lien ci-dessous :`,
+          `Bonjour, <br /><br />Voici les informations relatives à votre compte sur l’Application “Ma QVT”. <br /><br />Votre email : ${req.body.email}<br />Votre mot de passe : ${newPassword}<br /><br />(N’hésitez pas à le personnaliser lors de votre 1ère connexion) <br />Veuillez cliquer sur le lien ci-dessous :`,
           `${process.env.NEXT_PUBLIC_APP_URL}/auth/login`,
           "Accéder à l’Application MAQVT",
           ""
@@ -272,14 +288,26 @@ export const deleteByEmailUserRoute = async (req, res) => {
     query: { email },
   } = req;
   try {
-    if ("Admin" != verifyJwt(req.headers.token).role) {
+    if ("User" == verifyJwt(req.headers.token).role) {
       throw new Error("Anoter user trying to access anoter user info");
     }
     let user = (user = await getUserByMail(email));
     console.log(user);
 
     if (user) {
-      await deleteUserByEmail(user.email);
+      switch (verifyJwt(req.headers.token).role) {
+        case "Admin":
+          await deleteUserByEmail(user.email);
+          break;
+        case "Manager":
+          await UpdateByIdUser(user._id, { ask_delete: true });
+          break;
+        case "Client":
+          await UpdateByIdUser(user._id, { ask_delete: true });
+          break;
+        default:
+          break;
+      }
       res.status(200).json({ data: email, message: "Données envoyées" });
     } else {
       res.status(400).json({ data: false, message: "Utilisateur inexistant" });
@@ -296,7 +324,7 @@ export const deleteByIdUserRoute = async (req, res) => {
     query: { id },
   } = req;
   try {
-    if ("Admin" != verifyJwt(req.headers.token).role) {
+    if ("User" == verifyJwt(req.headers.token).role) {
       throw new Error("Anoter user trying to access anoter user info");
     }
 
@@ -306,7 +334,19 @@ export const deleteByIdUserRoute = async (req, res) => {
       if (user.email == process.env.ADMIN_EMAIL) {
         res.status(405).json({ data: user.email, message: "Suppression non autorisé" });
       } else {
-        await deleteUserByEmail(user.email);
+        switch (verifyJwt(req.headers.token).role) {
+          case "Admin":
+            await deleteUserByEmail(user.email);
+            break;
+          case "Manager":
+            await UpdateByIdUser(user._id, { ask_delete: true });
+            break;
+          case "Client":
+            await UpdateByIdUser(user._id, { ask_delete: true });
+            break;
+          default:
+            break;
+        }
         res.status(200).json({ data: user.email, message: "Données envoyées" });
       }
     } else {

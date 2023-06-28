@@ -89,6 +89,11 @@ function History({ user, allDiagnostics }) {
                             <h1 className='text-center text-2xl my-5'>Historique de mes rapports QVT personnelle</h1>
                             <button onClick={() => {
                                 router.push({
+                                    pathname: "/result/perso/compare",
+                                });
+                            }} className='h-auto w-auto py-3 px-5 sm:text-xs'> Comparer les rapports QVT personnelle</button>
+                            <button onClick={() => {
+                                router.push({
                                     pathname: "/result/collective",
                                 });
                             }} className='h-auto w-auto py-3 px-5 sm:text-xs'> Consulter les rapports QVT collective</button>

@@ -43,12 +43,18 @@ function History({ user, thisUser, allDiagnostics }) {
                     <div className='w-full'>
                         <div className='flex items-center justify-center gap-10'>
                             <h1 className='text-center text-2xl my-5'>Historique des rapports QVT Collective</h1>
+                            {user.role != "Consultant" && <button onClick={() => {
+                                router.push({
+                                    pathname: "/result/perso",
+                                });
+                            }} className='h-auto w-auto py-3 px-5 sm:text-xs'> Consulter les rapports QVT personnelle</button>}
                             {(user.role == "Manager" || user.role == "Consultant") && <button onClick={() => {
                                 router.push({
                                     pathname: `/result/collective/manager`,
                                     query: { id_m: thisUser._id}
                                 });
                             }} className='h-auto w-auto py-3 px-5 sm:text-xs'>Créer une QVT Collective</button>}
+
                         </div>
                         <hr />
                         <table className='w-[80%] m-auto my-6 sm:text-[10px] md:w-[95%]'>

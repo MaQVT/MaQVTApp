@@ -4,6 +4,7 @@ import { useState } from 'react';
 const AddFaqForm = () => {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
+  const [number, setNumber] = useState(0);
   const [color, setColor] = useState("red");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter()
@@ -15,7 +16,7 @@ const AddFaqForm = () => {
       const responses = await fetch('/api/faq', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', token: localStorage.getItem("token") },
-        body: JSON.stringify({ question, response }),
+        body: JSON.stringify({ number, question, response }),
       });
       if (responses.ok) {
         // FAQ added successfully, perform any necessary actions (e.g., display success message, update FAQ list)
@@ -23,6 +24,7 @@ const AddFaqForm = () => {
         // Clear the form inputs
         setQuestion('');
         setResponse('');
+        setNumber(0);
         setColor("stone");
         setErrorMessage("Ajout réussi");
         setTimeout(() => {
@@ -46,6 +48,17 @@ const AddFaqForm = () => {
       {errorMessage && <><p className={`py-5 text-${color}-600`}>{errorMessage}</p><br /></>}
       <h2>Ajouter une nouvelle question/réponse au sein de la FAQ</h2>
       <form className='flex flex-col gap-2'>
+        <div>
+          <label htmlFor="number">Numéro:</label>
+          <input
+            className='w-full py-2 px-10'
+            type="number"
+            id="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label htmlFor="question">Question:</label>
           <input

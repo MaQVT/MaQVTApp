@@ -34,6 +34,16 @@ const deleteDiagnosticById = async (id) => {
   return diagnostic;
 };
 
+const deleteAllDiagnostics = async () => {
+  const diagnostics = await DiagnosticModel.find();
+  
+  for (const diagnostic of diagnostics) {
+    await diagnostic.remove();
+  }
+  
+  return diagnostics;
+};
+
 const updateDiagnostic = async (data) => {
   const diagnostic = await DiagnosticModel.findOne({ _id: data._id });
   if (diagnostic) {
@@ -57,6 +67,7 @@ export {
   getDiagnosticByUserId,
   getDiagnosticByMail,
   deleteDiagnosticById,
+  deleteAllDiagnostics,
   updateDiagnostic,
   addDiagnostic,
 };

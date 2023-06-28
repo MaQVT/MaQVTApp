@@ -1,5 +1,5 @@
 import moment from "moment";
-import { addDiagnostic, getAllDiagnostics, getDiagnosticById, getDiagnosticByMail, updateDiagnostic } from "../db/handlers/diagnostic_handlers";
+import { addDiagnostic, deleteAllDiagnostics, getAllDiagnostics, getDiagnosticById, getDiagnosticByMail, updateDiagnostic } from "../db/handlers/diagnostic_handlers";
 import { verifyJwt } from "../utils/jwt";
 
 export const getAllDiagnosticRoute = async (req, res) => {
@@ -50,6 +50,22 @@ export const updateDiagnosticRoute = async (req, res) => {
     } else {
       res.status(400).json({ data: false, message: "Diagnostic inexistant" });
     }
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Une erreur est survenue. Veuillez réessayer." });
+  }
+};
+
+export const deleteDiagnosticRoute = async (req, res) => {
+  try {
+    if ("Admin" != verifyJwt(req.headers.token).role) {
+      throw new Error("Another user trying to delete all info");
+    }
+
+    let diagnostics = await deleteAllDiagnostics();
+    res.status(200).json({ data: diagnostics, message: "Delete done" });
+
   } catch (error) {
     res
       .status(400)

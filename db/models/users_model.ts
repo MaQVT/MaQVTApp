@@ -63,6 +63,10 @@ let userSchema = new mongoose.Schema({
     type: Boolean,  
     default: false,
   },
+  ask_delete:{
+    type: Boolean,  
+    default: false,
+  },
 
 });
 

@@ -28,6 +28,17 @@ const deleteColDiagnosticById = async (id) => {
   return colDiagnostic;
 };
 
+const deleteAllColDiagnostics = async () => {
+  const colDiagnostics = await ColDiagnosticModel.find();
+  
+  for (const colDiagnostic of colDiagnostics) {
+    await colDiagnostic.remove();
+  }
+  
+  return colDiagnostics;
+};
+
+
 const updateColDiagnostic = async (data) => {
   const colDiagnostic = await ColDiagnosticModel.findOne({ _id: data._id });
   if (colDiagnostic) {
@@ -50,6 +61,7 @@ export {
   getColDiagnosticByUserId,
   getColDiagnosticByMail,
   deleteColDiagnosticById,
+  deleteAllColDiagnostics,
   updateColDiagnostic,
   addColDiagnostic,
 };

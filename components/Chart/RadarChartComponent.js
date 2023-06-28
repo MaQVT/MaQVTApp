@@ -10,6 +10,7 @@ function RadarChartComponent({
   title,
   bgcolor1,
   bgcolor2,
+  noDisplayTitle
 }) {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
@@ -42,7 +43,7 @@ function RadarChartComponent({
             },
             pointLabels: {
               font: {
-                size: isMobile ? 8 : 11,
+                size: isMobile ? 8 : noDisplayTitle ? 8 : 11,
               },
             },
           },
@@ -55,7 +56,9 @@ function RadarChartComponent({
         plugins: {
           legend: {
             position: isMobile ? "bottom" : "right",
+            display: !noDisplayTitle
           },
+          
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -70,9 +73,9 @@ function RadarChartComponent({
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="font-thin text-6xl mt-14 font-MoonTime text-customGray md:text-center sm:text-3xl">{title}</h1>
+      {!noDisplayTitle && <h1 className="font-thin text-6xl mt-14 font-MoonTime text-customGray md:text-center sm:text-3xl">{title}</h1>}
       <div className="flex flex-col items-center">
-        <div className="w-[600px] mt-6 mb-6 sm:w-[100vw]">
+        <div className="w-[400px] mt-6 mb-6 sm:w-[100vw]">
           <canvas style={{ backgroundColor: "" }} ref={canvasRef} />
         </div>
       </div>
@@ -83,7 +86,7 @@ function RadarChartComponent({
           harmonie={result.Harmonie}
           qvt={result.QVT}
         />
-        {asymetrique >= 1 && <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>}
+        {asymetrique >= 1 && !noDisplayTitle && <div className="text-xs font-semibold text-purple-600 mt-2 mb-7 text-right">❗Besoin asymétrique</div>}
       </div>
     </div>
   );

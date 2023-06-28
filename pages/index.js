@@ -40,6 +40,9 @@ function Home({ user }) {
   const accederInvalide = () => {
     router.push("/admin/invalid_users");
   };
+  const accederSupprimer = () => {
+    router.push("/admin/delete_users");
+  };
 
   console.log(user)
   return (
@@ -87,6 +90,12 @@ function Home({ user }) {
                 {user.role == "Admin" &&
                   <button onClick={() => { accederInvalide() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les Utilisateurs non validés</button>
                 }
+                {user.role == "Admin" &&
+                  <button onClick={() => { accederSupprimer() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les demandes de suppression</button>
+                }
+                {/* {user.role == "Admin" &&
+                  <button onClick={() => { deleteDiagnostics() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-red-400 text-black hover:text-white">Réïnitialiser les Statistiques</button>
+                } */}
               </div>
             </div>
           </main>

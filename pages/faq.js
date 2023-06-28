@@ -29,7 +29,9 @@ const FaqPage = ({ user }) => {
             if (response.ok) {
                 const faqData = await response.json();
                 console.log(faqData)
-                setFaqList(faqData.data);
+                setFaqList(faqData.data.sort((a, b) => {
+                    return a.number - b.number
+                }));
             } else {
                 setFaqList([])
             }
@@ -55,18 +57,20 @@ const FaqPage = ({ user }) => {
     const handleSave = async (index) => {
         // Save the changes made to the selected FAQ
         const updatedFaq = faqList[index];
-        const { _id, question, response } = updatedFaq;
+        const { _id, number, question, response } = updatedFaq;
 
         try {
             await fetch(`/api/faq`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', token: localStorage.getItem("token") },
-                body: JSON.stringify({ question, response, _id: _id }),
+                body: JSON.stringify({ number, question, response, _id: _id }),
             });
             // Disable editing after successfully saving the changes
             const updatedFaqList = [...faqList];
             updatedFaqList[index].isEditing = false;
-            setFaqList(updatedFaqList);
+            setFaqList(updatedFaqList.sort((a, b) => {
+                return a.number - b.number
+            }));
         } catch (error) {
             console.error('Error updating FAQ:', error);
         }
@@ -105,6 +109,20 @@ const FaqPage = ({ user }) => {
                     {faqList.length > 0 ? (
                         faqList.map((faq, index) => (
                             <div key={faq._id} className='flex flex-col gap-2 w-[80%] mx-10 my-4'>
+                                {faq.isEditing ? (
+                                    <input
+                                        className='w-full py-2 px-10'
+                                        type="number"
+                                        value={faq.number}
+                                        onChange={(e) => {
+                                            const updatedFaqList = [...faqList];
+                                            updatedFaqList[index].number = e.target.value;
+                                            setFaqList(updatedFaqList);
+                                        }}
+                                    />
+                                ) : (
+                                    <span type="text" className='w-max py-2 px-10 bg-[#cdd8ed]'>{faq.number}</span>
+                                )}
                                 <h3>Question:</h3>
                                 {faq.isEditing ? (
                                     <input

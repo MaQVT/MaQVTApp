@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const PsychosocialeChart = ({ title, value, description }) => {
+const PsychosocialeChart = ({ title, value, description, compare }) => {
     console.log(value)
     useEffect(() => {
         if (window != undefined) {
@@ -104,7 +104,7 @@ const PsychosocialeChart = ({ title, value, description }) => {
                 };
 
                 zingchart.render({
-                    id: "myChart",
+                    id: !compare ? "myChart" : "myChart1",
                     data: myConfig,
                     height: "100%",
                     width: "100%",
@@ -121,7 +121,7 @@ const PsychosocialeChart = ({ title, value, description }) => {
             <div className="font-thin text-customGray italic text-center text-xs mb-5">
                 {description}
             </div>
-            <div id="myChart" className="w-[400px] h-[175px]">
+            <div id={!compare ? "myChart" : "myChart1"} className="w-[400px] h-[175px]">
                 <a className="zc-ref" href="https://www.zingchart.com/">
                 </a>
             </div>

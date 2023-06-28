@@ -62,9 +62,11 @@ const deleteUserById = async (id) => {
 
 const getUserByStatus = async(status)=>{
   const user = await UserModel.find({ status: status });
-  if (user) {
-    // await user.remove();
-  }
+  return user;
+}
+
+const getUserByDelete = async(askDelete)=>{
+  const user = await UserModel.find({ ask_delete: askDelete });
   return user;
 }
 
@@ -117,5 +119,6 @@ export {
   getUsersByParents,
   getAllUsersByRole,
   UpdateByIdUser,
-  getUserByStatus
+  getUserByStatus,
+  getUserByDelete
 };
