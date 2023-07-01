@@ -147,7 +147,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                 Comment avez-vous vécu cette expérience ?
             </p>
             <div className='flex justify-center'>
-                <div className='flex hover:scale-110 hover:animate-pulse'>
+                <div className='flex hover:scale-110 hover:animate-pulse' title='Mauvaise'>
                     <input type="radio" id="rating-1" name="rating" value="1" checked={rating === "1"} onChange={handleRatingChange} />
                     <label htmlFor="rating-1">
                         <FontAwesomeIcon
@@ -156,7 +156,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                         />
                     </label>
                 </div>
-                <div className='flex hover:scale-110 hover:animate-pulse'>
+                <div className='flex hover:scale-110 hover:animate-pulse' title='Pas Top'>
                     <input type="radio" id="rating-2" name="rating" value="2" checked={rating === "2"} onChange={handleRatingChange} />
                     <label htmlFor="rating-2">
                         <FontAwesomeIcon
@@ -165,7 +165,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                         />
                     </label>
                 </div>
-                <div className='flex hover:scale-110 hover:animate-pulse'>
+                <div className='flex hover:scale-110 hover:animate-pulse' title='Neutre'>
                     <input type="radio" id="rating-3" name="rating" value="3" checked={rating === "3"} onChange={handleRatingChange} />
                     <label htmlFor="rating-3">
                         <FontAwesomeIcon
@@ -174,7 +174,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                         />
                     </label>
                 </div>
-                <div className='flex hover:scale-110 hover:animate-pulse'>
+                <div className='flex hover:scale-110 hover:animate-pulse' title='Bien'>
                     <input type="radio" id="rating-4" name="rating" value="4" checked={rating === "4"} onChange={handleRatingChange} />
                     <label htmlFor="rating-4">
                         <FontAwesomeIcon
@@ -183,7 +183,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                         />
                     </label>
                 </div>
-                <div className='flex hover:scale-110 hover:animate-pulse'>
+                <div className='flex hover:scale-110 hover:animate-pulse' title='Très Bien'>
                     <input type="radio" id="rating-5" name="rating" value="5" checked={rating === "5"} onChange={handleRatingChange} />
                     <label htmlFor="rating-5">
                         <FontAwesomeIcon

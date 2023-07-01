@@ -205,7 +205,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
                       if(value.ask_delete == true && user.role != "Admin"){
                         return
                       }else{
-                       return <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} />
+                       return <UserItem user={value} handleUpdateModal={handleUpdateModal} key={index} parent={parent} handleDeleteUser={handleDeleteUser} parentRole={user.role} toValid={false} toDelete={false} />
                       }
                     })
                       : <div className="text-center w-[95vw]">Il n&apos;y a rien à afficher</div>

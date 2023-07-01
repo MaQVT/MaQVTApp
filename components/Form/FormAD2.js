@@ -104,36 +104,20 @@ export default function FormAD2({
               </div>
             </div>
             <div className="" title="Épuisement léger">
-              <div className="flex">
+              <div className="flex" title="Extrême fatigue">
                 <input
                   type="radio"
-                  id="physique4"
+                  id="physique1"
                   name="physique"
-                  value="4"
+                  value="1"
                   onChange={handleChange}
                   className=""
                 />
                 <label
-                  htmlFor="physique4"
+                  htmlFor="physique1"
                   className=""
                 >
-                  4
-                </label>
-              </div>
-              <div className="flex" title="Fatigue légère">
-                <input
-                  type="radio"
-                  id="physique3"
-                  name="physique"
-                  value="3"
-                  onChange={handleChange}
-                  className=""
-                />
-                <label
-                  htmlFor="physique3"
-                  className=""
-                >
-                  3
+                  1
                 </label>
               </div>
               <div className="flex" title="Fatigue modérée">
@@ -152,20 +136,36 @@ export default function FormAD2({
                   2
                 </label>
               </div>
-              <div className="flex" title="Extrême fatigue">
+              <div className="flex" title="Fatigue légère">
                 <input
                   type="radio"
-                  id="physique1"
+                  id="physique3"
                   name="physique"
-                  value="1"
+                  value="3"
                   onChange={handleChange}
                   className=""
                 />
                 <label
-                  htmlFor="physique1"
+                  htmlFor="physique3"
                   className=""
                 >
-                  1
+                  3
+                </label>
+              </div>
+              <div className="flex">
+                <input
+                  type="radio"
+                  id="physique4"
+                  name="physique"
+                  value="4"
+                  onChange={handleChange}
+                  className=""
+                />
+                <label
+                  htmlFor="physique4"
+                  className=""
+                >
+                  4
                 </label>
               </div>
             </div>
