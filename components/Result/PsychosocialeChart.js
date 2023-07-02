@@ -1,16 +1,21 @@
 import { useEffect } from "react";
 
 const PsychosocialeChart = ({ title, value, description, compare }) => {
-    console.log(value)
+    const values = [value]
     useEffect(() => {
         if (window != undefined) {
             import('zingchart/index').then((zingchart) => {
                 ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-                window.feed = (callback) => {
-                    const tick = {};
-                    tick.plot0 = Math.ceil(value);
-                    callback(JSON.stringify(tick));
-                };
+                // window.feed = (callback) => {
+                //     const tick = {};
+                //     tick.plot0 = Math.ceil(alala);
+                //     callback(JSON.stringify(tick));
+                // };
+                // window.feedCompare = (callback) => {
+                //     const tick = {};
+                //     tick.plot0 = Math.ceil(alala);
+                //     callback(JSON.stringify(tick));
+                // };
                 const myConfig = {
                     type: "gauge",
                     globals: {
@@ -81,16 +86,16 @@ const PsychosocialeChart = ({ title, value, description, compare }) => {
                             ],
                         },
                     },
-                    refresh: {
-                        type: "feed",
-                        transport: "js",
-                        url: "feed()",
-                        interval: 100,
-                        resetTimeout: 1000,
-                    },
+                    // refresh: {
+                    //     type: "feed",
+                    //     transport: "js",
+                    //     url: !compare ? "feed()" : "feedCompare()",
+                    //     interval: 100,
+                    //     resetTimeout: 1000,
+                    // },
                     series: [
                         {
-                            values: [0], // starting value
+                            values: values, // starting value
                             backgroundColor: "#FFAF81",
                             // indicator: [10, 10, 10, 10, 0.75],
                             animation: {
