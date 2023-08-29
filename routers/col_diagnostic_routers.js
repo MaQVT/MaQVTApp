@@ -27,7 +27,7 @@ export const addColDiagnosticRoute = async (req, res) => {
       res.json({ data: colDiagnostic, message: "Données envoyées" });
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res
       .status(400)
       .send({ message: "Une erreur est survenue. Veuillez réessayer." });

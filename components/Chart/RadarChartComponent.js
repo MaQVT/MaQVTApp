@@ -16,7 +16,7 @@ function RadarChartComponent({
   const chartRef = useRef(null);
   const result = chartDataFunction(formData);
   const asymetrique = chartAsymetriqueFuntion(formData);
-  console.log(result);
+  // console.log(result);
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");

@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 function ManageUsers({ users, user, scopeId, parent }) {
 
   const router = useRouter()
-  console.log({ users, user, scopeId });
+  // console.log({ users, user, scopeId });
   const [allUsers, setAllUsers] = useState(users)
   const [showModal, setShowModal] = useState(false)
   const [showUpdateModal, setShowUpdateModal] = useState(false)
@@ -26,8 +26,8 @@ function ManageUsers({ users, user, scopeId, parent }) {
 
   useEffect(() => {
     setRien(scopeId)
-    console.log("parent")
-    console.log(parent)
+    // console.log("parent")
+    // console.log(parent)
   }, [scopeId])
 
   async function handle2MonthFrequenceMailUser(userActual) {
@@ -40,7 +40,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
       },
       body: JSON.stringify({ userId: userActual._id, role: userActual.role, newExpirationDate: userActual.expired_date, email: userActual.email, username: userActual.username }),
     });
-    console.log(response.ok)
+    // console.log(response.ok)
     if (response.ok) {
       console.log("Email rescheduled")
     }
@@ -83,7 +83,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
       },
       body: JSON.stringify(formData),
     });
-    console.log(response.ok)
+    // console.log(response.ok)
     if (response.ok) {
       const userJson = await response.json()
       await handle2MonthFrequenceMailUser(userJson.data)
@@ -115,7 +115,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
       },
       body: JSON.stringify(formData),
     });
-    console.log(response.ok)
+    // console.log(response.ok)
     if (response.ok) {
       // If user is deleted successfully, refresh the user list
       const usersResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/fils/${scope._id}`, {
@@ -155,6 +155,46 @@ function ManageUsers({ users, user, scopeId, parent }) {
     }
   }
 
+  function superviserSous(role) {
+    switch (role) {
+      case "Admin":
+        return "comptes"
+        break;
+      case "Consultant":
+        return "comptes"
+        break;
+      case "Client":
+        return "managers"
+        break;
+      case "Manager":
+        return "utilisateurs"
+        break;
+      default:
+        return ""
+        break;
+    }
+  }
+
+  function ajouterUn(role) {
+    switch (role) {
+      case "Admin":
+        return "compte"
+        break;
+      case "Consultant":
+        return "compte utilisateur / manager / client"
+        break;
+      case "Client":
+        return "manager"
+        break;
+      case "Manager":
+        return "utilisateur"
+        break;
+      default:
+        return ""
+        break;
+    }
+  }
+
   function handleUpdateModal(user) {
     setUpdatingUser(user)
     setShowUpdateModal(true)
@@ -189,10 +229,10 @@ function ManageUsers({ users, user, scopeId, parent }) {
                 >
                   <BiArrowBack size={30} />
                 </button>
-                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Superviser les utilisateurs sous {parent.role} : {parent.username}</h1>}                
+                {users[0] && <h1 className="font-semibold font-AnticDidone text-3xl p-2 text-center md:text-left md:text-lg sm:text-center">Superviser les {superviserSous(parent.role)} sous {parent.role} : {parent.username}</h1>}                
                 {user.role != "User" &&
                   <div>
-                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un nouvel utilisateur</button>
+                    <button className="sm:text-xs" onClick={() => setShowModal(true)}>Ajouter un nouveau {ajouterUn(parent.role)}</button>
                   </div>
                 }
               </div>

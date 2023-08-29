@@ -17,7 +17,7 @@ function History({ user, allUsersJSON }) {
     return (
         <>
             <Head>
-                <title>Historique des Managers</title>
+                <title>Rapports collectifs</title>
                  
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />

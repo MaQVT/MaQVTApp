@@ -20,7 +20,7 @@ const AddFaqForm = () => {
       });
       if (responses.ok) {
         // FAQ added successfully, perform any necessary actions (e.g., display success message, update FAQ list)
-        console.log('FAQ added successfully');
+        // console.log('FAQ added successfully');
         // Clear the form inputs
         setQuestion('');
         setResponse('');

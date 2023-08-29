@@ -61,12 +61,12 @@ export default function MultiStepForm() {
       });
       if (res.ok) {
         const json = await res.json();
-        console.log(json);
+        // console.log(json);
         localStorage.setItem("lastID", json.data._id)
         setSent(true);
       } else {
         const json = await res.json();
-        console.log(json)
+        // console.log(json)
       }
     }, 100);
 
@@ -82,7 +82,7 @@ export default function MultiStepForm() {
         });
         if (res.ok) {
           const json = await res.json();
-          console.log(json);
+          // console.log(json);
         }
       }, 100);
     }

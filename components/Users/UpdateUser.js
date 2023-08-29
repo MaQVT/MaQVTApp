@@ -46,7 +46,7 @@ function UpdateUser({ handleUpdateUser, user, parent }) {
         expire_date = expire_date.toISOString().split('T')[0];*/
 
         const formData = { nb_access, authorization, expired_date: moment(expired_date).format("MM/DD/YYYY HH:mm:ss"), email: user.email };
-        console.log(formData);
+        // console.log(formData);
         handleUpdateUser(formData, parent);
 
     };

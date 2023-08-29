@@ -18,9 +18,9 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
             },
             body: JSON.stringify({ userId: user._id, role: user.role, email: user.email, scheduleName: frequency }),
         });
-        console.log(response.ok)
+        // console.log(response.ok)
         if (response.ok) {
-            console.log("Email rescheduled")
+            // console.log("Email rescheduled")
         }
     }
 
@@ -80,7 +80,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
         // Call API to submit form data
         await handleFrequence();
         await handleFrequenceUser()
-        console.log(formData);
+        // console.log(formData);
         handleNext(formData);
     };
 
@@ -118,7 +118,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                 </div>
             </div>
             <p className='text-lg font-Trocchi mt-5'>
-                J&apos;accepte que mes résultats soient transmis de manière anonyme pour éditer une synthèse collective :
+                J&apos;accepte que mes résultats personnels soient consolidés au niveau collectif :
             </p>
             <div className='flex justify-center'>
                 <div>

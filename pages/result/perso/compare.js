@@ -40,7 +40,7 @@ const ObjectList = ({ user, thisUser, diagnostics }) => {
 
     const handleSubmit = () => {
         const selectedFormData = selectedObjects.map((object) => object.form_data);
-        console.log(selectedFormData);
+        // console.log(selectedFormData);
         // Perform further actions with selectedFormData
 
         if (selectedFormData.length != 2) {

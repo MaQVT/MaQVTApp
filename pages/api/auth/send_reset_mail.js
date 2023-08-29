@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       // Construct the password reset link
       const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset_password?token=${token}`;
 
-      console.log(resetLink);
+      // console.log(resetLink);
 
       // Send a password reset email to the user's email address
       const text = getMailTemplate(
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
         ""
       );
 
-      console.log(resetLink);
+      // console.log(resetLink);
 
       sendEmail({
         to: email,

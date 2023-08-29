@@ -34,7 +34,7 @@ const ObjectList = ({ user, thisUser, diagnostics }) => {
 
     const handleSubmit = () => {
         const selectedFormData = selectedObjects.map((object) => object.form_data);
-        console.log(selectedFormData);
+        // console.log(selectedFormData);
         // Perform further actions with selectedFormData
 
         if(selectedFormData.length < 2){
@@ -58,14 +58,14 @@ const ObjectList = ({ user, thisUser, diagnostics }) => {
                 setTimeout(() => {
                     setSent(false);
                 }, 3000);
-                console.log(json);
+                // console.log(json);
             } else {
                 const json = await res.json();
                 setError(true);
                 setTimeout(() => {
                     setError(false);
                 }, 3000);
-                console.log(json)
+                // console.log(json)
             }
         }, 100);
     };
@@ -167,11 +167,11 @@ export async function getServerSideProps(context) {
     const filsResponse = await getUsersByParents(userResponseJson.data._id)
     const filsMail = filsResponse.map((value, index) => value.email)
     const allDiagnostics = await getAllDiagnostics();
-    console.log(allDiagnostics.length)
+    // console.log(allDiagnostics.length)
     
     
     const toSend = allDiagnostics.filter((value, index) => value.email == userResponseJson.data.email || filsMail.includes(value.email))
-    console.log(toSend.length)
+    // console.log(toSend.length)
 
     return {
         props: { thisUser: userResponseJson.data, user: thisUserResponseJson.data, diagnostics: JSON.stringify(toSend) }, // will be passed to the page component as props

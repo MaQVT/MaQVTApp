@@ -28,7 +28,7 @@ const FaqPage = ({ user }) => {
             });
             if (response.ok) {
                 const faqData = await response.json();
-                console.log(faqData)
+                // console.log(faqData)
                 setFaqList(faqData.data.sort((a, b) => {
                     return a.number - b.number
                 }));

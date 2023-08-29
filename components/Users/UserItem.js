@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Image from 'next/image'
 import Link from "next/link";
+import moment from 'moment';
+import 'moment/locale/fr';
 import { useRouter } from "next/router";
 
 function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toValid, toDelete }) {
@@ -17,7 +19,7 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
       },
       body: JSON.stringify({ email: user.email, status: "valide" }),
     });
-    console.log(response.ok)
+    // console.log(response.ok)
     if (response.ok) {
       router.reload()
       setStatus('valide')
@@ -25,7 +27,7 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
   }
 
   const removeHandler = async () => {
-    if(confirm("Confirmez la suppression de ce utilisateur")){
+    if(confirm("Confirmez la suppression de ce compte")){
       handleDeleteUser(user._id);
     }
   };
@@ -88,6 +90,11 @@ function UserItem({ user, handleDeleteUser, handleUpdateModal, parentRole, toVal
       }
       <span className="text-xs">{user.email}</span>
       <span className="text-orange-800">{user.role == "User" ? "Utilisateur" : user.role}</span>
+      {(parentRole == "Admin" && (user.role == "User" || user.role == "Manager")) && <>
+        <span className="text-black text-sm">Crée le {moment(user.date).format('D MMMM YYYY')}</span>
+        <span className="text-black text-sm">Expire le {moment(user.expired_date).format('D MMMM YYYY')}</span>
+      </>
+      }
     </li>
   );
 }

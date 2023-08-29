@@ -2,9 +2,9 @@ import { deleteByEmailUserRoute, getByEmailUserRoute,getUserFilsRoute } from "..
 import { isAuth } from "../../../../utils/auth";
 
 const handler = async (req, res) => {
-    console.log("lune rouge")
+    // console.log("lune rouge")
   if (!isAuth(req.headers.token)) {
-    console.log(req.headers);
+    // console.log(req.headers);
     res.status(405).send({ message: "Method not Allowed" });
   } else {
     switch (req.method) {

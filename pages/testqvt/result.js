@@ -64,16 +64,16 @@ function Result({ user }) {
   const handleNextData = (data) => {
     setOtherData({ ...otherData, ...data });
     setStep(step + 1);
-    console.log(otherData);
+    // console.log(otherData);
   };
 
   if (step == 10) {
     setTimeout(async () => {
-      console.log(JSON.stringify({
-        form_data: formData,
-        ...otherData,
-        _id: localStorage.getItem("lastID"),
-      }))
+      // console.log(JSON.stringify({
+      //   form_data: formData,
+      //   ...otherData,
+      //   _id: localStorage.getItem("lastID"),
+      // }))
       const res = await fetch("/api/diagnostic", {
         method: "PUT",
         headers: {
@@ -88,11 +88,11 @@ function Result({ user }) {
       });
       if (res.ok) {
         const json = await res.json();
-        console.log("OUIIIIIIIIIIIIII")
-        console.log(json);
+        // console.log("OUIIIIIIIIIIIIII")
+        // console.log(json);
       } else {
         const json = await res.json();
-        console.log(json);
+        // console.log(json);
       }
     }, 1000);
   } 
@@ -117,11 +117,11 @@ function Result({ user }) {
       });
       if (res.ok) {
         const json = await res.json();
-        console.log(json);
+        // console.log(json);
         setFormData(json.data.form_data)
       } else {
         const json = await res.json();
-        console.log(json);
+        // console.log(json);
       }
     }, 10);
   }, []);

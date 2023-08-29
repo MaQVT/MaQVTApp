@@ -14,8 +14,28 @@ import Loading from "../components/Layout/Loading";
 const inter = Inter({ subsets: ["latin"] });
 
 function Layout({ user, children }) {
-  console.log("Layout : user -- \n" + user)
+  // console.log("Layout : user -- \n" + user)
   const router = useRouter();
+
+  function superviserSous(role) {
+    switch (role) {
+      case "Admin":
+        return "comptes"
+        break;
+      case "Consultant":
+        return "comptes"
+        break;
+      case "Client":
+        return "managers"
+        break;
+      case "Manager":
+        return "utilisateurs"
+        break;
+      default:
+        return ""
+        break;
+    }
+  }
 
   const logout = async () => {
     const currentUrl = router.asPath;
@@ -199,7 +219,7 @@ function Layout({ user, children }) {
           )}
           {user?.email && (user?.role == "User" || user?.role == "Manager") && (
             <button
-              title="Consulter mes rapports QVT personnelle"
+              title="Consulter l’historique de mes rapports"
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
               onClick={seeresult}
             >
@@ -208,7 +228,7 @@ function Layout({ user, children }) {
           )}
           {user?.role != "User" && user?.role != undefined && (
             <button
-              title="Superviser les utilisateurs"
+              title={`Superviser les ${superviserSous(user.role)}`}
               className="border rounded-full w-[50px] h-[50px] flex justify-center items-center"
               onClick={getusers}
             >

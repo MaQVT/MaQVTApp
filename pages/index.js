@@ -44,7 +44,7 @@ function Home({ user }) {
     router.push("/admin/delete_users");
   };
 
-  console.log(user)
+  // console.log(user)
   return (
     <>
       <Head>
@@ -64,7 +64,7 @@ function Home({ user }) {
               {(user.role == "Consultant" || user.role == "Admin") && <>Bienvenue dans votre espace d’administration de la Webapplication MA QVT. <br /></>}
               {(user.role == "Client") && <>Bienvenue dans votre espace d’administration de la Webapplication MA QVT pour votre équipe. <br />
                 L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
-                L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br /></>}
+                L’historique des rapports QVT collective de votre équipe est accessible dans le menu. <br /></>}
               </p>
               <div className="flex w-full justify-center flex-wrap mt-10 gap-5">
                 {/* {(user.role == "User" || user.role == "Manager" || user.role == "") &&
@@ -107,7 +107,7 @@ function Home({ user }) {
 export async function getServerSideProps(context) {
   const token = cookies(context).token;
   const email = verifyJwt(token) != null ? verifyJwt(token).email : "nomail";
-  console.log(email)
+  // console.log(email)
 
   const userResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/email/${email}`, {
     method: "GET",

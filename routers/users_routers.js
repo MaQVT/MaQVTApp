@@ -28,7 +28,7 @@ import { generateRandomPassword, hashPassword, verifyPassword } from "../utils/h
 export const getAllUsersRoute = async (req, res) => {
   try {
     const users = await getAllUsers();
-    console.log(users);
+    // console.log(users);
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res
@@ -41,7 +41,7 @@ export const getUserByStatusRoute = async (req, res) => {
   try {
     let { status } = req.query
     const users = await getUserByStatus(status);
-    console.log(users);
+    // console.log(users);
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res
@@ -54,7 +54,7 @@ export const getUserByDeleteRoute = async (req, res) => {
   try {
     let { askDelete } = req.query
     const users = await getUserByDelete(askDelete);
-    console.log(users);
+    // console.log(users);
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res
@@ -71,7 +71,7 @@ export const UpdatePasswordRoute = async (req, res) => {
     // console.log(oldPassword,newPassword);
     //recuperer le user
     let user = await getUserById(id)
-    console.log(verifyPassword(oldPassword, user.password));
+    // console.log(verifyPassword(oldPassword, user.password));
     if (verifyPassword(oldPassword, user.password)) {
       user = await UpdateByIdUser(user._id, { password: hashPassword(newPassword) })
       res.json({ data: user, message: "Modifications reussie" })
@@ -92,7 +92,7 @@ export const getUserByRole = async (req, res) => {
   try {
     const { role } = req.query
     const users = await getAllUsersByRole(role);
-    console.log(users);
+    // console.log(users);
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res
@@ -115,8 +115,8 @@ export const getUserFilsRoute = async (req, res) => {
   try {
     const { parent } = req.query
     const users = await getUsersByParents(parent);
-    console.log("I am the parent")
-    console.log(users)
+    // console.log("I am the parent")
+    // console.log(users)
     res.json({ data: users, message: "Données envoyées" });
   } catch (error) {
     res
@@ -138,16 +138,16 @@ export const getAllManagersRoute = async (req, res) => {
 };
 
 export const deleteUserRoute = async (req, res) => {
-  console.log("BODY : " + req.body._id);
+  // console.log("BODY : " + req.body._id);
   try {
     if (req.body.email != undefined) {
       if (deleteUserByEmailValidator.validate(req.body).error) {
-        console.log(deleteUserByEmailValidator.validate(req.body).error);
+        // console.log(deleteUserByEmailValidator.validate(req.body).error);
         throw new Error("Données insuffisantes");
       }
     } else if (req.body.id != undefined) {
       if (deleteUserByIdValidator.validate(req.body).error) {
-        console.log(deleteUserByIdValidator.validate(req.body).error);
+        // console.log(deleteUserByIdValidator.validate(req.body).error);
         throw new Error("Données insuffisantes");
       }
     }
@@ -158,7 +158,7 @@ export const deleteUserRoute = async (req, res) => {
     } else {
       user = await getUserById(req.body._id);
     }
-    console.log(user);
+    // console.log(user);
     if (user) {
       await deleteUserByEmail(user.email);
       res
@@ -181,7 +181,7 @@ export const addUserRoute = async (req, res) => {
     if (!req.body.password) { req.body.password = hashPassword(newPassword); }
     else { req.body.password = hashPassword(req.body.password) }
     let validationError = addUserValidator.validate(req.body).error
-    console.log(req.body);
+    // console.log(req.body);
     console.log(validationError);
     if (validationError) {
       throw new Error("Données insuffisantes");
@@ -221,7 +221,7 @@ export const addUserRoute = async (req, res) => {
 export const updateUserProfileRoute = async (req, res) => {
   try {
     if (updateUserValidator.validate(req.body).error) {
-      console.log(updateUserValidator.validate(req.body).error);
+      // console.log(updateUserValidator.validate(req.body).error);
       throw new Error("Données insuffisantes");
     } else {
       let user = await getUserByMail(req.body.email);
@@ -255,7 +255,7 @@ export const getByEmailUserRoute = async (req, res) => {
       throw new Error("Anoter user trying to access anoter user info");
     }
     const user = await getUserByMail(email);
-    console.log(user);
+    // console.log(user);
     res.json({ data: user, message: "Données envoyées" });
   } catch (error) {
     res
@@ -274,7 +274,7 @@ export const getByIdUserRoute = async (req, res) => {
     if (user.email != accessor.email && accessor.role == "User") {
       throw new Error("Anoter user trying to access anoter user info");
     }
-    console.log(user);
+    // console.log(user);
     res.json({ data: user, message: "Données envoyées" });
   } catch (error) {
     res
@@ -292,7 +292,7 @@ export const deleteByEmailUserRoute = async (req, res) => {
       throw new Error("Anoter user trying to access anoter user info");
     }
     let user = (user = await getUserByMail(email));
-    console.log(user);
+    // console.log(user);
 
     if (user) {
       switch (verifyJwt(req.headers.token).role) {

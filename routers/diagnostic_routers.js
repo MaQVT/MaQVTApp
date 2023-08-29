@@ -4,9 +4,9 @@ import { verifyJwt } from "../utils/jwt";
 
 export const getAllDiagnosticRoute = async (req, res) => {
   try {
-    console.log("I'm in")
+    // console.log("I'm in")
     const diagnostics = await getAllDiagnostics();
-    console.log(diagnostics)
+    // console.log(diagnostics)
     res.json({ data: diagnostics, message: "Données envoyées" });
   } catch (error) {
     res
@@ -18,9 +18,9 @@ export const getAllDiagnosticRoute = async (req, res) => {
 export const addDiagnosticRoute = async (req, res) => {
   try {
     req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
-    console.log(req.body);
+    // console.log(req.body);
     let diagnostic = await getDiagnosticById(req.body._id);
-    console.log("OUI");
+    // console.log("OUI");
     if (diagnostic) {
       res.status(400).json({
         data: false,
@@ -84,7 +84,7 @@ export const getByEmailDiagnosticRoute = async (req, res) => {
       throw new Error("Anoter user trying to access anoter user info");
     }
     const diagnostics = await getDiagnosticByMail(email);
-    console.log(diagnostics);
+    // console.log(diagnostics);
     res.json({ data: diagnostics, message: "Données envoyées" });
   } catch (error) {
     res
@@ -102,7 +102,7 @@ export const getByIdDiagnosticRoute = async (req, res) => {
     if (diagnostic.email != verifyJwt(req.headers.token).email && verifyJwt(req.headers.token).role != "Admin" && verifyJwt(req.headers.token).role != "Consultant") {
       throw new Error("Anoter user trying to access anoter user info");
     }
-    console.log(diagnostic);
+    // console.log(diagnostic);
     res.json({ data: diagnostic, message: "Données envoyées" });
   } catch (error) {
     res

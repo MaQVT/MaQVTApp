@@ -2,16 +2,16 @@ import { getUserByRole } from "../../../../routers/users_routers";
 import { isAuth } from "../../../../utils/auth";
 
 const handler = async (req, res) => {
-    console.log("lune rouge")
+    // console.log("lune rouge")
   if (!isAuth(req.headers.token)) {
-    console.log(req.headers);
+    // console.log(req.headers);
     res.status(405).send({ message: "Method not Allowed" });
   } else {
     switch (req.method) {
       case "GET":
-        console.log("dans le get");
+        // console.log("dans le get");
         await getUserByRole(req, res);
-        console.log("after get user fils");
+        // console.log("after get user fils");
         break;
       //case "DELETE":
         //await deleteByEmailUserRoute(req, res);

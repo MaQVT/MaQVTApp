@@ -26,7 +26,7 @@ function History({ user, allUsersJSON }) {
                 {(user.role == "Consultant" || user.role == "Admin") &&
                     <main className={`${styles.main} flex-col pt-5`} style={{ justifyContent: "flex-start" }}>
                         <div className='w-full flex flex-col items-center'>
-                            <h1 className='text-center text-2xl my-5'>Historique des Utilisateurs</h1>
+                            <h1 className='text-center text-2xl my-5'>Liste des Utilisateurs</h1>
                             <hr />
                             <table className='w-[80%] m-auto my-6 sm:text-[10px] md:w-[95%]'>
                                 <thead>

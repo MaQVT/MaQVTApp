@@ -5,7 +5,7 @@ import { verifyJwt } from "../utils/jwt";
 export const getAllFaqRoute = async (req, res) => {
   try {
     const faqs = await getAllFaqs();
-    console.log(faqs)
+    // console.log(faqs)
     res.json({ data: faqs, message: "Données envoyées" });
   } catch (error) {
     res
@@ -17,7 +17,7 @@ export const getAllFaqRoute = async (req, res) => {
 export const addFaqRoute = async (req, res) => {
   try {
     req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
-    console.log(req.body);
+    // console.log(req.body);
     let faq = await getFaqById(req.body._id);
     if (faq) {
       res.status(400).json({
@@ -88,7 +88,7 @@ export const getByIdFaqRoute = async (req, res) => {
     if (verifyJwt(req.headers.token).role != "Admin") {
       throw new Error("Anoter user trying to access anoter user info");
     }
-    console.log(faq);
+    // console.log(faq);
     res.json({ data: faq, message: "Données envoyées" });
   } catch (error) {
     res

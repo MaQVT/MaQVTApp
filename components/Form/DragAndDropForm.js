@@ -100,7 +100,7 @@ const DragAndDropForm = ({ handlePrev, handleNext, stepName, position, titleName
   const handleNextClick = () => {
     const itemIds = items.map((item) => item.id);
     setOrder(itemIds);
-    console.log(itemIds);
+    // console.log(itemIds);
     window.scrollTo(0, 0)
     handleNext({ [stepName]: itemIds })
   };

@@ -72,7 +72,7 @@ const getUserByDelete = async(askDelete)=>{
 
 const deleteUserByEmail = async (email) => {
   const user = await UserModel.findOne({ email: email });
-  console.log(user)
+  // console.log(user)
   if (user) {
     await user.remove();
   }
@@ -80,7 +80,7 @@ const deleteUserByEmail = async (email) => {
 };
 
 const UpdateByIdUser = async(id,data)=>{
-  console.log(data);
+  // console.log(data);
   
   const user = await UserModel.findOneAndUpdate({"_id":id},{
     ...data

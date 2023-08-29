@@ -47,7 +47,7 @@ const AskSubForm = () => {
     };
 
     return (
-        <div className='flex flex-col gap-2 w-[80%] mx-10 my-8'>
+        <div className='flex flex-col gap-2 w-[50%] mx-10 mb-20 md:w-[70%]'>
             <hr />
             <h2>Envoyer une demande de renouvellement à l&apos;admin</h2>
             <form className='flex flex-col gap-2'>
@@ -63,8 +63,8 @@ const AskSubForm = () => {
                     />
                 </div>
                 <button onClick={(e) => handleSubmit(e)} className='w-max px-3 py-2'>Envoyer ma demande</button>
-                {sent && <span className='text-base text-green-600 block text-center'>Votre demande a été bien envoyée !!</span>}
-                {error && <span className='text-base text-red-600 block text-center'>Erreur lors de l&apos;envoie, veuiller réessayer ultérieurement !!</span>}
+                {sent && <span className='text-base text-green-600 block text-center'>Votre demande a été bien envoyée</span>}
+                {error && <span className='text-base text-red-600 block text-center'>Erreur lors de l&apos;envoie, veuiller réessayer ultérieurement</span>}
             </form>
         </div>
     );

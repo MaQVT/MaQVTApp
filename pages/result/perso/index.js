@@ -38,10 +38,10 @@ function History({ user, allDiagnostics }) {
 
         // Update the status of the diagnostic in the database
         setTimeout(async () => {
-            console.log(JSON.stringify({
-                status: newStatus,
-                _id: diagnosticId,
-            }))
+            // console.log(JSON.stringify({
+            //     status: newStatus,
+            //     _id: diagnosticId,
+            // }))
             const res = await fetch("/api/diagnostic", {
                 method: "PUT",
                 headers: {
@@ -55,11 +55,11 @@ function History({ user, allDiagnostics }) {
             });
             if (res.ok) {
                 const json = await res.json();
-                console.log("OUIIIIIIIIIIIIII")
-                console.log(json);
+                // console.log("OUIIIIIIIIIIIIII")
+                // console.log(json);
             } else {
                 const json = await res.json();
-                console.log(json);
+                // console.log(json);
             }
         }, 1000);
     };
@@ -124,7 +124,7 @@ function History({ user, allDiagnostics }) {
                                                     handleStatusChange(diagnostic._id, event.target.value)
                                                 }
                                             >
-                                                <option value="private">Privée</option>
+                                                <option value="private">Privé</option>
                                                 <option value="consultant">Consultant</option>
                                                 <option value="public">Public</option>
                                             </select>

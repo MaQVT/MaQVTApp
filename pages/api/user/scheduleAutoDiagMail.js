@@ -1,10 +1,12 @@
-import sgMail from '@sendgrid/mail';
 import cron from 'node-cron';
 import { getAllClients, getAllConsultants, getAllManagers, getAllUsersByRole } from '../../../db/handlers/users_handlers';
 import { getMailTemplate } from '../../../utils/getMailTemplate';
 
 // Initialize SendGrid
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// import sgMail from '@sendgrid/mail';
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+import mailchimp from '@mailchimp/mailchimp_transactional';
 
 // Store the user schedules and cron jobs in separate objects
 const userSchedules = {};
@@ -21,7 +23,7 @@ export default async function handler(req, res) {
             process.env.NEXT_PUBLIC_APP_URL,
             "Réaliser un nouvel auto-diagnostic de QVT personnelle",
             ""
-          );
+        );
         if (role != "Admin") {
             let schedule;
             if (scheduleName === 'hebdomadaire') {
@@ -36,32 +38,46 @@ export default async function handler(req, res) {
                 schedule = '0 0 1 1 *'; // January 1st at 12:00 AM
             }
             // Define your email template
-            const emailTemplate = {
-                to: email,
-                from: process.env.EMAIL_FROM,
-                subject: "MA QVT : Notification pour passer le questionnaire",
-                html: text,
-            };
+
+            // const emailTemplate = {
+            //     to: email,
+            //     from: process.env.EMAIL_FROM,
+            //     subject: "MA QVT : Notification pour passer le questionnaire",
+            //     html: text,
+            // };
+
             // Update the schedule for the specified user
             userSchedules[userId] = schedule;
+
             // Cancel the existing cron job for the user, if any
             if (cronJobs[userId]) {
                 cronJobs[userId].stop();
             }
+
             // Schedule the email sending for the user
             cronJobs[userId] = cron.schedule(schedule, async () => {
                 // Send the email
                 try {
-                    await sgMail.send(emailTemplate);
+                    // await sgMail.send(emailTemplate);
+                    const mandrillSendOption = {
+                        message: {
+                            from_email: process.env.EMAIL_FROM,
+                            subject: "MA QVT : Notification pour passer le questionnaire",
+                            html: text,
+                            to: [{ email: email, type: 'to' }],
+                        },
+                    };
+                    const client = mailchimp(process.env.MAILCHIMP_API_KEY);
+                    const response = await client.messages.send(mandrillSendOption);
                     console.log(`Email sent successfully to ${email}`);
                 } catch (error) {
                     console.error(`Error sending email to ${email}:`, error);
                 }
             });
-            console.log("userSchedules")
-            console.log(userSchedules)
-            console.log("cronJobs")
-            console.log(cronJobs)
+            // console.log("userSchedules")
+            // console.log(userSchedules)
+            // console.log("cronJobs")
+            // console.log(cronJobs)
         } else {
             const managers = await getAllManagers()
             const users = await getAllUsersByRole("User")
@@ -79,24 +95,39 @@ export default async function handler(req, res) {
                 } else {
                     schedule = '0 0 1 1 *'; // January 1st at 12:00 AM
                 }
+
                 // Define your email template
-                const emailTemplate = {
-                    to: value.email,
-                    from: process.env.EMAIL_FROM,
-                    subject: "MA QVT : Notification pour passer le questionnaire",
-                    html: text,
-                };
+                // const emailTemplate = {
+                //     to: value.email,
+                //     from: process.env.EMAIL_FROM,
+                //     subject: "MA QVT : Notification pour passer le questionnaire",
+                //     html: text,
+                // };
+
                 // Update the schedule for the specified user
                 userSchedules[value._id] = schedule;
+
                 // Cancel the existing cron job for the user, if any
                 if (cronJobs[value._id]) {
                     cronJobs[value._id].stop();
                 }
+
                 // Schedule the email sending for the user
                 cronJobs[value._id] = cron.schedule(schedule, async () => {
+
                     // Send the email
                     try {
-                        await sgMail.send(emailTemplate);
+                        // await sgMail.send(emailTemplate);
+                        const mandrillSendOption = {
+                            message: {
+                                from_email: process.env.EMAIL_FROM,
+                                subject: "MA QVT : Notification pour passer le questionnaire",
+                                html: text,
+                                to: [{ email: value.email, type: 'to' }],
+                            },
+                        };
+                        const client = mailchimp(process.env.MAILCHIMP_API_KEY);
+                        const response = await client.messages.send(mandrillSendOption);
                         console.log(`Email sent successfully to ${value.email}`);
                     } catch (error) {
                         console.error(`Error sending email to ${value.email}:`, error);
@@ -104,9 +135,6 @@ export default async function handler(req, res) {
                 });
             })
         }
-
-
-
         res.status(200).json({ message: 'Schedule updated' });
     } else {
         res.status(405).json({ error: 'Method Not Allowed' });

@@ -16,7 +16,7 @@ const handler = async (req, res) => {
           await UpdatePasswordRoute(req, res);
           break;
       default:
-        console.log(req.method)
+        // console.log(req.method)
         res.status(405).send({ message: "Methode non authorisé" });
         break;
     }

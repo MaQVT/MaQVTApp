@@ -11,7 +11,6 @@ import { getAllClients, getAllManagers, getAllUsersByRole } from "../db/handlers
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import AskSubForm from "../components/Form/AskSubscription";
 import { getCron2MonthsAgoSchedule } from "../utils/otherFunctions";
 
 
@@ -38,7 +37,11 @@ function Home({ user, diagnostics, clients, managers, users }) {
     // console.log(JSON.parse(managers))
     // console.log(JSON.parse(users))
     setAllDiagnostics(JSON.parse(diagnostics))
-    setAllClients(JSON.parse(clients))
+    if(user.role == "Consultant"){
+      setAllClients(JSON.parse(clients).filter((cValue, cIndex) => cValue.parentId == user._id))
+    }else{
+      setAllClients(JSON.parse(clients))
+    }
     setAllManagers(JSON.parse(managers))
     setAllUsers(JSON.parse(users))
     setBegin(true)
@@ -352,7 +355,6 @@ function Home({ user, diagnostics, clients, managers, users }) {
                         </tbody>
                       </table>
                     </div>
-                    <AskSubForm />
                   </>
                 }
               </div>

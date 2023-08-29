@@ -5,14 +5,14 @@ export const isAuthenticated = () => {
   const token = localStorage.getItem("token");
 
   if (!token || token == null) {
-      console.log("TOKEN : " + token);
+      // console.log("TOKEN : " + token);
       return false;
   }
 
   try {
     const payload = verifyJwt(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
     if(payload.exp*1000 < Date.now()) throw new console.error("Token Expired");
-    console.log("EMAIL : " + payload.email);
+    // console.log("EMAIL : " + payload.email);
     return payload.email !== undefined;
   } catch (err) {
     return false;
@@ -21,14 +21,14 @@ export const isAuthenticated = () => {
 
 export const isAuth = (token) => {  
     if (!token || token == null) {
-        console.log("TOKEN : " + token);
+        // console.log("TOKEN : " + token);
         return false;
     }
   
     try {
       const payload = verifyJwt(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
       if(payload.exp*1000 < Date.now()) throw new console.error("Token Expired");
-      console.log("EMAIL : " + payload.email);
+      // console.log("EMAIL : " + payload.email);
       return payload.email !== undefined;
     } catch (err) {
       return false;
