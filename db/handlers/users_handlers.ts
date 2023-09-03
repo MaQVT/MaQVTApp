@@ -80,7 +80,7 @@ const deleteUserByEmail = async (email) => {
 };
 
 const UpdateByIdUser = async(id,data)=>{
-  // console.log(data);
+  // /console.log(data);
   
   const user = await UserModel.findOneAndUpdate({"_id":id},{
     ...data
