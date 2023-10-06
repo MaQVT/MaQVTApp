@@ -7,11 +7,11 @@ import moment from 'moment';
 import 'moment/locale/fr';
 import { calculateMeanFormData } from '../../../utils/collective';
 import { useRouter } from 'next/router';
-import { getUsersByParents } from '../../../db/handlers/users_handlers';
+import { getAllUsers, getUsersByParents } from '../../../db/handlers/users_handlers';
 import { getAllDiagnostics } from '../../../db/handlers/diagnostic_handlers';
 import Head from 'next/head';
 
-const ObjectList = ({ user, thisUser, diagnostics }) => {
+const ObjectList = ({ user, thisUser, diagnostics, userMatchingData }) => {
     const [objects, setAllObjects] = useState([])
 
     useEffect(() => {
@@ -89,11 +89,12 @@ const ObjectList = ({ user, thisUser, diagnostics }) => {
                                 <ul className='flex gap-5 flex-wrap py-5 justify-center items-center px-12'>
                                     {sortedObjects.map((object) => (
                                         <li
-                                            className='h-28 w-28 flex items-center text-center cursor-pointer hover:scale-[1.1]'
+                                            className='h-28 w-max px-2 flex flex-col justify-center text-center cursor-pointer hover:scale-[1.1]'
                                             key={object.date}
                                             onClick={() => handleObjectSelect(object)}
                                             style={{ backgroundColor: selectedObjects.includes(object) ? 'lightblue' : 'white' }}
                                         >
+                                            <strong>{userMatchingData[object.email]}</strong> <br/>
                                             {moment(object.date).format('D MMMM YYYY  HH:mm:ss')}
                                         </li>
                                     ))}
@@ -173,7 +174,14 @@ export async function getServerSideProps(context) {
     const toSend = allDiagnostics.filter((value, index) => value.email == userResponseJson.data.email || filsMail.includes(value.email))
     // console.log(toSend.length)
 
+    const allUsers = await getAllUsers();
+
+    const userMatchingData = {};
+    allUsers.forEach((user) => {
+        userMatchingData[user.email] = user.username;
+    });
+
     return {
-        props: { thisUser: userResponseJson.data, user: thisUserResponseJson.data, diagnostics: JSON.stringify(toSend) }, // will be passed to the page component as props
+        props: { thisUser: userResponseJson.data, user: thisUserResponseJson.data, diagnostics: JSON.stringify(toSend), userMatchingData }, // will be passed to the page component as props
     };
 }

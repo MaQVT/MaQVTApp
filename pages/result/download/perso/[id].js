@@ -21,7 +21,7 @@ import {
   generateSecuData,
   generateSensData,
 } from "../../../../utils/otherFunctions";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Result3 from "../../../../components/Result/Result3";
 import Result2 from "../../../../components/Result/Result2";
 import Result1 from "../../../../components/Result/Result1";
@@ -29,17 +29,72 @@ import cookies from "next-cookies";
 import { verifyJwt } from "../../../../utils/jwt";
 import moment from "moment";
 const inter = Inter({ subsets: ["latin"] });
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
 
 function ResultDownload({ user, formDataInitial }) {
   const [formData, setFormData] = useState(formDataInitial.form_data);
+  const componentRef = useRef(null);
+
 
   useEffect(() => {
     if (formData) {
-      setTimeout(() => {
-        window.print()
+      setTimeout(async () => {
+        const contentElement = componentRef.current;
+
+        // Calculate the tabloid paper size in pixels (11x17 inches at 72 DPI)
+        const pdfWidth = window.innerWidth;
+        const pdfHeight = contentElement.scrollHeight + 10;
+
+        // Create a new jsPDF instance with the desired page size and orientation
+        const pdf = new jsPDF({
+          orientation: 'portrait', // Portrait orientation
+          unit: 'pt', // units: 'mm', 'cm', 'in', 'px'
+          format: [pdfWidth, pdfHeight], // set the page size
+        });
+
+        // Calculate the total number of sections based on the content's height
+        const contentHeight = contentElement.scrollHeight;
+        const numSections = Math.ceil(contentHeight / pdfHeight);
+
+        console.log(contentHeight)
+        console.log(window.innerHeight)
+        console.log(pdfHeight)
+
+        // Define the function to capture and add each section of content to the PDF
+        const captureAndAddSections = async (sectionIndex) => {
+          // Calculate the vertical offset for the section
+          const sectionYOffset = sectionIndex * window.innerHeight;
+
+          // Create a canvas for the section
+          const canvas = await html2canvas(contentElement, {
+            y: sectionYOffset,
+            width: pdfWidth,
+            height: pdfHeight,
+          });
+
+          // Add the section to the PDF
+          if (sectionIndex > 0) {
+            pdf.addPage([pdfWidth, pdfHeight]);
+          }
+          pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+          // If there are more sections, capture and add them
+          if (sectionIndex < numSections - 1) {
+            captureAndAddSections(sectionIndex + 1);
+          } else {
+            // Save or open the PDF document when all sections are added
+            pdf.save('document.pdf'); // You can also use pdf.output('dataurlnewwindow') to open it in a new window
+          }
+        };
+
+        // Start capturing and adding sections
+        captureAndAddSections(0);
       }, 1000);
     }
   }, [formData]);
+
 
   return (
     <div className="w-screen h-screen">
@@ -65,7 +120,7 @@ function ResultDownload({ user, formDataInitial }) {
 
       {formData && user && (
         // <Layout user={user}>
-        <main className={`${styles.main} flex-col bg-[#F9EEE8]`} id="toBeDownloaded">
+        <main className={`${styles.main} flex-col bg-[#F9EEE8]`} id="toBeDownloaded"  ref={componentRef}>
           <div className="w-full h-screen flex items-center justify-center font-semibold font-AnticDidone text-3xl p-80 text-center flex-col gap-10">
             <span className="text-7xl"> Rapport de QVT Personnelle</span>
             <span className="text-green-900">{user.username}</span>

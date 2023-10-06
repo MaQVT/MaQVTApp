@@ -59,7 +59,7 @@ export default function FormVTM1({
             handleChange={handleChange}
           />
         </div>
-        <div className="absolute bottom-[110px] flex flex-row justify-center items-center w-full md:relative md:bottom-0 md:mb-10">
+        <div className="bottom-[110px] flex flex-row justify-center items-center w-full md:relative md:bottom-0 md:mb-10 mb-5">
           {(position > 0 || position == -1) && (
             <button
               type="button"

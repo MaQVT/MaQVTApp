@@ -42,7 +42,7 @@ export default function FormVTM3({ handlePrev, handleNext, stepName, position, t
           <RadioNormal name={"vecuP"} handleChange={handleChange} color={"#7E5240"} />
         </div>
       </form>
-      <div className='absolute bottom-[110px] flex flex-row justify-center items-center w-full md:relative md:bottom-0 md:mb-10'>
+      <div className='bottom-[110px] flex flex-row justify-center items-center w-full md:relative md:bottom-0 md:mb-10 mb-5'>
         {(position > 0 || position == -1) && (
           <button type="button" onClick={handlePrev} className="w-[100px] h-[50px] rounded">
             Précédent
