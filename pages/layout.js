@@ -188,7 +188,6 @@ function Layout({ user, children }) {
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="description" content="Application Web MaQVT" />
         <meta name="keywords" content="MaQVT, QVT, Wunjo, Qualité, Vie, Travail, Application, WebApp, Wunjo QVT, WunjoQVT, Diagnostics" />
         <link rel="canonical" href="https://www.maqvt.com" />
@@ -197,8 +196,6 @@ function Layout({ user, children }) {
         <meta property="og:image" content="https://www.maqvt.com/logo.png" />
         <meta property="og:url" content="https://www.maqvt.com" />
         <link rel="icon" href="/favicon.ico" />
-        <html lang="fr" />
-
       </Head>
       <main className="flex flex-col min-w-screen min-h-screen items-center relative bg-[#F5EBE5] font-PlayfairDisplay">
         <div className="h-[75px] drop-shadow-lg border bg-white w-full flex flex-row justify-around items-center">
