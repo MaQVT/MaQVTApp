@@ -120,13 +120,9 @@ export async function getServerSideProps(context) {
     const childrens = await getUsersByParents(user);
 
     const uniqueEmails = await getAllDiagnosticsSharedDistinctEmail();
-    console.log(uniqueEmails)
     const parentLevel1Emails = await getParentEmails(uniqueEmails);
-    console.log(parentLevel1Emails)
     const parentLevel2Emails = await getParentEmails(parentLevel1Emails);
-    console.log(parentLevel2Emails)
     const parentLevel3Emails = await getParentEmails(parentLevel2Emails);
-    console.log(parentLevel3Emails)
 
     const valideEmails = [...uniqueEmails, ...parentLevel1Emails, ...parentLevel2Emails, ...parentLevel3Emails]
 
