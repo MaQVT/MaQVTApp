@@ -149,7 +149,7 @@ function Home({ user, diagnostics, consultants, clients, managers, users, underE
     return allConsultants.map((value, index) => {
       const hisClients = allClients.filter((cValue, cIndex) => cValue.parentId == value._id).map((cValue, cIndex) => cValue._id);
       const hisManagers = allManagers.filter((mValue, mIndex) => hisClients.includes(mValue.parentId)).map((mValue, mIndex) => mValue._id);
-      const hisManagersEmail = allManagers.filter((mValue, mIndex) => mValue.parentId == value._id).map((mValue, mIndex) => mValue.email);
+      const hisManagersEmail = allManagers.filter((mValue, mIndex) => hisClients.includes(mValue.parentId)).map((mValue, mIndex) => mValue.email);
       const hisUsers = allUsers.filter((uValue, uIndex) => hisManagers.includes(uValue.parentId)).map((uValue, uIndex) => uValue.email);
       hisManagersEmail.forEach(element => {
         hisUsers.push(element)
