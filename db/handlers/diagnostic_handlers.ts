@@ -60,6 +60,57 @@ const addDiagnostic = async (data) => {
   return await diagnostic.save();
 };
 
+async function isLastDiagnosticWithin7Days(email) {
+  try {
+    const lastDiagnostic = await DiagnosticModel
+      .findOne({ email })
+      .sort({ date: -1 })
+      .exec();
+
+    if (!lastDiagnostic) {
+      return false; // No document found for the given email
+    }
+
+    // Convert the date string to a Date object
+    const lastDiagnosticDate = new Date(lastDiagnostic.date);
+    const currentDate = new Date();
+
+    // Calculate the date 7 days ago
+    const sevenDaysAgo = new Date(currentDate);
+    sevenDaysAgo.setDate(currentDate.getDate() - 7);
+
+    // Compare the date of the last diagnostic with the date 7 days ago
+    return lastDiagnosticDate >= sevenDaysAgo;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+async function isDiagnosticExists(email) {
+  try {
+    const lastDiagnostic = await DiagnosticModel
+      .findOne({ email })
+
+    if (!lastDiagnostic) {
+      return false; // No document found for the given email
+    }
+    return true
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+async function getAllDiagnosticsSharedDistinctEmail() {
+  try {
+    const uniqueEmails = await DiagnosticModel.distinct('email', { status: { $in: ['public', 'consultant'] } });
+    return uniqueEmails;
+  } catch (error) {
+    return [];
+  }
+}
+
 export {
   getAllDiagnostics,
   getAllowedDiagnostics,
@@ -70,4 +121,7 @@ export {
   deleteAllDiagnostics,
   updateDiagnostic,
   addDiagnostic,
+  isLastDiagnosticWithin7Days,
+  isDiagnosticExists,
+  getAllDiagnosticsSharedDistinctEmail
 };

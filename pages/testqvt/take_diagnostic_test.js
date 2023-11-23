@@ -8,10 +8,11 @@ import { verifyJwt } from "../../utils/jwt";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import moment from "moment";
+import { isLastDiagnosticWithin7Days } from "../../db/handlers/diagnostic_handlers";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Diagnostic({ user }) {
+function Diagnostic({ user, hasDoneQVTinLast7Days }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function Diagnostic({ user }) {
       <Layout user={user}>
         <main className={styles.main}>
           {((user.nb_access == -1 && moment(user.expired_date).isAfter(moment(new Date(Date.now())), 'day')) || user.nb_access > 0) && user.authorization && user.status == "valide" ?
-            <MultiStepForm /> :
+            <MultiStepForm user={user} hasDoneQVTinLast7Days={hasDoneQVTinLast7Days} /> :
             <div className="sm:text-center p-5">Vous n&apos;avez pas accès au test QVT pour le moment</div>
           }
 
@@ -69,7 +70,9 @@ export async function getServerSideProps(context) {
     userResponseJson = await userResponse.json();
   }
 
+  const hasDoneQVTinLast7Days = await isLastDiagnosticWithin7Days(email)
+
   return {
-    props: { user: userResponseJson.data }, // will be passed to the page component as props
+    props: { user: userResponseJson.data, hasDoneQVTinLast7Days }, // will be passed to the page component as props
   };
 }

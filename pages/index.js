@@ -7,10 +7,11 @@ import cookies from "next-cookies";
 import Layout from "./layout";
 import { verifyJwt } from "../utils/jwt";
 import Link from "next/link";
+import { isDiagnosticExists } from "../db/handlers/diagnostic_handlers";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Home({ user }) {
+function Home({ user, hasDoneQVT }) {
   const router = useRouter();
 
   const accederTest = () => {
@@ -57,14 +58,12 @@ function Home({ user }) {
         <Layout user={user}>
           <main className={styles.main}>
             <div className="w-full h-full flex justify-center items-center py-5 flex-col">
-              <p className="text-4xl text-center font-thin font-Benedict md:px-4">Bonjour {user.username}, <br /><br />
-              {(user.role == "User" || user.role == "Manager") && <>Bienvenue dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br />
-                L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, <br /> dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
-                L’historique de vos rapports QVT personnelle et collective est accessible dans le menu. <br /></>}
-              {(user.role == "Consultant" || user.role == "Admin") && <>Bienvenue dans votre espace d’administration de la Webapplication MA QVT. <br /></>}
-              {(user.role == "Client") && <>Bienvenue dans votre espace d’administration de la Webapplication MA QVT pour votre équipe. <br />
-                L’auto-diagnostic de QVT personnelle est un questionnaire en accès libre, dont la 1e passation se réalise en présence d’un consultant QVT certifié par WUNJO. <br />
-                L’historique des rapports QVT collective de votre équipe est accessible dans le menu. <br /></>}
+              <p className="text-2xl text-center font-thin font-PlayfairDisplay md:px-4 px-10">
+              {(user.role == "Consultant" || user.role == "Admin" || user.role == "Client" || user.role == "Manager") && <>Bienvenue, {user.username}, dans votre espace {user.role} de la Webapplication MA QVT. <br /></>}
+              {(user.role == "User") && <>Bienvenue, {user.username}, dans votre espace personnel dédié à votre Qualité de Vie au Travail. <br /></>}
+              {(hasDoneQVT == false && (user.role == "User" || user.role == "Manager")) && <><br />L’accès à votre auto-diagnostic de QVT personnelle sera activé prochainement par votre consultante, dans l’optique de votre 1ère passation qui se réalise de manière guidée. Par la suite, vous pourrez réaliser des passations autonomes et consulter l’historique de vos rapports QVT dans le menu. <br /></>}
+              {(hasDoneQVT && (user.role == "User" || user.role == "Manager")) && <><br />Vous pouvez réaliser des auto-diagnostics de QVT personnelle en toute autonomie, et consulter l’historique de vos rapports de QVT personnelle. <br /></>}
+
               </p>
               <div className="flex w-full justify-center flex-wrap mt-10 gap-5">
                 {/* {(user.role == "User" || user.role == "Manager" || user.role == "") &&
@@ -84,7 +83,7 @@ function Home({ user }) {
                 {(user.role == "Consultant" || user.role == "") &&
                   <button onClick={() => { accederCollective() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir ou créer des rapports collectifs</button>
                 }
-                {(user.role == "Consultant" || user.role == "") &&
+                {(user.role == "Consultant" || user.role == "Admin" || user.role == "") &&
                   <button onClick={() => { accederPartages() }} className="w-[150px] h-[150px] drop-shadow-lg border bg-white text-black hover:text-white">Voir les rapports individuels partagés</button>
                 }
                 {user.role == "Admin" &&
@@ -123,8 +122,10 @@ export async function getServerSideProps(context) {
     userResponseJson = await userResponse.json();
   }
 
+  const hasDoneQVT = await isDiagnosticExists(email);
+
   return {
-    props: { user: userResponseJson.data }, // will be passed to the page component as props
+    props: { user: userResponseJson.data, hasDoneQVT }, // will be passed to the page component as props
   };
 }
 

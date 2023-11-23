@@ -97,16 +97,16 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
             </p>
             <div className='flex justify-center sm:flex-wrap'>
                 <div>
-                    <input type="radio" id="hebdomadaire" name="frequency" value="hebdomadaire" checked={frequency === 'hebdomadaire'} onChange={handleFrequencyChange} />
-                    <label htmlFor="hebdomadaire">Hebdomadaire</label>
-                </div>
-                <div>
                     <input type="radio" id="mensuelle" name="frequency" value="mensuelle" checked={frequency === 'mensuelle'} onChange={handleFrequencyChange} />
                     <label htmlFor="mensuelle">Mensuelle</label>
                 </div>
                 <div>
                     <input type="radio" id="trimestrielle" name="frequency" value="trimestrielle" checked={frequency === 'trimestrielle'} onChange={handleFrequencyChange} />
                     <label htmlFor="trimestrielle">Trimestrielle</label>
+                </div>
+                <div>
+                    <input type="radio" id="semestrielle" name="frequency" value="semestrielle" checked={frequency === 'semestrielle'} onChange={handleFrequencyChange} />
+                    <label htmlFor="semestrielle">semestrielle</label>
                 </div>
                 <div>
                     <input type="radio" id="annuelle" name="frequency" value="annuelle" checked={frequency === 'annuelle'} onChange={handleFrequencyChange} />

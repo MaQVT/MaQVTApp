@@ -15,7 +15,7 @@ export const getAllColDiagnosticRoute = async (req, res) => {
 
 export const addColDiagnosticRoute = async (req, res) => {
   try {
-    req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
+    req.body.date = moment(moment.now()).utcOffset('+01:00').format("MM/DD/YYYY HH:mm:ss");
     let colDiagnostic = await getColDiagnosticById(req.body._id);
     if (colDiagnostic) {
       res.status(400).json({

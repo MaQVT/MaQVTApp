@@ -36,7 +36,7 @@ let userSchema = new mongoose.Schema({
   },
   delay_mail:{
     type:String,
-    enum:["hebdomadaire","mensuelle","trimestrielle","annuelle","jamais"],
+    enum:["mensuelle","trimestrielle","semestrielle","annuelle","jamais"],
     required:false,
     default:"jamais"
   },

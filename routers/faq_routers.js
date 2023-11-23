@@ -16,7 +16,7 @@ export const getAllFaqRoute = async (req, res) => {
 
 export const addFaqRoute = async (req, res) => {
   try {
-    req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
+    req.body.date = moment(moment.now()).utcOffset('+01:00').format("MM/DD/YYYY HH:mm:ss");
     // console.log(req.body);
     let faq = await getFaqById(req.body._id);
     if (faq) {

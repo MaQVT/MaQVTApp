@@ -5,7 +5,7 @@ import Layout from '../../layout';
 import cookies from 'next-cookies';
 import { verifyJwt } from '../../../utils/jwt';
 import Head from 'next/head';
-import {  getAllUsersByRole } from '../../../db/handlers/users_handlers';
+import {  getAllEmailsUnderUser, getAllUsersByRole } from '../../../db/handlers/users_handlers';
 
 function History({ user, allUsersJSON }) {
     const [allUsers, setAllUsers] = useState([])
@@ -82,7 +82,9 @@ export async function getServerSideProps(context) {
         userResponseJson = await userResponse.json();
     }
 
-    const allUsers = await getAllUsersByRole("Manager")
+    const allManagers = await getAllUsersByRole("Manager")
+    const allowUsers = await getAllEmailsUnderUser(userResponseJson.data._id)
+    const allUsers = allManagers.filter((value) => allowUsers.includes(value.email))
 
     return {
         props: { user: userResponseJson.data, allUsersJSON: JSON.stringify(allUsers) }, // will be passed to the page component as props

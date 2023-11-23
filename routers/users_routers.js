@@ -176,7 +176,7 @@ export const deleteUserRoute = async (req, res) => {
 
 export const addUserRoute = async (req, res) => {
   try {
-    req.body.date = moment(moment.now()).utcOffset('+02:00').format("MM/DD/YYYY HH:mm:ss");
+    req.body.date = moment(moment.now()).utcOffset('+01:00').format("MM/DD/YYYY HH:mm:ss");
     const newPassword = generateRandomPassword();
     if (!req.body.password) { req.body.password = hashPassword(newPassword); }
     else { req.body.password = hashPassword(req.body.password) }

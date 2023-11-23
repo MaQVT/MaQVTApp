@@ -1,3 +1,5 @@
+import { generateTotalData } from "./otherFunctions";
+
 export function calculateMeanFormData(formDataList) {
     const meanFormData = {};
   
@@ -55,6 +57,20 @@ export function calculateMeanFormData(formDataList) {
         }
       }
     }
+
+    const data = formDataList.map((value) => generateTotalData(value));
+    const percentage = {}
+        
+    for (const property in data[0]) {
+      if (data[0].hasOwnProperty(property)) {
+        const sum = data.reduce((acc, obj) => acc + obj[property], 0);
+        percentage[property] = Math.round(sum / data.length);
+      }
+    }
+
+    meanFormData["harmonie"] = percentage["Harmonie"]
+    meanFormData["indiceqvt"] = percentage["QVT"]
+    meanFormData["grise"] = percentage["Grise"]
   
     return meanFormData;
   }

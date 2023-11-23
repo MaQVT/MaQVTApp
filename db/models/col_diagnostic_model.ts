@@ -27,7 +27,7 @@ let colDiagnosticSchema = new mongoose.Schema({
       souhait: {
         type: String,
         default: "4",
-      }
+      },
     },
     cesTemps: {
       vecuS: String,
@@ -168,6 +168,22 @@ let colDiagnosticSchema = new mongoose.Schema({
       actu: String,
       vecu: String,
     },
+    isCol:{
+      type: Boolean,
+      default: true,
+    },
+    harmonie: {
+      type: Number,
+      default: 0,
+    },
+    indiceqvt: {
+      type: Number,
+      default: 0,
+    },
+    grise: {
+      type: Number,
+      default: 0,
+    },
   },
   date: {
     type: String,
@@ -176,4 +192,5 @@ let colDiagnosticSchema = new mongoose.Schema({
 });
 
 export const ColDiagnosticModel =
-  mongoose.models.ColDiagnostic || mongoose.model("ColDiagnostic", colDiagnosticSchema);
+  mongoose.models.ColDiagnostic ||
+  mongoose.model("ColDiagnostic", colDiagnosticSchema);

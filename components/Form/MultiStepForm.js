@@ -9,14 +9,17 @@ import FormVTM3 from "./FormVTM3";
 import FormAD1 from "./FormAD1";
 import FormAD2 from "./FormAD2";
 import TextPass from "./TextPass";
+import { getMailAdminTemplate } from "../../utils/getMailTemplate";
 
-export default function MultiStepForm() {
+export default function MultiStepForm({user, hasDoneQVTinLast7Days}) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [sent, setSent] = useState(false);
   const router = useRouter();
 
   const handleNext = (data) => {
+    console.log(user)
+    console.log(hasDoneQVTinLast7Days)
     setFormData({ ...formData, ...data });
     if (step == 41) {
       const ok = window.confirm("Vous avez finalisé le questionnaire. En cliquant sur « OK », vous validez la soumission de vos réponses et vous ne pourrez plus apporter de modification. Cliquez sur « Annuler » si vous souhaitez revenir en arrière sur vos réponses.")
@@ -64,6 +67,32 @@ export default function MultiStepForm() {
         // console.log(json);
         localStorage.setItem("lastID", json.data._id)
         setSent(true);
+        
+        if(hasDoneQVTinLast7Days == true){
+          const requestBody = {
+            // from: email,
+            subject: `${user.username} : Notification QVT`,
+            text: getMailAdminTemplate(`De: ${user.username} : ${user.email}`, "QVT réalisé plusieurs fois dans la même semaine !", "", ""),
+          };
+
+          fetch("/api/user/sendMail", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          })
+          .then((response) => {
+            if (response.ok) {
+            } else {
+            throw new Error("Failed to send email");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        }
+
       } else {
         const json = await res.json();
         // console.log(json)

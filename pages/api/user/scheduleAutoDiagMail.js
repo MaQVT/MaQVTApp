@@ -26,17 +26,18 @@ export default async function handler(req, res) {
         );
         if (role != "Admin") {
             let schedule;
-            if (scheduleName === 'hebdomadaire') {
-                schedule = '0 0 * * 0';
+            if (scheduleName === 'semestrielle') {
+                schedule = '0 0 1 1,7 *'; // 12:00 AM on the first day of January and July
             } else if (scheduleName === 'mensuelle') {
-                schedule = '*/2 * * * *'; //'0 0 1 * *' First day of every month at 12:00 AM
+                schedule = '0 0 1 * *'; // 12:00 AM on the first day of every month
             } else if (scheduleName === 'trimestrielle') {
-                schedule = '0 0 1 */3 *'; // First day of every 3rd month at 12:00 AM
+                schedule = '0 0 1 */3 *'; // 12:00 AM on the first day of every 3rd month
             } else if (scheduleName === 'annuelle') {
-                schedule = '0 0 1 1 *'; // First day of the first month at 12:00 AM
+                schedule = '0 0 1 1 *'; // 12:00 AM on the first day of every year
             } else {
                 schedule = '0 0 1 1 *'; // January 1st at 12:00 AM
             }
+
             // Define your email template
 
             // const emailTemplate = {
@@ -84,8 +85,8 @@ export default async function handler(req, res) {
             const allUsers = [...managers, ...users]
             allUsers.forEach((value, index) => {
                 let schedule;
-                if (value.delay_mail === 'hebdomadaire') {
-                    schedule = '0 0 * * 0';
+                if (value.delay_mail === 'semestrielle') { 
+                    schedule = '0 0 1 1,7 *'; // 12:00 AM on the first day of January and July
                 } else if (value.delay_mail === 'mensuelle') {
                     schedule = '*/2 * * * *'; //'0 0 1 * *' First day of every month at 12:00 AM
                 } else if (value.delay_mail === 'trimestrielle') {

@@ -104,6 +104,22 @@ const addUser = async (data) => {
   return await user.save();
 };
 
+async function getParentEmails(childEmails) {
+  const parentIds = await UserModel.distinct('parentId', { email: { $in: childEmails } });
+  const parents = await UserModel.find({ _id: { $in: parentIds } });
+  const parentEmails = [...new Set(parents.map((parent) => parent.email))];
+  return parentEmails;
+}
+
+async function getAllEmailsUnderUser(id) {
+  const childIds1 = await UserModel.distinct('_id', { parentId: { $in: [id] } });
+  const childIds2 = await UserModel.distinct('_id', { parentId: { $in: childIds1 } });
+  const childIds3 = await UserModel.distinct('_id', { parentId: { $in: childIds2 } });
+  const ids =  [...childIds3, ...childIds2, ...childIds1];
+  const childEmails = await UserModel.distinct('email', { _id: { $in: ids} });
+  return childEmails;
+} 
+
 export {
   getAllUsers,
   getAllManagers,
@@ -120,5 +136,7 @@ export {
   getAllUsersByRole,
   UpdateByIdUser,
   getUserByStatus,
-  getUserByDelete
+  getUserByDelete,
+  getParentEmails,
+  getAllEmailsUnderUser
 };
