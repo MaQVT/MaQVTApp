@@ -113,7 +113,7 @@ export async function getServerSideProps(context) {
         userResponseJson = await userResponse.json();
     }
 
-    if (user == undefined) {
+    if (user == undefined || user.trim() == "") {
         user = userResponseJson.data._id
     }
 
