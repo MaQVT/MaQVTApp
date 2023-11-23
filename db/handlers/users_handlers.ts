@@ -106,6 +106,7 @@ const addUser = async (data) => {
 
 async function getParentEmails(childEmails) {
   const parentIds = await UserModel.distinct('parentId', { email: { $in: childEmails } });
+  console.log(parentIds)
   const parents = await UserModel.find({ _id: { $in: parentIds } });
   const parentEmails = [...new Set(parents.map((parent) => parent.email))];
   return parentEmails;
