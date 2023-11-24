@@ -106,9 +106,9 @@ const addUser = async (data) => {
 
 async function getParentEmails(childEmails) {
   const parentIds = await UserModel.distinct('parentId', { email: { $in: childEmails } });
-  const parents = await UserModel.find({ _id: { $in: parentIds } });
-  const parentsExist = parents.filter((value) => value != "")
-  const parentEmails = [...new Set(parentsExist.map((parent) => parent.email))];
+  const parentsExist = parentIds.filter((value) => value != "")
+  const parents = await UserModel.find({ _id: { $in: parentsExist } });
+  const parentEmails = [...new Set(parents.map((parent) => parent.email))];
   return parentEmails;
 }
 
