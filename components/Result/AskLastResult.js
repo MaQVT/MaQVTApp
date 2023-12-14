@@ -106,7 +106,7 @@ const QvtForm = ({ handleNext, handlePrev, position, user }) => {
                 </div>
                 <div>
                     <input type="radio" id="semestrielle" name="frequency" value="semestrielle" checked={frequency === 'semestrielle'} onChange={handleFrequencyChange} />
-                    <label htmlFor="semestrielle">semestrielle</label>
+                    <label htmlFor="semestrielle">Semestrielle</label>
                 </div>
                 <div>
                     <input type="radio" id="annuelle" name="frequency" value="annuelle" checked={frequency === 'annuelle'} onChange={handleFrequencyChange} />

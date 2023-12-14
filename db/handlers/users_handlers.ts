@@ -121,6 +121,12 @@ async function getAllEmailsUnderUser(id) {
   return childEmails;
 } 
 
+async function getDirectEmailsUnderUser(id) {
+  const ids = await UserModel.distinct('_id', { parentId: { $in: [id] } });
+  const childEmails = await UserModel.distinct('email', { _id: { $in: ids} });
+  return childEmails;
+} 
+
 export {
   getAllUsers,
   getAllManagers,
@@ -139,5 +145,6 @@ export {
   getUserByStatus,
   getUserByDelete,
   getParentEmails,
-  getAllEmailsUnderUser
+  getAllEmailsUnderUser,
+  getDirectEmailsUnderUser
 };

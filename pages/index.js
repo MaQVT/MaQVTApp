@@ -8,11 +8,32 @@ import Layout from "./layout";
 import { verifyJwt } from "../utils/jwt";
 import Link from "next/link";
 import { isDiagnosticExists } from "../db/handlers/diagnostic_handlers";
+import { getUpdateByDisponible } from "../db/handlers/update_handlers";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Home({ user, hasDoneQVT }) {
+function Home({ user, hasDoneQVT, update }) {
   const router = useRouter();
+  const newUpdate = JSON.parse(update)
+
+  useEffect(() => {
+    if(newUpdate != null && localStorage.getItem(newUpdate.version) == null){
+      toast.info(newUpdate.message, {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      localStorage.setItem(newUpdate.version, "true")
+    }
+  }, [])
 
   const accederTest = () => {
     router.push("/testqvt/take_diagnostic_test");
@@ -97,6 +118,7 @@ function Home({ user, hasDoneQVT }) {
                 } */}
               </div>
             </div>
+            <ToastContainer />
           </main>
         </Layout>
       )}
@@ -124,8 +146,10 @@ export async function getServerSideProps(context) {
 
   const hasDoneQVT = await isDiagnosticExists(email);
 
+  const update = JSON.stringify(await getUpdateByDisponible());
+
   return {
-    props: { user: userResponseJson.data, hasDoneQVT }, // will be passed to the page component as props
+    props: { user: userResponseJson.data, hasDoneQVT, update }, // will be passed to the page component as props
   };
 }
 

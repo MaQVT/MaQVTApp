@@ -229,7 +229,7 @@ function AccountPage({ user }) {
                                             </div>
                                             <div>
                                                 <input type="radio" id="semestrielle" name="alerte" checked={delayAlert == "semestrielle"} onChange={event => setDelayAlert(event.target.value)} value="semestrielle" className="peer hidden" />
-                                                <label htmlFor="semestrielle" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>semestrielle</label>
+                                                <label htmlFor="semestrielle" className={`block  cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-[#7E5240] peer-checked:font-bold peer-checked:text-white`}>Semestrielle</label>
                                             </div>
                                             <div>
                                                 <input type="radio" id="annuelle" name="alerte" checked={delayAlert == "annuelle"} onChange={event => setDelayAlert(event.target.value)} value="annuelle" className="peer hidden" />

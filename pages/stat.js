@@ -7,14 +7,15 @@ import cookies from "next-cookies";
 import Layout from "./layout";
 import { verifyJwt } from "../utils/jwt";
 import { getAllDiagnostics } from "../db/handlers/diagnostic_handlers";
-import { getAllClients, getAllConsultants, getAllManagers, getAllUsersByRole, getAllEmailsUnderUser } from "../db/handlers/users_handlers";
+import { getAllClients, getAllConsultants, getAllManagers, getAllUsersByRole, getAllEmailsUnderUser, getDirectEmailsUnderUser } from "../db/handlers/users_handlers";
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { sortByKey } from "../utils/commonFunctions";
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Home({ user, diagnostics, consultants, clients, managers, users, underEmails }) {
+function Home({ user, diagnostics, consultants, clients, managers, users, underEmails, directUnderEmails }) {
   const router = useRouter();
   const logout = () => {
     unauthenticate();
@@ -26,6 +27,7 @@ function Home({ user, diagnostics, consultants, clients, managers, users, underE
   const [allClients, setAllClients] = useState([])
   const [allManagers, setAllManagers] = useState([])
   const [allUsers, setAllUsers] = useState([])
+  const [allDirectUnderEmails, setDirectUnderEmails] = useState([])
   const [allUnderEmails, setUnderEmails] = useState([])
   const [stats, setStats] = useState([])
   const [begin, setBegin] = useState(false)
@@ -41,6 +43,7 @@ function Home({ user, diagnostics, consultants, clients, managers, users, underE
     setAllManagers(JSON.parse(managers))
     setAllUsers(JSON.parse(users))
     setUnderEmails(JSON.parse(underEmails))
+    setDirectUnderEmails(JSON.parse(directUnderEmails))
     setBegin(true)
   }, [])
 
@@ -195,20 +198,25 @@ function Home({ user, diagnostics, consultants, clients, managers, users, underE
 
   const showAllStatsAdmin = () => {
     const toReturn = []
-    getRatingByConsultant().map((cValue, index) => {
+    sortByKey(getRatingByConsultant(), "username").map((cValue, index) => {
       toReturn.push(getHr());
       toReturn.push(getRatingGraphics(cValue));
-      toReturn.push(getRatingByClient(allClients.filter((clValue, clIndex) => clValue.parentId == cValue.id)).map((value, index) => {
-        return [getDottedHr(), getRatingGraphics(value), ...getRatingByManagers().filter((mValue, mIndex) => mValue.parent_id == value.id).map((aValue, aIndex) => getRatingGraphics(aValue))]
+      toReturn.push(sortByKey(getRatingByClient(allClients.filter((clValue, clIndex) => clValue.parentId == cValue.id)), "username").map((value, index) => {
+        return [getDottedHr(), getRatingGraphics(value), ...sortByKey(getRatingByManagers(), "username").filter((mValue, mIndex) => mValue.parent_id == value.id).map((aValue, aIndex) => getRatingGraphics(aValue))]
       }))
     })
     return toReturn;
   }
 
   const showAllStatsConsultant = () => {
-    return getRatingByClient(allClients).map((value, index) => {
-      return [getHr(), getRatingGraphics(value), ...getRatingByManagers().filter((mValue, mIndex) => mValue.parent_id == value.id).map((aValue, aIndex) => getRatingGraphics(aValue))]
-    })
+    const toReturn = []
+    toReturn.push(sortByKey(getRatingByClient(allClients), "username").map((value, index) => {
+      return [getHr(), getRatingGraphics(value), ...sortByKey(getRatingByManagers(), "username").filter((mValue, mIndex) => mValue.parent_id == value.id).map((aValue, aIndex) => getRatingGraphics(aValue))]
+    }))
+    const solosDiags = allDiagnostics.filter((dValue, dIndex) => directUnderEmails.includes(dValue.email)).map((dValue, dIndex) => parseInt(dValue.rating));
+    const solos = { "username": "Solos", "role": "", "rating": solosDiags }
+    toReturn.push(getHr(), getRatingGraphics(solos))
+    return toReturn
   }
 
   const getStatsByConsultant = () => {
@@ -507,8 +515,10 @@ export async function getServerSideProps(context) {
 
   const underEmails = await getAllEmailsUnderUser(userResponseJson.data._id);
 
+  const directUnderEmails = await getDirectEmailsUnderUser(userResponseJson.data._id);
+
   return {
-    props: { user: userResponseJson.data, diagnostics: JSON.stringify(diagnosticResponse), consultants: JSON.stringify(consultantResponse), clients: JSON.stringify(clientResponse), managers: JSON.stringify(managerResponse), users: JSON.stringify(usersResponse), underEmails: JSON.stringify(underEmails) }, // will be passed to the page component as props
+    props: { user: userResponseJson.data, diagnostics: JSON.stringify(diagnosticResponse), consultants: JSON.stringify(consultantResponse), clients: JSON.stringify(clientResponse), managers: JSON.stringify(managerResponse), users: JSON.stringify(usersResponse), underEmails: JSON.stringify(underEmails), directUnderEmails: JSON.stringify(directUnderEmails) }, // will be passed to the page component as props
   };
 }
 

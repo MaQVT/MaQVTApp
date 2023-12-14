@@ -10,6 +10,7 @@ import { verifyJwt } from "../../utils/jwt";
 import { useRouter } from "next/router";
 import Layout from "../layout";
 import styles from "/styles/Home.module.css";
+import { sortByKey } from "../../utils/commonFunctions";
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -241,7 +242,7 @@ function ManageUsers({ users, user, scopeId, parent }) {
               {haveRightToSee(user.role) &&
                 <ul className="list-none  m-4 p-5 grid grid-cols-4 gap-4 w-full h-max md:flex-wrap md:flex md:items-center md:justify-around">
                   {
-                    allUsers.length ? allUsers.map((value, index) => {
+                    allUsers.length ? sortByKey(allUsers, "username").map((value, index) => {
                       if(value.ask_delete == true && user.role != "Admin"){
                         return
                       }else{
